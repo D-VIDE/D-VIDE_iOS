@@ -12,5 +12,5 @@ target 'DIVIDE' do
   pod 'RxCocoa'
   pod 'RxRelay'
   pod 'Alamofire'
-
+  pod 'Kingfisher'
 end

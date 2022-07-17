@@ -120,17 +120,17 @@ extension UIViewController {
         IndicatorView.shared.dismiss()
     }
     
-    func showLogInAlert() {
-        let alertVC = UIAlertController(title: "로그인이 필요합니다.", message: "로그인 하시겠습니까?", preferredStyle: .alert)
-        let yes = UIAlertAction(title: "예", style: .default) { _ in
-            self.navigationController?.changeRootViewController(UINavigationController(rootViewController: LogInViewController()))
-        }
-        let no = UIAlertAction(title: "아니오", style: .cancel, handler: nil)
-        
-        alertVC.addAction(yes)
-        alertVC.addAction(no)
-        self.present(alertVC, animated: true, completion: nil)
-    }
+//    func showLogInAlert() {
+//        let alertVC = UIAlertController(title: "로그인이 필요합니다.", message: "로그인 하시겠습니까?", preferredStyle: .alert)
+//        let yes = UIAlertAction(title: "예", style: .default) { _ in
+//            self.navigationController?.changeRootViewController(UINavigationController(rootViewController: LogInViewController()))
+//        }
+//        let no = UIAlertAction(title: "아니오", style: .cancel, handler: nil)
+//
+//        alertVC.addAction(yes)
+//        alertVC.addAction(no)
+//        self.present(alertVC, animated: true, completion: nil)
+//    }
 }
 
 
