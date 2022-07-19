@@ -32,6 +32,15 @@
 		3272B67828731BF0002DF37A /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3272B67728731BF0002DF37A /* UINavigationController.swift */; };
 		3272B67A28731BF9002DF37A /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3272B67928731BF9002DF37A /* Array.swift */; };
 		78B691AC0D85452047520A6D /* Pods_DIVIDE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5812F4895A88AACE8922BE83 /* Pods_DIVIDE.framework */; };
+		FAACDF362885406C002BC534 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAACDF342885406C002BC534 /* HomeTableViewCell.swift */; };
+		FAACDF372885406C002BC534 /* HomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAACDF352885406C002BC534 /* HomeTableViewCell.xib */; };
+		FAF1ED882885447700567D8F /* pizzaImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FAF1ED872885447700567D8F /* pizzaImage.jpg */; };
+		FAF1ED8B28854D1E00567D8F /* HomeTableNameViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF1ED8928854D1E00567D8F /* HomeTableNameViewCell.swift */; };
+		FAF1ED8C28854D1E00567D8F /* HomeTableNameViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAF1ED8A28854D1E00567D8F /* HomeTableNameViewCell.xib */; };
+		FAF1ED902885509600567D8F /*  logo.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF1ED8F2885509600567D8F /*  logo.png */; };
+		FAF1ED922885597300567D8F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF1ED912885597200567D8F /* HomeViewController.swift */; };
+		FAF1ED96288562AC00567D8F /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = FAF1ED95288562AC00567D8F /* Kingfisher */; };
+		FAF1ED99288562ED00567D8F /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = FAF1ED98288562ED00567D8F /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +73,13 @@
 		5812F4895A88AACE8922BE83 /* Pods_DIVIDE.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DIVIDE.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC49C26AB0682970DFC4401E /* Pods-DIVIDE.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIVIDE.release.xcconfig"; path = "Target Support Files/Pods-DIVIDE/Pods-DIVIDE.release.xcconfig"; sourceTree = "<group>"; };
 		DD864471D39EC034FFE391B5 /* Pods-DIVIDE.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIVIDE.debug.xcconfig"; path = "Target Support Files/Pods-DIVIDE/Pods-DIVIDE.debug.xcconfig"; sourceTree = "<group>"; };
+		FAACDF342885406C002BC534 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
+		FAACDF352885406C002BC534 /* HomeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableViewCell.xib; sourceTree = "<group>"; };
+		FAF1ED872885447700567D8F /* pizzaImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pizzaImage.jpg; sourceTree = "<group>"; };
+		FAF1ED8928854D1E00567D8F /* HomeTableNameViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableNameViewCell.swift; sourceTree = "<group>"; };
+		FAF1ED8A28854D1E00567D8F /* HomeTableNameViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableNameViewCell.xib; sourceTree = "<group>"; };
+		FAF1ED8F2885509600567D8F /*  logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = " logo.png"; sourceTree = "<group>"; };
+		FAF1ED912885597200567D8F /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +87,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAF1ED99288562ED00567D8F /* Kingfisher in Frameworks */,
+				FAF1ED96288562AC00567D8F /* Kingfisher in Frameworks */,
 				78B691AC0D85452047520A6D /* Pods_DIVIDE.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -107,6 +125,7 @@
 		324C343A286AF32A0057286A /* DIVIDE */ = {
 			isa = PBXGroup;
 			children = (
+				FAF1ED932885597B00567D8F /* Home */,
 				3272B651287319EA002DF37A /* Configuration */,
 				324C343B286AF32A0057286A /* AppDelegate.swift */,
 				324C343D286AF32A0057286A /* SceneDelegate.swift */,
@@ -182,8 +201,29 @@
 				DD864471D39EC034FFE391B5 /* Pods-DIVIDE.debug.xcconfig */,
 				AC49C26AB0682970DFC4401E /* Pods-DIVIDE.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		FAACDF3328853EBD002BC534 /* HomeCell */ = {
+			isa = PBXGroup;
+			children = (
+				FAACDF342885406C002BC534 /* HomeTableViewCell.swift */,
+				FAACDF352885406C002BC534 /* HomeTableViewCell.xib */,
+				FAF1ED872885447700567D8F /* pizzaImage.jpg */,
+				FAF1ED8928854D1E00567D8F /* HomeTableNameViewCell.swift */,
+				FAF1ED8A28854D1E00567D8F /* HomeTableNameViewCell.xib */,
+				FAF1ED8F2885509600567D8F /*  logo.png */,
+			);
+			name = HomeCell;
+			sourceTree = "<group>";
+		};
+		FAF1ED932885597B00567D8F /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				FAACDF3328853EBD002BC534 /* HomeCell */,
+				FAF1ED912885597200567D8F /* HomeViewController.swift */,
+			);
+			name = Home;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -204,6 +244,10 @@
 			dependencies = (
 			);
 			name = DIVIDE;
+			packageProductDependencies = (
+				FAF1ED95288562AC00567D8F /* Kingfisher */,
+				FAF1ED98288562ED00567D8F /* Kingfisher */,
+			);
 			productName = DIVIDE;
 			productReference = 324C3438286AF32A0057286A /* DIVIDE.app */;
 			productType = "com.apple.product-type.application";
@@ -232,6 +276,10 @@
 				Base,
 			);
 			mainGroup = 324C342F286AF32A0057286A;
+			packageReferences = (
+				FAF1ED94288562AC00567D8F /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				FAF1ED97288562ED00567D8F /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = 324C3439286AF32A0057286A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -248,7 +296,11 @@
 			files = (
 				324C3448286AF32B0057286A /* LaunchScreen.storyboard in Resources */,
 				324C3445286AF32B0057286A /* Assets.xcassets in Resources */,
+				FAACDF372885406C002BC534 /* HomeTableViewCell.xib in Resources */,
 				324C3443286AF32A0057286A /* Main.storyboard in Resources */,
+				FAF1ED902885509600567D8F /*  logo.png in Resources */,
+				FAF1ED882885447700567D8F /* pizzaImage.jpg in Resources */,
+				FAF1ED8C28854D1E00567D8F /* HomeTableNameViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,13 +362,16 @@
 				3272B66828731B95002DF37A /* UINavigationBar.swift in Sources */,
 				3272B67428731BD6002DF37A /* UITableView.swift in Sources */,
 				3272B66528731B7D002DF37A /* UIViewController.swift in Sources */,
+				FAF1ED8B28854D1E00567D8F /* HomeTableNameViewCell.swift in Sources */,
 				3272B67A28731BF9002DF37A /* Array.swift in Sources */,
+				FAF1ED922885597300567D8F /* HomeViewController.swift in Sources */,
 				3272B67028731BC1002DF37A /* UILabel.swift in Sources */,
 				3272B65B28731B05002DF37A /* Date.swift in Sources */,
 				324C343C286AF32A0057286A /* AppDelegate.swift in Sources */,
 				3272B65728731A35002DF37A /* IndicatorView.swift in Sources */,
 				324C343E286AF32A0057286A /* SceneDelegate.swift in Sources */,
 				3272B66E28731BB7002DF37A /* UIView.swift in Sources */,
+				FAACDF362885406C002BC534 /* HomeTableViewCell.swift in Sources */,
 				3272B66C28731BAE002DF37A /* UIFont.swift in Sources */,
 				3272B65F28731B46002DF37A /* String.swift in Sources */,
 				3272B65928731AAF002DF37A /* Device.swift in Sources */,
@@ -539,6 +594,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FAF1ED94288562AC00567D8F /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+		FAF1ED97288562ED00567D8F /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FAF1ED95288562AC00567D8F /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FAF1ED94288562AC00567D8F /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		FAF1ED98288562ED00567D8F /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FAF1ED94288562AC00567D8F /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 324C3430286AF32A0057286A /* Project object */;
 }
