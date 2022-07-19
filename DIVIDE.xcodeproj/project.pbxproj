@@ -30,6 +30,11 @@
 		3272B67628731BE3002DF37A /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3272B67528731BE2002DF37A /* CALayer.swift */; };
 		3272B67828731BF0002DF37A /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3272B67728731BF0002DF37A /* UINavigationController.swift */; };
 		3272B67A28731BF9002DF37A /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3272B67928731BF9002DF37A /* Array.swift */; };
+		32A8597A288667C8007B6ECA /* LabelClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A85979288667C8007B6ECA /* LabelClass.swift */; };
+		32A8597C28866C57007B6ECA /* TextFieldClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A8597B28866C57007B6ECA /* TextFieldClass.swift */; };
+		32A8597E28868DE1007B6ECA /* ButtonClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A8597D28868DE1007B6ECA /* ButtonClass.swift */; };
+		32A8598028869102007B6ECA /* NavBarClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A8597F28869102007B6ECA /* NavBarClass.swift */; };
+		32A8598228869F7C007B6ECA /* ViewClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A8598128869F7C007B6ECA /* ViewClass.swift */; };
 		78B691AC0D85452047520A6D /* Pods_DIVIDE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5812F4895A88AACE8922BE83 /* Pods_DIVIDE.framework */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +64,11 @@
 		3272B67528731BE2002DF37A /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
 		3272B67728731BF0002DF37A /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 		3272B67928731BF9002DF37A /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		32A85979288667C8007B6ECA /* LabelClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelClass.swift; sourceTree = "<group>"; };
+		32A8597B28866C57007B6ECA /* TextFieldClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldClass.swift; sourceTree = "<group>"; };
+		32A8597D28868DE1007B6ECA /* ButtonClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonClass.swift; sourceTree = "<group>"; };
+		32A8597F28869102007B6ECA /* NavBarClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarClass.swift; sourceTree = "<group>"; };
+		32A8598128869F7C007B6ECA /* ViewClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewClass.swift; sourceTree = "<group>"; };
 		5812F4895A88AACE8922BE83 /* Pods_DIVIDE.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DIVIDE.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC49C26AB0682970DFC4401E /* Pods-DIVIDE.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIVIDE.release.xcconfig"; path = "Target Support Files/Pods-DIVIDE/Pods-DIVIDE.release.xcconfig"; sourceTree = "<group>"; };
 		DD864471D39EC034FFE391B5 /* Pods-DIVIDE.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIVIDE.debug.xcconfig"; path = "Target Support Files/Pods-DIVIDE/Pods-DIVIDE.debug.xcconfig"; sourceTree = "<group>"; };
@@ -106,9 +116,9 @@
 			isa = PBXGroup;
 			children = (
 				3272B651287319EA002DF37A /* Configuration */,
+				32A8597728866684007B6ECA /* Pages */,
 				324C343B286AF32A0057286A /* AppDelegate.swift */,
 				324C343D286AF32A0057286A /* SceneDelegate.swift */,
-				324C343F286AF32A0057286A /* PostRecruitingViewController.swift */,
 				324C3444286AF32B0057286A /* Assets.xcassets */,
 				324C3446286AF32B0057286A /* LaunchScreen.storyboard */,
 				324C3449286AF32B0057286A /* Info.plist */,
@@ -119,6 +129,7 @@
 		3272B651287319EA002DF37A /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
+				32A8597828866797007B6ECA /* CustomClass */,
 				3272B65528731A16002DF37A /* Base */,
 				3272B65428731A0F002DF37A /* Font */,
 				3272B65328731A02002DF37A /* Extension */,
@@ -171,6 +182,34 @@
 			children = (
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		32A8597628866678007B6ECA /* PostRecruiting */ = {
+			isa = PBXGroup;
+			children = (
+				324C343F286AF32A0057286A /* PostRecruitingViewController.swift */,
+			);
+			path = PostRecruiting;
+			sourceTree = "<group>";
+		};
+		32A8597728866684007B6ECA /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				32A8597628866678007B6ECA /* PostRecruiting */,
+			);
+			path = Pages;
+			sourceTree = "<group>";
+		};
+		32A8597828866797007B6ECA /* CustomClass */ = {
+			isa = PBXGroup;
+			children = (
+				32A85979288667C8007B6ECA /* LabelClass.swift */,
+				32A8597B28866C57007B6ECA /* TextFieldClass.swift */,
+				32A8597D28868DE1007B6ECA /* ButtonClass.swift */,
+				32A8597F28869102007B6ECA /* NavBarClass.swift */,
+				32A8598128869F7C007B6ECA /* ViewClass.swift */,
+			);
+			path = CustomClass;
 			sourceTree = "<group>";
 		};
 		7C347BCB9EF661EE6A192399 /* Pods */ = {
@@ -307,8 +346,13 @@
 				3272B66528731B7D002DF37A /* UIViewController.swift in Sources */,
 				3272B67A28731BF9002DF37A /* Array.swift in Sources */,
 				3272B67028731BC1002DF37A /* UILabel.swift in Sources */,
+				32A8598028869102007B6ECA /* NavBarClass.swift in Sources */,
 				3272B65B28731B05002DF37A /* Date.swift in Sources */,
+				32A8598228869F7C007B6ECA /* ViewClass.swift in Sources */,
 				324C343C286AF32A0057286A /* AppDelegate.swift in Sources */,
+				32A8597C28866C57007B6ECA /* TextFieldClass.swift in Sources */,
+				32A8597E28868DE1007B6ECA /* ButtonClass.swift in Sources */,
+				32A8597A288667C8007B6ECA /* LabelClass.swift in Sources */,
 				3272B65728731A35002DF37A /* IndicatorView.swift in Sources */,
 				324C343E286AF32A0057286A /* SceneDelegate.swift in Sources */,
 				3272B66E28731BB7002DF37A /* UIView.swift in Sources */,
