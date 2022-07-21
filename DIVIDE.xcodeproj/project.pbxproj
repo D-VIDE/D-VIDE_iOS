@@ -32,8 +32,8 @@
 		3272B67828731BF0002DF37A /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3272B67728731BF0002DF37A /* UINavigationController.swift */; };
 		3272B67A28731BF9002DF37A /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3272B67928731BF9002DF37A /* Array.swift */; };
 		78B691AC0D85452047520A6D /* Pods_DIVIDE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5812F4895A88AACE8922BE83 /* Pods_DIVIDE.framework */; };
+		FAA857C528891A0D006A36F3 /* HomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAA857C428891A0D006A36F3 /* HomeTableViewCell.xib */; };
 		FAACDF362885406C002BC534 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAACDF342885406C002BC534 /* HomeTableViewCell.swift */; };
-		FAACDF372885406C002BC534 /* HomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAACDF352885406C002BC534 /* HomeTableViewCell.xib */; };
 		FAF1ED882885447700567D8F /* pizzaImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FAF1ED872885447700567D8F /* pizzaImage.jpg */; };
 		FAF1ED8B28854D1E00567D8F /* HomeTableNameViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF1ED8928854D1E00567D8F /* HomeTableNameViewCell.swift */; };
 		FAF1ED8C28854D1E00567D8F /* HomeTableNameViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAF1ED8A28854D1E00567D8F /* HomeTableNameViewCell.xib */; };
@@ -73,8 +73,8 @@
 		5812F4895A88AACE8922BE83 /* Pods_DIVIDE.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DIVIDE.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC49C26AB0682970DFC4401E /* Pods-DIVIDE.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIVIDE.release.xcconfig"; path = "Target Support Files/Pods-DIVIDE/Pods-DIVIDE.release.xcconfig"; sourceTree = "<group>"; };
 		DD864471D39EC034FFE391B5 /* Pods-DIVIDE.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIVIDE.debug.xcconfig"; path = "Target Support Files/Pods-DIVIDE/Pods-DIVIDE.debug.xcconfig"; sourceTree = "<group>"; };
+		FAA857C428891A0D006A36F3 /* HomeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableViewCell.xib; sourceTree = "<group>"; };
 		FAACDF342885406C002BC534 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
-		FAACDF352885406C002BC534 /* HomeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableViewCell.xib; sourceTree = "<group>"; };
 		FAF1ED872885447700567D8F /* pizzaImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pizzaImage.jpg; sourceTree = "<group>"; };
 		FAF1ED8928854D1E00567D8F /* HomeTableNameViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableNameViewCell.swift; sourceTree = "<group>"; };
 		FAF1ED8A28854D1E00567D8F /* HomeTableNameViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableNameViewCell.xib; sourceTree = "<group>"; };
@@ -208,7 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				FAACDF342885406C002BC534 /* HomeTableViewCell.swift */,
-				FAACDF352885406C002BC534 /* HomeTableViewCell.xib */,
+				FAA857C428891A0D006A36F3 /* HomeTableViewCell.xib */,
 				FAF1ED872885447700567D8F /* pizzaImage.jpg */,
 				FAF1ED8928854D1E00567D8F /* HomeTableNameViewCell.swift */,
 				FAF1ED8A28854D1E00567D8F /* HomeTableNameViewCell.xib */,
@@ -295,8 +295,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				324C3448286AF32B0057286A /* LaunchScreen.storyboard in Resources */,
+				FAA857C528891A0D006A36F3 /* HomeTableViewCell.xib in Resources */,
 				324C3445286AF32B0057286A /* Assets.xcassets in Resources */,
-				FAACDF372885406C002BC534 /* HomeTableViewCell.xib in Resources */,
 				324C3443286AF32A0057286A /* Main.storyboard in Resources */,
 				FAF1ED902885509600567D8F /*  logo.png in Resources */,
 				FAF1ED882885447700567D8F /* pizzaImage.jpg in Resources */,
