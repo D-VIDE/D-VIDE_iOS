@@ -18,8 +18,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
+        
         let mainViewController = PostRecruitingViewController()
-        let navigationController = UINavigationController(rootViewController: mainViewController)
+//        let navigationController = UINavigationController(rootViewController: mainViewController)
+        let navigationController = UINavigationController(navigationBarClass: MainNavBar.self, toolbarClass: nil)
+        navigationController.viewControllers = [mainViewController]
+        
+//        let navigationController = UINavigationController(rootViewController: mainViewController)
+//        navigationController.additionalSafeAreaInsets.top = 40
+//        navigationController.navigationItem.title = "D/VIDE 모집글 작성"
+//        navController.navigationItem.title?.font = UIFont.AppleSDGothicNeo(.bold, size: 20)
+//        navigationController.navigationBar.backgroundColor = .mainOrange
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }

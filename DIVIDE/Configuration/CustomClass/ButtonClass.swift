@@ -34,8 +34,8 @@ class MainButton: UIButton {
         case .mainAction:
             self.setTitleColor(.white, for: .normal)
             self.backgroundColor = .mainOrange
-            self.layer.cornerRadius = 18
-            self.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMinYCorner, .layerMinXMinYCorner)
+            self.layer.cornerRadius = 25
+            self.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMinYCorner, .layerMinXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner)
         case .color:
             self.backgroundColor = .mainOrange
         }

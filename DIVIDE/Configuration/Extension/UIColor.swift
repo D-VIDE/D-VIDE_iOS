@@ -30,10 +30,11 @@ extension UIColor {
     class var pageControlOrange: UIColor { UIColor(hex: 0xFFAD2A) }
     class var pageControlGray: UIColor { UIColor(hex: 0xEEEEEE) }
     
-    class var mainOrange: UIColor { UIColor(hex: 0xFF8A00)}
+    class var mainOrange: UIColor { UIColor(hex: 0xFF7C03)}
     class var mainYellow: UIColor { UIColor(hex: 0xF5BF50)}
     class var mainGray: UIColor { UIColor(hex: 0x777777)}
     class var backgroundGray: UIColor { UIColor(hex: 0xF5F5F5)}
+    class var viewBackgroundGray: UIColor { UIColor(hex: 0xEFEFF0)}
 
 }
 

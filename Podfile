@@ -14,4 +14,5 @@ target 'DIVIDE' do
   pod 'Alamofire'
   pod 'Kingfisher'
   pod 'DropDown'
+  pod 'ReusableKit'
 end

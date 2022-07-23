@@ -44,5 +44,10 @@ extension UIView {
         caShapeLayer.path = cgPath
         layer.addSublayer(caShapeLayer)
     }
+    func addSubviews(_ views: [UIView]) {
+        for view in views {
+            self.addSubview(view)
+        }
+    }
     
 }
