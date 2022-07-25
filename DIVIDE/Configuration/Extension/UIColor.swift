@@ -21,7 +21,6 @@ extension UIColor {
     
     class var black18: UIColor { UIColor(hex: 0x121212) }
     class var yellowBackground: UIColor { UIColor(hex: 0xFFD264) }
-    class var mainOrange: UIColor { UIColor(hex: 0xF5663F) }
     class var lightOrange: UIColor { UIColor(hex: 0xFEF8E8) }
     class var profileBorderGray: UIColor { UIColor(hex: 0xEEEEEE) }
     class var textFieldBackgroundGray: UIColor { UIColor(hex: 0xF5F5F5) }
@@ -30,5 +29,11 @@ extension UIColor {
     class var navigationBarDefaultColor: UIColor { UIColor(red: (247/255), green: (247/255), blue: (247/255), alpha: 1) }
     class var pageControlOrange: UIColor { UIColor(hex: 0xFFAD2A) }
     class var pageControlGray: UIColor { UIColor(hex: 0xEEEEEE) }
+    
+    class var mainOrange: UIColor { UIColor(hex: 0xFF8A00)}
+    class var mainYellow: UIColor { UIColor(hex: 0xF5BF50)}
+    class var mainGray: UIColor { UIColor(hex: 0x777777)}
+    class var backgroundGray: UIColor { UIColor(hex: 0xF5F5F5)}
+    class var homeBackgroundGray: UIColor { UIColor(hex: 0xF8F8F8)}
 }
 
