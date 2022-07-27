@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		324C343C286AF32A0057286A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324C343B286AF32A0057286A /* AppDelegate.swift */; };
 		324C343E286AF32A0057286A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324C343D286AF32A0057286A /* SceneDelegate.swift */; };
-		324C3440286AF32A0057286A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324C343F286AF32A0057286A /* ViewController.swift */; };
+		324C3440286AF32A0057286A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324C343F286AF32A0057286A /* HomeViewController.swift */; };
 		324C3445286AF32B0057286A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 324C3444286AF32B0057286A /* Assets.xcassets */; };
 		324C3448286AF32B0057286A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 324C3446286AF32B0057286A /* LaunchScreen.storyboard */; };
 		3272B65728731A35002DF37A /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3272B65628731A35002DF37A /* IndicatorView.swift */; };
@@ -36,13 +36,17 @@
 		FA4967C4288A9E2B000247E4 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4967C3288A9E2B000247E4 /* HomeTableViewCell.swift */; };
 		FA4967CA288AA249000247E4 /* pizzaImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FA4967C9288AA249000247E4 /* pizzaImage.jpg */; };
 		FA59C601288D762F001ADD50 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = FA59C600288D762F001ADD50 /* logo.png */; };
+		FA59C605288E6A24001ADD50 /* HomeTopMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA59C604288E6A24001ADD50 /* HomeTopMenuCell.swift */; };
+		FA59C607288ED3D7001ADD50 /* HomeBackgroundImage.png in Resources */ = {isa = PBXBuildFile; fileRef = FA59C606288ED3D7001ADD50 /* HomeBackgroundImage.png */; };
+		FA59C60A288F9B42001ADD50 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA59C609288F9B42001ADD50 /* LeftAlignedCollectionViewFlowLayout.swift */; };
+		FA59C6122890067F001ADD50 /* Search.png in Resources */ = {isa = PBXBuildFile; fileRef = FA59C6112890067E001ADD50 /* Search.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		324C3438286AF32A0057286A /* DIVIDE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DIVIDE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		324C343B286AF32A0057286A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		324C343D286AF32A0057286A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		324C343F286AF32A0057286A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		324C343F286AF32A0057286A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		324C3444286AF32B0057286A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		324C3447286AF32B0057286A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		324C3449286AF32B0057286A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -70,6 +74,10 @@
 		FA4967C3288A9E2B000247E4 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		FA4967C9288AA249000247E4 /* pizzaImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pizzaImage.jpg; sourceTree = "<group>"; };
 		FA59C600288D762F001ADD50 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		FA59C604288E6A24001ADD50 /* HomeTopMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTopMenuCell.swift; sourceTree = "<group>"; };
+		FA59C606288ED3D7001ADD50 /* HomeBackgroundImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomeBackgroundImage.png; sourceTree = "<group>"; };
+		FA59C609288F9B42001ADD50 /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		FA59C6112890067E001ADD50 /* Search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Search.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,7 +127,6 @@
 				3272B651287319EA002DF37A /* Configuration */,
 				324C343B286AF32A0057286A /* AppDelegate.swift */,
 				324C343D286AF32A0057286A /* SceneDelegate.swift */,
-				324C343F286AF32A0057286A /* ViewController.swift */,
 				324C3444286AF32B0057286A /* Assets.xcassets */,
 				324C3446286AF32B0057286A /* LaunchScreen.storyboard */,
 				324C3449286AF32B0057286A /* Info.plist */,
@@ -196,11 +203,24 @@
 		FA4967BE288A9DD3000247E4 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				324C343F286AF32A0057286A /* HomeViewController.swift */,
+				FA59C608288ED6BD001ADD50 /* HomeView */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
+		FA59C608288ED6BD001ADD50 /* HomeView */ = {
+			isa = PBXGroup;
+			children = (
+				FA59C604288E6A24001ADD50 /* HomeTopMenuCell.swift */,
+				FA59C609288F9B42001ADD50 /* LeftAlignedCollectionViewFlowLayout.swift */,
 				FA4967C3288A9E2B000247E4 /* HomeTableViewCell.swift */,
 				FA4967C9288AA249000247E4 /* pizzaImage.jpg */,
 				FA59C600288D762F001ADD50 /* logo.png */,
+				FA59C606288ED3D7001ADD50 /* HomeBackgroundImage.png */,
+				FA59C6112890067E001ADD50 /* Search.png */,
 			);
-			name = Home;
+			path = HomeView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -255,7 +275,6 @@
 			mainGroup = 324C342F286AF32A0057286A;
 			packageReferences = (
 				FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				FA4967BB288A9D83000247E4 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 324C3439286AF32A0057286A /* Products */;
 			projectDirPath = "";
@@ -271,6 +290,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA59C607288ED3D7001ADD50 /* HomeBackgroundImage.png in Resources */,
+				FA59C6122890067F001ADD50 /* Search.png in Resources */,
 				324C3448286AF32B0057286A /* LaunchScreen.storyboard in Resources */,
 				FA59C601288D762F001ADD50 /* logo.png in Resources */,
 				324C3445286AF32B0057286A /* Assets.xcassets in Resources */,
@@ -327,13 +348,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				324C3440286AF32A0057286A /* ViewController.swift in Sources */,
+				324C3440286AF32A0057286A /* HomeViewController.swift in Sources */,
 				3272B67828731BF0002DF37A /* UINavigationController.swift in Sources */,
 				3272B66328731B6F002DF37A /* UIImage.swift in Sources */,
 				3272B65D28731B13002DF37A /* UIColor.swift in Sources */,
 				3272B67628731BE3002DF37A /* CALayer.swift in Sources */,
 				3272B66A28731BA1002DF37A /* UIImageView.swift in Sources */,
+				FA59C605288E6A24001ADD50 /* HomeTopMenuCell.swift in Sources */,
 				3272B66828731B95002DF37A /* UINavigationBar.swift in Sources */,
+				FA59C60A288F9B42001ADD50 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				3272B67428731BD6002DF37A /* UITableView.swift in Sources */,
 				3272B66528731B7D002DF37A /* UIViewController.swift in Sources */,
 				3272B67A28731BF9002DF37A /* Array.swift in Sources */,
@@ -559,14 +582,6 @@
 
 /* Begin XCRemoteSwiftPackageReference section */
 		FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		FA4967BB288A9D83000247E4 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {

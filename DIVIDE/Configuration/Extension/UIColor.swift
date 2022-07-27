@@ -35,5 +35,6 @@ extension UIColor {
     class var mainGray: UIColor { UIColor(hex: 0x777777)}
     class var backgroundGray: UIColor { UIColor(hex: 0xF5F5F5)}
     class var homeBackgroundGray: UIColor { UIColor(hex: 0xF8F8F8)}
+    class var tagGray: UIColor { UIColor(hex: 0x717171)}
 }
 

@@ -29,7 +29,6 @@ class HomeTableViewCell: UITableViewCell {
     // 사용자 닉네임orID
     private let userName = UILabel().then{
         $0.text = "kksmedd10204"
-        $0.textColor = .mainGray
         $0.textAlignment = .left
         $0.font = .systemFont(ofSize: 12, weight: .regular)
     }
@@ -119,16 +118,6 @@ class HomeTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
 
     }
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
     
     private func setInfoConstraint() {
         self.selectionStyle = .none
@@ -155,7 +144,7 @@ class HomeTableViewCell: UITableViewCell {
             make.width.equalTo(100)
             make.height.equalTo(21)
             make.centerY.equalTo(userName)
-            make.centerX.equalToSuperview()
+            make.centerX.equalTo(userName).offset(100)
         }
     }
     
@@ -173,11 +162,12 @@ class HomeTableViewCell: UITableViewCell {
         cellWidth = contentsView.intrinsicContentSize.width
         cellHeight = contentsView.intrinsicContentSize.height
         self.backgroundColor = .homeBackgroundGray
+        //그림자
         contentsView.roundCorners(cornerRadius: 26, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
         contentsView.backgroundColor = .white
-        contentView.layer.shadowPath = UIBezierPath(rect: CGRect(x: 30, y: 30, width: cellWidth, height: cellHeight)).cgPath
-        contentView.layer.shadowOpacity = 1.0
-        contentView.layer.shadowRadius = 10
+        contentView.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 2, width: cellWidth, height: cellHeight)).cgPath
+        contentView.layer.shadowOpacity = 0.15
+        
         contentsView.layer.masksToBounds = false
         
         contentsView.addSubview(img)
