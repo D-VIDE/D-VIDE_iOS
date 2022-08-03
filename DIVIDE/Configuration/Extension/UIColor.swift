@@ -33,8 +33,13 @@ extension UIColor {
     class var mainOrange: UIColor { UIColor(hex: 0xFF8A00)}
     class var mainYellow: UIColor { UIColor(hex: 0xF5BF50)}
     class var mainGray: UIColor { UIColor(hex: 0x777777)}
+    
     class var backgroundGray: UIColor { UIColor(hex: 0xF5F5F5)}
     class var homeBackgroundGray: UIColor { UIColor(hex: 0xF8F8F8)}
+    
     class var tagGray: UIColor { UIColor(hex: 0x717171)}
+    class var tagBackgroundGray: UIColor{ UIColor(hex: 0xF4F4F4)}
+    
+    class var tabBarItemGray: UIColor{ UIColor(hex: 0xB0B0B0)}
 }
 

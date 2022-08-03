@@ -21,6 +21,10 @@ class HomeViewController: UIViewController {
         $0.backgroundColor = .none
     }
     
+    private let backgroundImage = UIImageView().then{
+        $0.image = UIImage(named: "HomeBackgroundImage")
+        $0.backgroundColor = .orange
+    }
     let menuList: [String] = ["분식", "한식", "양식", "일식", "디저트", "---", "------" ]
     
     private let topMenuCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then{
@@ -33,7 +37,7 @@ class HomeViewController: UIViewController {
     }
     
     private let tableView: UITableView = {
-
+        
         let tableview = UITableView()
         tableview.backgroundColor = .homeBackgroundGray
         tableview.showsVerticalScrollIndicator = false
@@ -58,6 +62,7 @@ class HomeViewController: UIViewController {
         setTopMenuCollection()
         
         setTableViewConstraint()
+//        setTableViewBackground()
         
            // autoHeight
         tableView.rowHeight = UITableView.automaticDimension
@@ -66,7 +71,9 @@ class HomeViewController: UIViewController {
     }
     
     private func setHomeViewConstraint() {
-        self.view.backgroundColor = .homeBackgroundGray
+        self.view.backgroundColor = .backgroundGray
+       
+        
 
     }
     
@@ -104,13 +111,22 @@ class HomeViewController: UIViewController {
     }
     
     private func setTableViewConstraint() {
-        
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
             make.top.equalToSuperview().offset(113)
             make.bottom.equalToSuperview()
+        }
+        
+    }
+    private func setTableViewBackground() {
+        tableView.addSubview(backgroundImage)
+        backgroundImage.snp.makeConstraints { make in
+            make.bottom.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.height.equalTo(300)
         }
     }
 
@@ -138,15 +154,28 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         return CGSize(width: size.width+24, height: size.height+10)
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        7
-    }
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let cell = collectionView.cellForItem(at: indexPath)
+//        if cell?.isSelected {
+//            collectionView.cellForItem(at: indexPath)?.backgroundColor = .mainOrange
+//            cell.menuLabel.textColor = .white
+//            print("Orange")
+//            collectionView.deselectItem(at: indexPath, animated: true)
+//            
+//        } else {
+//            collectionView.cellForItem(at: indexPath)?.backgroundColor = .tagBackgroundGray
+//            cell.menuLabel.textColor = .tagGray
+//            print("Gray")
+//            
+//        }
+//    }
+    
 }
 
 //테이블
 extension HomeViewController:  UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return 10
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -155,6 +184,9 @@ extension HomeViewController:  UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 168
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "DetailPage", sender: nil)
     }
 }
 

@@ -17,7 +17,17 @@ class HomeTopMenuCell: UICollectionViewCell {
         $0.textColor = .tagGray
     }
     
-    
+//    override var isSelected: Bool{
+//        didSet{
+//            if isSelected == true {
+//                contentView.backgroundColor = .mainOrange
+//                menuLabel.textColor = .white
+//            } else {
+//                contentView.backgroundColor = .tagBackgroundGray
+//                menuLabel.textColor = .tagGray
+//            }
+//        }
+//    }
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -32,9 +42,8 @@ class HomeTopMenuCell: UICollectionViewCell {
 
     }
     
-    
     func setMenuCollectionView(){
-        self.backgroundColor = .orange
+        self.backgroundColor = .tagBackgroundGray
         self.layer.masksToBounds = true
         self.layer.cornerRadius = 7
         menuLabel.snp.makeConstraints { make in

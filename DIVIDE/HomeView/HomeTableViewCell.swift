@@ -119,6 +119,7 @@ class HomeTableViewCell: UITableViewCell {
 
     }
     
+    
     private func setInfoConstraint() {
         self.selectionStyle = .none
         
