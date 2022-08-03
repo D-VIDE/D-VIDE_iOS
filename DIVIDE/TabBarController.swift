@@ -42,7 +42,7 @@ class TabBarController: UITabBarController {
         
         self.tabBar.backgroundColor = .white
         self.tabBar.tintColor = .mainGray
-        self.tabBar.unselectedItemTintColor = .tabBarItemGray
+        self.tabBar.unselectedItemTintColor = .mainGray
         self.tabBar.roundCorners(cornerRadius: 26, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
         
         TabList.forEach {

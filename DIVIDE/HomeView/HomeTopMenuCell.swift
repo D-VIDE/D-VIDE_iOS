@@ -14,7 +14,7 @@ class HomeTopMenuCell: UICollectionViewCell {
     
     let menuLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 12, weight: .bold)
-        $0.textColor = .tagGray
+        $0.textColor = .mainGray
     }
     
 //    override var isSelected: Bool{
@@ -43,7 +43,7 @@ class HomeTopMenuCell: UICollectionViewCell {
     }
     
     func setMenuCollectionView(){
-        self.backgroundColor = .tagBackgroundGray
+        self.backgroundColor = .viewBackgroundGray
         self.layer.masksToBounds = true
         self.layer.cornerRadius = 7
         menuLabel.snp.makeConstraints { make in

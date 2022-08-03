@@ -71,7 +71,7 @@ class HomeTableViewCell: UITableViewCell {
     
     private let closingTimeValue = UILabel().then{
         $0.text  = "04:00"
-        $0.textColor = .mainOrange
+        $0.textColor = .mainOrange2
         $0.textAlignment = .center
         $0.font = .boldSystemFont(ofSize: 22)
     }
@@ -85,7 +85,7 @@ class HomeTableViewCell: UITableViewCell {
     
     private let insufficientChargeValueLabel = UILabel().then{
         $0.text  = "0"
-        $0.textColor = .mainOrange
+        $0.textColor = .mainOrange2
         $0.textAlignment = .center
         $0.font = .boldSystemFont(ofSize: 22)
     }
@@ -101,7 +101,7 @@ class HomeTableViewCell: UITableViewCell {
     }
     
     private let progressBar = UIView().then{
-        $0.backgroundColor = .mainOrange
+        $0.backgroundColor = .mainOrange2
     }
     
     
@@ -162,7 +162,7 @@ class HomeTableViewCell: UITableViewCell {
         
         cellWidth = contentsView.intrinsicContentSize.width
         cellHeight = contentsView.intrinsicContentSize.height
-        self.backgroundColor = .homeBackgroundGray
+        self.backgroundColor = .viewBackgroundGray
         //그림자
         contentsView.roundCorners(cornerRadius: 26, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
         contentsView.backgroundColor = .white

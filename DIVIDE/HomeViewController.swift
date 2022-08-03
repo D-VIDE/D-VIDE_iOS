@@ -39,7 +39,7 @@ class HomeViewController: UIViewController {
     private let tableView: UITableView = {
         
         let tableview = UITableView()
-        tableview.backgroundColor = .homeBackgroundGray
+        tableview.backgroundColor = .viewBackgroundGray
         tableview.showsVerticalScrollIndicator = false
         return tableview
 

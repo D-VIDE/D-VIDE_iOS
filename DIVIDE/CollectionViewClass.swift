@@ -1,18 +1,17 @@
 //
-//  LeftAlignedCollectionViewFlowLayout.swift
+//  CollectionViewClass.swift
 //  DIVIDE
 //
-//  Created by 임우섭 on 2022/07/26.
+//  Created by 정지윤 on 2022/07/21.
 //
 
+import Foundation
 import UIKit
 
-import UIKit
-
-/// UICollectionViewCell 최대한 왼쪽정렬시켜주는 flowLayout
+//UICollectionViewCell 최대한 왼쪽정렬 시켜주는 flowlayout
 class LeftAlignedCollectionViewFlowLayout: UICollectionViewFlowLayout {
   override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-    // 재정의 오버라이드 메소드이므로 리턴값으로 layout 속성값들을 받습니다.
+    // 재정의 오버라이드 메소드 임으로 리턴값으로 layout 속성값들을 받습니다.
     let attributes = super.layoutAttributesForElements(in: rect)
     
     // contentView의 left 여백
