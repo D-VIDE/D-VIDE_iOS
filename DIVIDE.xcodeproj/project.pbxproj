@@ -12,6 +12,14 @@
 		324C3440286AF32A0057286A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324C343F286AF32A0057286A /* HomeViewController.swift */; };
 		324C3445286AF32B0057286A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 324C3444286AF32B0057286A /* Assets.xcassets */; };
 		324C3448286AF32B0057286A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 324C3446286AF32B0057286A /* LaunchScreen.storyboard */; };
+		32AAD824289BA44700902A2A /* NotoSansKR-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 32AAD81B289BA44700902A2A /* NotoSansKR-Light.otf */; };
+		32AAD825289BA44700902A2A /* NotoSansKR-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 32AAD81C289BA44700902A2A /* NotoSansKR-Bold.otf */; };
+		32AAD826289BA44700902A2A /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 32AAD81D289BA44700902A2A /* NotoSansKR-Thin.otf */; };
+		32AAD827289BA44700902A2A /* NotoSansKR-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 32AAD81E289BA44700902A2A /* NotoSansKR-Black.otf */; };
+		32AAD828289BA44700902A2A /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 32AAD81F289BA44700902A2A /* NotoSansKR-Medium.otf */; };
+		32AAD829289BA44700902A2A /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 32AAD820289BA44700902A2A /* NotoSansKR-Regular.otf */; };
+		32AAD82A289BA44700902A2A /* SDSamliphopangcheBasic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 32AAD822289BA44700902A2A /* SDSamliphopangcheBasic.otf */; };
+		32AAD82B289BA44700902A2A /* SDSamliphopangcheOutline.otf in Resources */ = {isa = PBXBuildFile; fileRef = 32AAD823289BA44700902A2A /* SDSamliphopangcheOutline.otf */; };
 		78B691AC0D85452047520A6D /* Pods_DIVIDE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5812F4895A88AACE8922BE83 /* Pods_DIVIDE.framework */; };
 		FA2AE75228978FEF00702D43 /* 채팅.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2AE74E28978FEF00702D43 /* 채팅.png */; };
 		FA2AE75328978FEF00702D43 /* Divide.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2AE74F28978FEF00702D43 /* Divide.png */; };
@@ -68,6 +76,14 @@
 		324C3444286AF32B0057286A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		324C3447286AF32B0057286A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		324C3449286AF32B0057286A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		32AAD81B289BA44700902A2A /* NotoSansKR-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Light.otf"; sourceTree = "<group>"; };
+		32AAD81C289BA44700902A2A /* NotoSansKR-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Bold.otf"; sourceTree = "<group>"; };
+		32AAD81D289BA44700902A2A /* NotoSansKR-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Thin.otf"; sourceTree = "<group>"; };
+		32AAD81E289BA44700902A2A /* NotoSansKR-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Black.otf"; sourceTree = "<group>"; };
+		32AAD81F289BA44700902A2A /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
+		32AAD820289BA44700902A2A /* NotoSansKR-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Regular.otf"; sourceTree = "<group>"; };
+		32AAD822289BA44700902A2A /* SDSamliphopangcheBasic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SDSamliphopangcheBasic.otf; sourceTree = "<group>"; };
+		32AAD823289BA44700902A2A /* SDSamliphopangcheOutline.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SDSamliphopangcheOutline.otf; sourceTree = "<group>"; };
 		5812F4895A88AACE8922BE83 /* Pods_DIVIDE.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DIVIDE.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC49C26AB0682970DFC4401E /* Pods-DIVIDE.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIVIDE.release.xcconfig"; path = "Target Support Files/Pods-DIVIDE/Pods-DIVIDE.release.xcconfig"; sourceTree = "<group>"; };
 		DD864471D39EC034FFE391B5 /* Pods-DIVIDE.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIVIDE.debug.xcconfig"; path = "Target Support Files/Pods-DIVIDE/Pods-DIVIDE.debug.xcconfig"; sourceTree = "<group>"; };
@@ -159,19 +175,56 @@
 		324C343A286AF32A0057286A /* DIVIDE */ = {
 			isa = PBXGroup;
 			children = (
+				32AAD818289BA41200902A2A /* Resources */,
 				FAAD48F4289AB99300508C12 /* Configuration */,
-				FA59C63628911DD2001ADD50 /* TabBarController.swift */,
 				FA2AE75E2897C0B800702D43 /* TabBarAsset */,
-				FA4967BE288A9DD3000247E4 /* Home */,
-				FA59C6132891154A001ADD50 /* SNS */,
 				FAAD48EE289AB82900508C12 /* Page */,
 				324C343B286AF32A0057286A /* AppDelegate.swift */,
 				324C343D286AF32A0057286A /* SceneDelegate.swift */,
+			);
+			path = DIVIDE;
+			sourceTree = "<group>";
+		};
+		32AAD818289BA41200902A2A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				32AAD819289BA44700902A2A /* Font */,
 				324C3444286AF32B0057286A /* Assets.xcassets */,
 				324C3446286AF32B0057286A /* LaunchScreen.storyboard */,
 				324C3449286AF32B0057286A /* Info.plist */,
 			);
-			path = DIVIDE;
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		32AAD819289BA44700902A2A /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				32AAD81A289BA44700902A2A /* Font - NotoSansKR */,
+				32AAD821289BA44700902A2A /* Font - SamlipHopang */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		32AAD81A289BA44700902A2A /* Font - NotoSansKR */ = {
+			isa = PBXGroup;
+			children = (
+				32AAD81B289BA44700902A2A /* NotoSansKR-Light.otf */,
+				32AAD81C289BA44700902A2A /* NotoSansKR-Bold.otf */,
+				32AAD81D289BA44700902A2A /* NotoSansKR-Thin.otf */,
+				32AAD81E289BA44700902A2A /* NotoSansKR-Black.otf */,
+				32AAD81F289BA44700902A2A /* NotoSansKR-Medium.otf */,
+				32AAD820289BA44700902A2A /* NotoSansKR-Regular.otf */,
+			);
+			path = "Font - NotoSansKR";
+			sourceTree = "<group>";
+		};
+		32AAD821289BA44700902A2A /* Font - SamlipHopang */ = {
+			isa = PBXGroup;
+			children = (
+				32AAD822289BA44700902A2A /* SDSamliphopangcheBasic.otf */,
+				32AAD823289BA44700902A2A /* SDSamliphopangcheOutline.otf */,
+			);
+			path = "Font - SamlipHopang";
 			sourceTree = "<group>";
 		};
 		7C347BCB9EF661EE6A192399 /* Pods */ = {
@@ -233,6 +286,8 @@
 		FAAD48EE289AB82900508C12 /* Page */ = {
 			isa = PBXGroup;
 			children = (
+				FA4967BE288A9DD3000247E4 /* Home */,
+				FA59C6132891154A001ADD50 /* SNS */,
 				FAAD48EF289AB84300508C12 /* PostRecruiting */,
 			);
 			name = Page;
@@ -261,6 +316,7 @@
 		FAAD48F5289AB9A300508C12 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				FA59C63628911DD2001ADD50 /* TabBarController.swift */,
 			);
 			name = Base;
 			sourceTree = "<group>";
@@ -329,6 +385,7 @@
 				324C3435286AF32A0057286A /* Frameworks */,
 				324C3436286AF32A0057286A /* Resources */,
 				ABABBE70CA667C333C369243 /* [CP] Embed Pods Frameworks */,
+				32866C86CB1CA46D208E39D1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -368,7 +425,7 @@
 			);
 			mainGroup = 324C342F286AF32A0057286A;
 			packageReferences = (
-				FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher.git" */,
+				FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 324C3439286AF32A0057286A /* Products */;
 			projectDirPath = "";
@@ -384,16 +441,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32AAD826289BA44700902A2A /* NotoSansKR-Thin.otf in Resources */,
 				FA59C607288ED3D7001ADD50 /* HomeBackgroundImage.png in Resources */,
 				FA59C6122890067F001ADD50 /* Search.png in Resources */,
 				FA2AE75528978FEF00702D43 /* 리뷰.png in Resources */,
 				FA2AE75328978FEF00702D43 /* Divide.png in Resources */,
 				FA2AE75D2897C0B000702D43 /* 리뷰Unselected.png in Resources */,
 				324C3448286AF32B0057286A /* LaunchScreen.storyboard in Resources */,
+				32AAD824289BA44700902A2A /* NotoSansKR-Light.otf in Resources */,
 				FA2AE75A2897C0B000702D43 /* DivideUnselected.png in Resources */,
+				32AAD827289BA44700902A2A /* NotoSansKR-Black.otf in Resources */,
 				FA2AE75228978FEF00702D43 /* 채팅.png in Resources */,
+				32AAD828289BA44700902A2A /* NotoSansKR-Medium.otf in Resources */,
+				32AAD82A289BA44700902A2A /* SDSamliphopangcheBasic.otf in Resources */,
 				FA59C601288D762F001ADD50 /* logo.png in Resources */,
+				32AAD825289BA44700902A2A /* NotoSansKR-Bold.otf in Resources */,
+				32AAD829289BA44700902A2A /* NotoSansKR-Regular.otf in Resources */,
 				FA2AE75C2897C0B000702D43 /* 채팅Unselected.png in Resources */,
+				32AAD82B289BA44700902A2A /* SDSamliphopangcheOutline.otf in Resources */,
 				FA2AE75428978FEF00702D43 /* 기본 프로필.png in Resources */,
 				FA2AE75B2897C0B000702D43 /* 기본 프로필Unselected.png in Resources */,
 				324C3445286AF32B0057286A /* Assets.xcassets in Resources */,
@@ -404,6 +469,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		32866C86CB1CA46D208E39D1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DIVIDE/Pods-DIVIDE-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DIVIDE/Pods-DIVIDE-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DIVIDE/Pods-DIVIDE-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		99516FB512F34DF35ECC5DB2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -693,7 +775,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher.git" */ = {
+		FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {
@@ -706,12 +788,12 @@
 /* Begin XCSwiftPackageProductDependency section */
 		FA4967B9288A9D5C000247E4 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher.git" */;
+			package = FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
 		FA4967BC288A9D83000247E4 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher.git" */;
+			package = FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */

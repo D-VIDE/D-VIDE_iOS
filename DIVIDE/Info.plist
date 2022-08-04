@@ -2,6 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIAppFonts</key>
+	<array>
+        <key>item 0</key>
+        <string>NotoSansKR-Regular.otf</string>
+        <key>item 1</key>
+        <string>NotoSansKR-Medium.otf</string>
+        <key>item 2</key>
+        <string>NotoSansKR-Bold.otf</string>
+        <key>item 3</key>
+        <string>SDSamliphopangcheBasic.otf</string>
+	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>카메라 허용해주세요</string>
+	
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

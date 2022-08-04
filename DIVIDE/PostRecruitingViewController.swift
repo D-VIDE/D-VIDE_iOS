@@ -22,7 +22,7 @@ class PostRecruitingViewController: UIViewController {
     var tagList: [String] = ["한식", "중식", "양식", "태국식", "남원정", "정지윤", "정명진", "조병우", "홍유준", "패스파인더"]
     
     // 위,경도
-//    var arrayCoordinates : [CLLocationCoordinate2D] = []
+    var arrayCoordinates : [CLLocationCoordinate2D] = []
     
     // UIScrollView 정의
     let scrollView = UIScrollView().then {
@@ -245,7 +245,7 @@ class PostRecruitingViewController: UIViewController {
 //            $0.edges.equalTo(view.safeAreaLayoutGuide)
 //        }
         
-//        // 카메라 이동
+        // 카메라 이동
 //        let camera = GMSCameraPosition.camera(withLatitude: 35.232234, longitude: 129.085211, zoom: 17.0)
 //        mapView.camera = camera
 //
@@ -255,14 +255,14 @@ class PostRecruitingViewController: UIViewController {
 //        marker.title = "우리 집"
 //        marker.snippet = "Australia"
 //        marker.map = mapView
-//        
-//        
-//        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.setMarker))
-//        longPressRecognizer.minimumPressDuration = 0.5
-//        mapView.addGestureRecognizer(longPressRecognizer)
+        
+        
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.setMarker))
+        longPressRecognizer.minimumPressDuration = 0.5
+        mapView.addGestureRecognizer(longPressRecognizer)
 
-//        mapView.isMyLocationEnabled = true
-//        mapView.settings.compassButton = true
+        mapView.isMyLocationEnabled = true
+        mapView.settings.compassButton = true
         
     }
     
