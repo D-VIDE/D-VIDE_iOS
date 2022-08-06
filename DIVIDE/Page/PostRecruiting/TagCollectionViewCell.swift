@@ -9,8 +9,6 @@ import UIKit
 import SnapKit
 
 class TagCollectionViewCell: UICollectionViewCell {
-    static let reuseIdentifier = "TagCollectionViewCell"
-    static let nibName = "TagCollectionViewCell"
     
     override var isSelected: Bool {
         didSet{
