@@ -36,7 +36,7 @@ class MainLabel: UILabel {
         switch type {
         case .hopang:
             self.textColor = .mainOrange2
-            self.font = UIFont.SDSamliphopang(.basic, size: 20)
+            self.font = UIFont.SDSamliphopang(.basic, size: 25)
         case .bold:
             self.textColor = .mainDarkGray
             self.font = UIFont.NotoSansKR(.bold, size: 15)

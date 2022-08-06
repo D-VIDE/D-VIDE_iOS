@@ -194,12 +194,10 @@ class PostRecruitingViewController: UIViewController {
         
         navigationController?.navigationBar.layer.addBorder([.bottom, .left, .right], color: .mainLightGray, width: 0.1)
         navigationController?.navigationBar.topItem?.title = "D/VIDE 모집글 작성"
-//        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "BM DoHyeon OTF", size: 12)!]
         navigationController?.navigationBar.layer.cornerRadius = 18
         navigationController?.navigationBar.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMaxYCorner, .layerMinXMaxYCorner)
         
 //        navigationController?.additionalSafeAreaInsets.top = 40
-//        navigationController?.navigationItem.title.font = UIFont.AppleSDGothicNeo(.bold, size: 20)
         
         view.addSubview(scrollView)
         scrollView.addSubview(scrollContentView)
@@ -248,8 +246,8 @@ class PostRecruitingViewController: UIViewController {
         // 카메라 이동
 //        let camera = GMSCameraPosition.camera(withLatitude: 35.232234, longitude: 129.085211, zoom: 17.0)
 //        mapView.camera = camera
-//
-//        // Creates a marker in the center of the map.
+
+        // Creates a marker in the center of the map.
 //        let marker = GMSMarker()
 //        marker.position = CLLocationCoordinate2D(latitude: 35.232234, longitude: 129.085211)
 //        marker.title = "우리 집"
@@ -491,13 +489,45 @@ class PostRecruitingViewController: UIViewController {
     }
 }
 extension PostRecruitingViewController: UITextFieldDelegate {
-    func textField(_ textField: MainTextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // replacementString : 방금 입력된 문자 하나, 붙여넣기 시에는 붙여넣어진 문자열 전체
+        // return -> 텍스트가 바뀌어야 한다면 true, 아니라면 false
+        // 이 메소드 내에서 textField.text는 현재 입력된 string이 붙기 전의 string
+        
         if textField == deliveryFeeTextField {
-            let allowedCharacters = CharacterSet.decimalDigits
-            let characterSet = CharacterSet(charactersIn: string)
-            return allowedCharacters.isSuperset(of: characterSet)
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .decimal // 1,000,000
+            formatter.locale = Locale.current
+            formatter.maximumFractionDigits = 0 // 허용하는 소숫점 자리수
+            
+            // formatter.groupingSeparator // .decimal -> ,
+            
+            if let removeAllSeprator = textField.text?.replacingOccurrences(of: formatter.groupingSeparator, with: ""){
+                var beforeForemattedString = removeAllSeprator + string
+                if formatter.number(from: string) != nil {
+                    if let formattedNumber = formatter.number(from: beforeForemattedString), let formattedString = formatter.string(from: formattedNumber){
+                        textField.text = formattedString
+                        return false
+                    }
+                }else{ // 숫자가 아닐 때
+                    if string == "" { // 백스페이스일때
+                        let lastIndex = beforeForemattedString.index(beforeForemattedString.endIndex, offsetBy: -1)
+                        beforeForemattedString = String(beforeForemattedString[..<lastIndex])
+                        if let formattedNumber = formatter.number(from: beforeForemattedString), let formattedString = formatter.string(from: formattedNumber){
+                            textField.text = formattedString
+                            return false
+                        }
+                    }else{ // 문자일 때
+                        return false
+                    }
+                }
+
+            }
+            
+            return true
         }
+        
+        //다른 textField일 때
         return true
     }
 }
