@@ -1,11 +1,6 @@
 PODS:
   - Alamofire (5.6.1)
   - DropDown (2.3.13)
-  - GoogleMaps (7.0.0):
-    - GoogleMaps/Maps (= 7.0.0)
-  - GoogleMaps/Base (7.0.0)
-  - GoogleMaps/Maps (7.0.0):
-    - GoogleMaps/Base
   - Moya (15.0.0):
     - Moya/Core (= 15.0.0)
   - Moya/Core (15.0.0):
@@ -26,7 +21,6 @@ DEPENDENCIES:
   - Alamofire
   - DropDown
   - GoogleMaps
-  - Moya
   - ReusableKit
   - RxCocoa
   - RxRelay
@@ -38,7 +32,6 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - DropDown
-    - GoogleMaps
     - Moya
     - ReusableKit
     - RxCocoa
@@ -50,7 +43,6 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 87bd8c952f9a4454320fce00d9cc3de57bcadaf5
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
-  GoogleMaps: 6e9c923ca035989709fcb5771544fda4cc5fa2a4
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   ReusableKit: e5f853ad4652e411f96b6119b2488afa12929be6
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
@@ -61,4 +53,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: c5440e42a2c88e114c17c3c2f24cc32a6a9bff43
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

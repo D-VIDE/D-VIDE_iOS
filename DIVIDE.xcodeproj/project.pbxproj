@@ -443,7 +443,6 @@
 				324C3435286AF32A0057286A /* Frameworks */,
 				324C3436286AF32A0057286A /* Resources */,
 				ABABBE70CA667C333C369243 /* [CP] Embed Pods Frameworks */,
-				32866C86CB1CA46D208E39D1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -483,7 +482,7 @@
 			);
 			mainGroup = 324C342F286AF32A0057286A;
 			packageReferences = (
-				FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher.git" */,
 			);
 			productRefGroup = 324C3439286AF32A0057286A /* Products */;
 			projectDirPath = "";
@@ -527,23 +526,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		32866C86CB1CA46D208E39D1 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DIVIDE/Pods-DIVIDE-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DIVIDE/Pods-DIVIDE-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DIVIDE/Pods-DIVIDE-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		99516FB512F34DF35ECC5DB2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -770,6 +752,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = WJVGRM2SN6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DIVIDE/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -797,6 +780,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = WJVGRM2SN6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DIVIDE/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -840,7 +824,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+		FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {
@@ -853,12 +837,12 @@
 /* Begin XCSwiftPackageProductDependency section */
 		FA4967B9288A9D5C000247E4 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			package = FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher.git" */;
 			productName = Kingfisher;
 		};
 		FA4967BC288A9D83000247E4 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			package = FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher.git" */;
 			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
