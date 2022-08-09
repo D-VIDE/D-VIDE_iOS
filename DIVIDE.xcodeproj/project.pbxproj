@@ -22,6 +22,10 @@
 		32AAD829289BA44700902A2A /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 32AAD820289BA44700902A2A /* NotoSansKR-Regular.otf */; };
 		32AAD82A289BA44700902A2A /* SDSamliphopangcheBasic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 32AAD822289BA44700902A2A /* SDSamliphopangcheBasic.otf */; };
 		32AAD82B289BA44700902A2A /* SDSamliphopangcheOutline.otf in Resources */ = {isa = PBXBuildFile; fileRef = 32AAD823289BA44700902A2A /* SDSamliphopangcheOutline.otf */; };
+		32B7B8A428A23FAB0092CFD6 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B7B8A328A23FAB0092CFD6 /* APIService.swift */; };
+		32B7B8A628A245350092CFD6 /* PostRecruitingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B7B8A528A245350092CFD6 /* PostRecruitingResponse.swift */; };
+		32B7B8A828A248100092CFD6 /* PostRecrutingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B7B8A728A248100092CFD6 /* PostRecrutingViewModel.swift */; };
+		32B7B8AB28A24B400092CFD6 /* PostRecruitingAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B7B8AA28A24B400092CFD6 /* PostRecruitingAPIManager.swift */; };
 		78B691AC0D85452047520A6D /* Pods_DIVIDE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5812F4895A88AACE8922BE83 /* Pods_DIVIDE.framework */; };
 		FA2AE75228978FEF00702D43 /* 채팅.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2AE74E28978FEF00702D43 /* 채팅.png */; };
 		FA2AE75328978FEF00702D43 /* Divide.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2AE74F28978FEF00702D43 /* Divide.png */; };
@@ -88,6 +92,10 @@
 		32AAD820289BA44700902A2A /* NotoSansKR-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Regular.otf"; sourceTree = "<group>"; };
 		32AAD822289BA44700902A2A /* SDSamliphopangcheBasic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SDSamliphopangcheBasic.otf; sourceTree = "<group>"; };
 		32AAD823289BA44700902A2A /* SDSamliphopangcheOutline.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SDSamliphopangcheOutline.otf; sourceTree = "<group>"; };
+		32B7B8A328A23FAB0092CFD6 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		32B7B8A528A245350092CFD6 /* PostRecruitingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRecruitingResponse.swift; sourceTree = "<group>"; };
+		32B7B8A728A248100092CFD6 /* PostRecrutingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRecrutingViewModel.swift; sourceTree = "<group>"; };
+		32B7B8AA28A24B400092CFD6 /* PostRecruitingAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRecruitingAPIManager.swift; sourceTree = "<group>"; };
 		5812F4895A88AACE8922BE83 /* Pods_DIVIDE.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DIVIDE.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC49C26AB0682970DFC4401E /* Pods-DIVIDE.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIVIDE.release.xcconfig"; path = "Target Support Files/Pods-DIVIDE/Pods-DIVIDE.release.xcconfig"; sourceTree = "<group>"; };
 		DD864471D39EC034FFE391B5 /* Pods-DIVIDE.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIVIDE.debug.xcconfig"; path = "Target Support Files/Pods-DIVIDE/Pods-DIVIDE.debug.xcconfig"; sourceTree = "<group>"; };
@@ -179,6 +187,7 @@
 		324C343A286AF32A0057286A /* DIVIDE */ = {
 			isa = PBXGroup;
 			children = (
+				32B7B8A228A23F5A0092CFD6 /*  API */,
 				FAAD48F4289AB99300508C12 /* Configuration */,
 				FAAD48EE289AB82900508C12 /* Page */,
 				32AAD818289BA41200902A2A /* Resources */,
@@ -238,6 +247,38 @@
 				32AAD823289BA44700902A2A /* SDSamliphopangcheOutline.otf */,
 			);
 			path = "Font - SamlipHopang";
+			sourceTree = "<group>";
+		};
+		32B7B8A028A23C990092CFD6 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				32B7B8A728A248100092CFD6 /* PostRecrutingViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		32B7B8A128A23CA30092CFD6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				32B7B8A528A245350092CFD6 /* PostRecruitingResponse.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		32B7B8A228A23F5A0092CFD6 /*  API */ = {
+			isa = PBXGroup;
+			children = (
+				32B7B8A328A23FAB0092CFD6 /* APIService.swift */,
+			);
+			path = " API";
+			sourceTree = "<group>";
+		};
+		32B7B8A928A24B2A0092CFD6 /* APIManager */ = {
+			isa = PBXGroup;
+			children = (
+				32B7B8AA28A24B400092CFD6 /* PostRecruitingAPIManager.swift */,
+			);
+			path = APIManager;
 			sourceTree = "<group>";
 		};
 		7C347BCB9EF661EE6A192399 /* Pods */ = {
@@ -310,6 +351,9 @@
 		FAAD48EF289AB84300508C12 /* PostRecruiting */ = {
 			isa = PBXGroup;
 			children = (
+				32B7B8A928A24B2A0092CFD6 /* APIManager */,
+				32B7B8A128A23CA30092CFD6 /* Model */,
+				32B7B8A028A23C990092CFD6 /* ViewModel */,
 				FAAD48F1289AB85300508C12 /* PostRecruitingViewController.swift */,
 				FAAD48F0289AB85300508C12 /* TagCollectionViewCell.swift */,
 			);
@@ -528,10 +572,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32B7B8A828A248100092CFD6 /* PostRecrutingViewModel.swift in Sources */,
 				FAAD48FC289ABA0100508C12 /* Device.swift in Sources */,
 				FA8A71F8289ABA4700E26196 /* UIColor.swift in Sources */,
 				FAAD4905289ABA1200508C12 /* CollectionViewClass.swift in Sources */,
 				FA8A7200289ABA4700E26196 /* UIImageView.swift in Sources */,
+				32B7B8A628A245350092CFD6 /* PostRecruitingResponse.swift in Sources */,
 				3294CDAA289D07E800FF14AD /* ChatListViewController.swift in Sources */,
 				FAAD4908289ABA1200508C12 /* NavBarClass.swift in Sources */,
 				324C3440286AF32A0057286A /* HomeViewController.swift in Sources */,
@@ -551,12 +597,14 @@
 				FA8A71F9289ABA4700E26196 /* String.swift in Sources */,
 				FAAD4907289ABA1200508C12 /* LabelClass.swift in Sources */,
 				FA2C9ECB289A201600B3ACAC /* DetailPage.swift in Sources */,
+				32B7B8A428A23FAB0092CFD6 /* APIService.swift in Sources */,
 				324C343C286AF32A0057286A /* AppDelegate.swift in Sources */,
 				324C343E286AF32A0057286A /* SceneDelegate.swift in Sources */,
 				FA8A71FA289ABA4700E26196 /* UINavigationBar.swift in Sources */,
 				FAAD48F3289AB85300508C12 /* PostRecruitingViewController.swift in Sources */,
 				FAAD48F2289AB85300508C12 /* TagCollectionViewCell.swift in Sources */,
 				FA59C615289115EE001ADD50 /* SNSViewController.swift in Sources */,
+				32B7B8AB28A24B400092CFD6 /* PostRecruitingAPIManager.swift in Sources */,
 				FA8A71FD289ABA4700E26196 /* UITableView.swift in Sources */,
 				FAAD48FB289ABA0100508C12 /* IndicatorView.swift in Sources */,
 				FA8A7205289ABA4700E26196 /* UIView.swift in Sources */,
