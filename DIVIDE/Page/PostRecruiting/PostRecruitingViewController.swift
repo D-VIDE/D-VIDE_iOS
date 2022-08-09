@@ -487,6 +487,10 @@ class PostRecruitingViewController: UIViewController {
         self.arrayCoordinates.append(newMarker.position)
         newMarker.map = mapView
     }
+    
+    @objc post() {
+        APIService.postRecruiting(title: titleTextField.text, storeName: storeTextField.text, content: contentTextView.text, targetPrice: Int(textfield.text), deliveryPrice: Int(deliveryFeeTextField.text), longitude: <#T##Double#>, latitude: <#T##Int#>, category: <#T##String#>, targetTime: <#T##String#>)
+    }
 }
 extension PostRecruitingViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

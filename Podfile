@@ -15,4 +15,5 @@ target 'DIVIDE' do
   pod 'ReusableKit'
   pod 'DropDown'
   pod 'GoogleMaps'
+  pod 'Moya'
 end
