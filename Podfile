@@ -14,5 +14,6 @@ target 'DIVIDE' do
   pod 'Alamofire'
   pod 'ReusableKit'
   pod 'DropDown'
+  pod 'NMapsMap'
   pod 'Moya'
 end
