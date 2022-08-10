@@ -10,7 +10,7 @@ import Then
 import SnapKit
 import DropDown
 import ReusableKit
-import GoogleMaps
+import NMapsMap
 
 enum Reusable {
     static let tagCell = ReusableCell<TagCollectionViewCell>()
@@ -22,8 +22,11 @@ class PostRecruitingViewController: UIViewController {
     var tagList: [String] = ["한식", "중식", "양식", "태국식", "남원정", "정지윤", "정명진", "조병우", "홍유준", "패스파인더"]
     
     // 위,경도
-    var arrayCoordinates : [CLLocationCoordinate2D] = []
-    
+    var coordinate = NMGLatLng(lat: 37, lng: 127)
+    lazy var CAMERA_POSITION = NMFCameraPosition(coordinate, zoom: 12, tilt: 0, heading: 0)
+    lazy var marker = NMFMarker(position: NMGLatLng(lat: coordinate.lat, lng: coordinate.lng))
+
+
     // UIScrollView 정의
     let scrollView = UIScrollView().then {
         $0.backgroundColor = .viewBackgroundGray
@@ -59,6 +62,14 @@ class PostRecruitingViewController: UIViewController {
         $0.textColor = .mainLightGray
         $0.font = UIFont.NotoSansKR(.bold, size: 12)
     }
+    let aimUnitLabel = MainLabel(type: .bold).then {
+        $0.text = "원"
+        $0.textColor = .mainLightGray
+        $0.font = UIFont.NotoSansKR(.bold, size: 12)
+    }
+    let deliveryAimMoneyLabel = MainLabel(type: .bold).then {
+        $0.text = "• 목표 금액"
+    }
     let dueTimeLabel = MainLabel(type: .bold).then {
         $0.text = "• 마감 시간"
     }
@@ -83,6 +94,11 @@ class PostRecruitingViewController: UIViewController {
         $0.isUserInteractionEnabled = false
     }
     let deliveryFeeTextField = MainTextField(type: .main).then {
+        $0.textFieldTextChanged($0)
+        $0.keyboardType = .numberPad
+        $0.text = $0.text?.insertComma
+    }
+    let deliveryAimTextField = MainTextField(type: .main).then {
         $0.textFieldTextChanged($0)
         $0.keyboardType = .numberPad
         $0.text = $0.text?.insertComma
@@ -125,7 +141,7 @@ class PostRecruitingViewController: UIViewController {
 //    }
 //    GMSMapView.map(withFrame: self.view.frame, camera: camera)
     
-    let mapView = GMSMapView().then {
+    let mapView = NMFMapView().then {
         $0.backgroundColor = .white
         $0.layer.borderWidth = 0.2
         $0.layer.borderColor = UIColor.mainLightGray.cgColor
@@ -206,12 +222,13 @@ class PostRecruitingViewController: UIViewController {
         categoryCollectionView.dataSource = self
         
         //UILabel add
-        scrollContentView.addSubviews([titleLabel, storeLabel, deliveryFeeLabel, dueTimeLabel, placeLabel, contentLabel, categoryLabel, photoLabel])
+        scrollContentView.addSubviews([titleLabel, storeLabel, deliveryFeeLabel, deliveryAimMoneyLabel, dueTimeLabel, placeLabel, contentLabel, categoryLabel, photoLabel])
         
         deliveryFeeTextField.addSubview(deliveryFeeUnitLabel)
+        deliveryAimTextField.addSubview(aimUnitLabel)
     
         //UITextField add
-        scrollContentView.addSubviews([categoryCollectionView, titleTextField, storeTextField, categoryTextField, deliveryFeeTextField, dueTimeTextField])
+        scrollContentView.addSubviews([categoryCollectionView, titleTextField, storeTextField, categoryTextField, deliveryFeeTextField, deliveryAimTextField, dueTimeTextField])
         
         // UIView add
         scrollContentView.addSubviews([contentTextView, mapView])
@@ -243,24 +260,21 @@ class PostRecruitingViewController: UIViewController {
 //            $0.edges.equalTo(view.safeAreaLayoutGuide)
 //        }
         
-        // 카메라 이동
-//        let camera = GMSCameraPosition.camera(withLatitude: 35.232234, longitude: 129.085211, zoom: 17.0)
-//        mapView.camera = camera
+//        arrayCoordinates?.latitude = 127.030767490957
+//        arrayCoordinates?.longitude = 37.4901548250937
+        //카메라 이동
+        mapView.touchDelegate = self
+        mapView.moveCamera(NMFCameraUpdate(position: CAMERA_POSITION))
 
         // Creates a marker in the center of the map.
-//        let marker = GMSMarker()
-//        marker.position = CLLocationCoordinate2D(latitude: 35.232234, longitude: 129.085211)
-//        marker.title = "우리 집"
-//        marker.snippet = "Australia"
-//        marker.map = mapView
+        marker.iconImage = NMF_MARKER_IMAGE_BLACK
+        marker.mapView = mapView
         
         
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.setMarker))
         longPressRecognizer.minimumPressDuration = 0.5
         mapView.addGestureRecognizer(longPressRecognizer)
 
-        mapView.isMyLocationEnabled = true
-        mapView.settings.compassButton = true
         
     }
     
@@ -276,7 +290,7 @@ class PostRecruitingViewController: UIViewController {
         scrollContentView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
             make.width.equalTo(scrollView.snp.width)
-            make.height.equalTo(850)
+            make.height.equalTo(870)
         }
         
         // Label
@@ -296,9 +310,17 @@ class PostRecruitingViewController: UIViewController {
             make.leading.equalTo(scrollContentView.snp.leading).offset(26)
             make.centerY.equalTo(deliveryFeeTextField.snp.centerY)
         }
+        deliveryAimMoneyLabel.snp.makeConstraints { make in
+            make.leading.equalTo(scrollContentView.snp.leading).offset(26)
+            make.centerY.equalTo(deliveryAimTextField.snp.centerY)
+        }
         deliveryFeeUnitLabel.snp.makeConstraints { make in
             make.leading.equalTo(deliveryFeeTextField.snp.trailing).offset(-25)
             make.centerY.equalTo(deliveryFeeTextField.snp.centerY)
+        }
+        aimUnitLabel.snp.makeConstraints { make in
+            make.leading.equalTo(deliveryAimTextField.snp.trailing).offset(-25)
+            make.centerY.equalTo(deliveryAimTextField.snp.centerY)
         }
         dueTimeLabel.snp.makeConstraints { make in
             make.leading.equalTo(scrollContentView.snp.leading).offset(26)
@@ -345,8 +367,14 @@ class PostRecruitingViewController: UIViewController {
             make.height.equalTo(36)
             make.width.equalTo(251)
         }
-        dueTimeTextField.snp.makeConstraints { make in
+        deliveryAimTextField.snp.makeConstraints { make in
             make.top.equalTo(deliveryFeeTextField.snp.bottom).offset(12)
+            make.leading.equalTo(dueTimeLabel.snp.trailing).offset(20)
+            make.height.equalTo(36)
+            make.width.equalTo(251)
+        }
+        dueTimeTextField.snp.makeConstraints { make in
+            make.top.equalTo(deliveryAimTextField.snp.bottom).offset(12)
             make.leading.equalTo(dueTimeLabel.snp.trailing).offset(20)
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(36)
@@ -432,7 +460,7 @@ class PostRecruitingViewController: UIViewController {
             scrollContentView.snp.remakeConstraints { make in
                 make.edges.equalToSuperview()
                 make.width.equalTo(scrollView.snp.width)
-                make.height.equalTo(984)
+                make.height.equalTo(1004)
             }
             
         } else {
@@ -447,7 +475,7 @@ class PostRecruitingViewController: UIViewController {
             scrollContentView.snp.remakeConstraints { make in
                 make.edges.equalToSuperview()
                 make.width.equalTo(scrollView.snp.width)
-                make.height.equalTo(850)
+                make.height.equalTo(870)
             }
         }
         
@@ -483,14 +511,24 @@ class PostRecruitingViewController: UIViewController {
     @objc func setMarker(_ sender: UILongPressGestureRecognizer) {
         print("Long Pressed")
         
-        let newMarker = GMSMarker(position: mapView.projection.coordinate(for: sender.location(in: mapView)))
-        self.arrayCoordinates.append(newMarker.position)
-        newMarker.map = mapView
+        if sender.state == .began {
+            
+            marker.mapView = nil
+            
+            let coord = sender.location(in: mapView)
+            let latlng = mapView.projection.latlng(from: coord)
+            print(latlng)
+            
+            marker.position.lat = latlng.lat
+            marker.position.lng = latlng.lng
+            marker.mapView = mapView
+            print("위치 변경")
+        }
     }
     
-    @objc post() {
-        APIService.postRecruiting(title: titleTextField.text, storeName: storeTextField.text, content: contentTextView.text, targetPrice: Int(textfield.text), deliveryPrice: Int(deliveryFeeTextField.text), longitude: <#T##Double#>, latitude: <#T##Int#>, category: <#T##String#>, targetTime: <#T##String#>)
-    }
+//    @objc func post() {
+//        APIService.postRecruiting(title: titleTextField.text, storeName: storeTextField.text, content: contentTextView.text, targetPrice: Int(deliveryAimTextField.text), deliveryPrice: Int(deliveryFeeTextField.text), longitude: coordinate.lng, latitude: coordinate.lat, category: categoryTextField.text, targetTime: dueTimeTextField.text)
+//    }
 }
 extension PostRecruitingViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -582,3 +620,21 @@ extension PostRecruitingViewController: UIImagePickerControllerDelegate, UINavig
         dismiss(animated: true, completion: nil)
     }
 }
+
+extension PostRecruitingViewController: NMFMapViewTouchDelegate {
+    func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
+        
+        print("마커찍기")
+        marker.mapView = nil
+        
+        let newMarker = NMFMarker(position: NMGLatLng(lat: latlng.lat, lng: latlng.lng))
+        marker = newMarker
+        coordinate.lat = latlng.lat
+        coordinate.lng = latlng.lng
+        print(coordinate)
+        newMarker.iconImage = NMF_MARKER_IMAGE_BLACK
+        newMarker.mapView = mapView
+        
+   }
+}
+

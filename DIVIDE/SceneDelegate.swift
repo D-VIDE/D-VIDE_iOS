@@ -15,8 +15,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        let initialViewController = ChatListViewController()
-        window?.rootViewController = initialViewController
+        let mainViewController = UINavigationController(rootViewController: PostRecruitingViewController())
+        let initialViewController = PostRecruitingViewController()
+        window?.rootViewController = mainViewController
         window?.makeKeyAndVisible()
 
         

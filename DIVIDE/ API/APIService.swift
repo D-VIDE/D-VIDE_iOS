@@ -10,7 +10,7 @@ import Moya
 
 
 enum APIService {
-    case postRecruiting(title: String, storeName: String, content: String, targetPrice: Int, deliveryPrice: Int, longitude: Double, latitude: Int, category: String, targetTime: String)
+    case postRecruiting(title: String, storeName: String, content: String, targetPrice: Int, deliveryPrice: Int, longitude: Double, latitude: Double, category: String, targetTime: String)
 }
 
 extension APIService: TargetType {
@@ -78,5 +78,6 @@ extension APIService: TargetType {
     
     var headers: [String : String]? {
         return nil
+//        return ["Authorization" : "Bearer \(token)"]
     }
 }

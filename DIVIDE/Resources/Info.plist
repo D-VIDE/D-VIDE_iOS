@@ -15,7 +15,11 @@
 	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>카메라 허용해주세요</string>
-	
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>googlechromes</string>
+        <string>comgooglemaps</string>
+    </array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
