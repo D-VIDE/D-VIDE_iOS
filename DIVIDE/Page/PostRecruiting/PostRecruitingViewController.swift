@@ -1,8 +1,19 @@
+////
+////  ViewController.swift
+////  DIVIDE
+////
+////  Created by 정지윤 on 2022/06/28.
+////
 //
-//  ViewController.swift
-//  DIVIDE
+//import UIKit
+//import Then
+//import SnapKit
+//import DropDown
+//import ReusableKit
 //
-//  Created by 정지윤 on 2022/06/28.
+//enum Reusable {
+//    static let tagCell = ReusableCell<TagCollectionViewCell>()
+//  }
 //
 
 import UIKit
@@ -248,16 +259,10 @@ class PostRecruitingViewController: UIViewController {
 //            print("인덱스 : \(index)")
 //            self.dropDown.clearSelection()
 //        }
-        
-        //이거 then 안에 넣는 법
-        dueTimeTextField.inputView = datePicker
-        
-        categoryCollectionView.isHidden = true
-
-        setConstraints()
-    
-//        nav.snp.makeConstraints {
-//            $0.edges.equalTo(view.safeAreaLayoutGuide)
+//        scrollContentView.snp.makeConstraints { make in
+//            make.edges.equalToSuperview()
+//            make.width.equalTo(scrollView.snp.width)
+//            make.height.equalTo(850)
 //        }
         
 //        arrayCoordinates?.latitude = 127.030767490957
