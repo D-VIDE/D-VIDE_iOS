@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import GoogleMaps
+import NMapsMap
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,8 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
-        GMSServices.provideAPIKey("AIzaSyB9uGWGYQZi1FaFQGTrM8dfWRcDhlKa3tE")
+        NMFAuthManager.shared().clientId = "rs8uy9v7vz"
         
         return true
     }

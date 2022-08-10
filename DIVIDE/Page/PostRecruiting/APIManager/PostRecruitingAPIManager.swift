@@ -11,7 +11,7 @@ import Moya
 struct PostRecruitingAPIManager {
     fileprivate let provider = MoyaProvider<APIService>()
     
-    func requestpostRecruiting(title: String, storeName: String, content: String, targetPrice: Int, deliveryPrice: Int, longitude: Double, latitude: Int, category: String, targetTime: String, completion: @escaping (Result<PostRecruitingResponse, Error>) -> Void) {
+    func requestpostRecruiting(title: String, storeName: String, content: String, targetPrice: Int, deliveryPrice: Int, longitude: Double, latitude: Double, category: String, targetTime: String, completion: @escaping (Result<PostRecruitingResponse, Error>) -> Void) {
         provider.request(.postRecruiting(title: title, storeName: storeName, content: content, targetPrice: targetPrice, deliveryPrice: deliveryPrice, longitude: longitude, latitude: latitude, category: category, targetTime: targetTime)) { result in
             switch result {
             case let .success(response):
