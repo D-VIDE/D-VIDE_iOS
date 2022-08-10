@@ -5,16 +5,6 @@
 ////  Created by 정지윤 on 2022/06/28.
 ////
 //
-//import UIKit
-//import Then
-//import SnapKit
-//import DropDown
-//import ReusableKit
-//
-//enum Reusable {
-//    static let tagCell = ReusableCell<TagCollectionViewCell>()
-//  }
-//
 
 import UIKit
 import Then
@@ -143,7 +133,6 @@ class PostRecruitingViewController: UIViewController {
         $0.layer.addShadow(location: .all)
         $0.font = UIFont.NotoSansKR(.medium, size: 15)
 //        $0.addTarget(self, action: #selector(textFieldTextChanged(_:)), for: .editingChanged)
-
     }
     
     //UIView 정의
@@ -244,7 +233,6 @@ class PostRecruitingViewController: UIViewController {
         // UIView add
         scrollContentView.addSubviews([contentTextView, mapView])
         
-        
         //UIButton add
         scrollContentView.addSubviews([uploadButton, dropDownButton, imgUploadButton])
         
@@ -252,21 +240,6 @@ class PostRecruitingViewController: UIViewController {
         scrollContentView.addSubviews([imgForUpload])
         
         
-//        dropDown.anchorView = dividerNumTextField
-//        dropDown.bottomOffset = CGPoint(x: 0, y:(dropDown.anchorView?.plainView.bounds.height)! + 36)
-//        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-//            dividerNumTextField.text = item
-//            print("인덱스 : \(index)")
-//            self.dropDown.clearSelection()
-//        }
-//        scrollContentView.snp.makeConstraints { make in
-//            make.edges.equalToSuperview()
-//            make.width.equalTo(scrollView.snp.width)
-//            make.height.equalTo(850)
-//        }
-        
-//        arrayCoordinates?.latitude = 127.030767490957
-//        arrayCoordinates?.longitude = 37.4901548250937
         //카메라 이동
         mapView.touchDelegate = self
         mapView.moveCamera(NMFCameraUpdate(position: CAMERA_POSITION))
@@ -396,7 +369,6 @@ class PostRecruitingViewController: UIViewController {
         
         
         //UIView
-        
         mapView.snp.makeConstraints { make in
             make.top.equalTo(imgForUpload.snp.bottom).offset(17)
             make.leading.equalTo(dueTimeLabel.snp.trailing).offset(20)
