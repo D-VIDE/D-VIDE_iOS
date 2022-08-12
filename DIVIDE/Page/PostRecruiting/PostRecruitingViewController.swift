@@ -169,13 +169,13 @@ class PostRecruitingViewController: UIViewController {
     }
     
     //View for Button 정의
-    let imgUploadButton = UIView().then {
+    lazy var imgUploadButton = UIView().then {
         $0.backgroundColor = .clear
         $0.isUserInteractionEnabled = true
         $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto)))
     }
     
-    let imgUploadButton2 = UIView().then {
+    lazy var imgUploadButton2 = UIView().then {
         $0.backgroundColor = .clear
         $0.isUserInteractionEnabled = true
         $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto)))
@@ -259,7 +259,8 @@ class PostRecruitingViewController: UIViewController {
         //UIImageView add
         scrollContentView.addSubviews([imgForUpload, imgForUpload1, imgForUpload2])
         
-        
+        imgUploadButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto)))
+
         
         dueTimeTextField.inputView = datePicker
         categoryCollectionView.isHidden = true
@@ -479,6 +480,7 @@ class PostRecruitingViewController: UIViewController {
             deliveryFeeTextField.snp.remakeConstraints { make in
                 make.top.equalTo(categoryCollectionView.snp.bottom).offset(12)
                 make.leading.equalTo(deliveryFeeLabel.snp.trailing)
+                make.trailing.equalToSuperview().offset(-20)
                 make.height.equalTo(36)
             }
         } else {
@@ -486,6 +488,7 @@ class PostRecruitingViewController: UIViewController {
             deliveryFeeTextField.snp.remakeConstraints { make in
                 make.top.equalTo(categoryTextField.snp.bottom).offset(12)
                 make.leading.equalTo(deliveryFeeLabel.snp.trailing)
+                make.trailing.equalToSuperview().offset(-20)
                 make.height.equalTo(36)
             }
         }
@@ -542,9 +545,10 @@ class PostRecruitingViewController: UIViewController {
         
         print("post")
         
-        if let title = titleTextField.text, let store = storeTextField.text, let category = categoryTextField.text, let deliveryFee = deliveryFeeTextField.text, let targetPrice = deliveryAimTextField.text, let content = contentTextView.text, let targetTime = milliseconds {
+        if let title = titleTextField.text, let store = storeTextField.text, let category = categoryTextField.text, let deliveryFee = deliveryFeeTextField.text, let targetPrice = deliveryAimTextField.text, let content = contentTextView.text, let targetTime = milliseconds, let data = imgForUpload.image?.jpegData(compressionQuality: 1)
+ {
             
-            apiManager.requestpostRecruiting(userId: 1, title: title, storeName: store, content: content, targetPrice: Int(targetPrice)!, deliveryPrice: Int(deliveryFee)!, longitude: coordinate.lng, latitude: coordinate.lat, category: category, targetTime: targetTime) { [weak self] result in
+            apiManager.requestpostRecruiting(title: title, storeName: store, content: content, targetPrice: Int(targetPrice)!, deliveryPrice: Int(deliveryFee)!, longitude: coordinate.lng, latitude: coordinate.lat, category: category, targetTime: targetTime, img: data) { [weak self] result in
                 switch result {
                 case .success(let response):
                     self?.presentAlert(title: "post 성공: \(response.postId)")
@@ -638,22 +642,25 @@ extension PostRecruitingViewController: UIImagePickerControllerDelegate, UINavig
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             
-            switch imgSelectNum{
-            case 0:
-                imgForUpload.contentMode = .scaleToFill
-                imgForUpload.image = pickedImage //4
-            case 1:
-                imgForUpload1.contentMode = .scaleToFill
-                imgForUpload1.image = pickedImage //4
-                imgForUpload2.isHidden = false
-                imgUploadButton2.isHidden = false
-            default:
-                imgForUpload2.contentMode = .scaleToFill
-                imgForUpload2.image = pickedImage //4
-            }
+            imgForUpload.contentMode = .scaleToFill
+            imgForUpload.image = pickedImage //4
+            
+//            switch imgSelectNum{
+//            case 0:
+//                imgForUpload.contentMode = .scaleToFill
+//                imgForUpload.image = pickedImage //4
+//            case 1:
+//                imgForUpload1.contentMode = .scaleToFill
+//                imgForUpload1.image = pickedImage //4
+//                imgForUpload2.isHidden = false
+//                imgUploadButton2.isHidden = false
+//            default:
+//                imgForUpload2.contentMode = .scaleToFill
+//                imgForUpload2.image = pickedImage //4
+//            }
         }
         
-        imgSelectNum += 1
+//        imgSelectNum += 1
         dismiss(animated: true, completion: nil)
     }
         
