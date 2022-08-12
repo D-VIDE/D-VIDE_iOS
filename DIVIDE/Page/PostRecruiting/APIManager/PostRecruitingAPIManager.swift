@@ -9,12 +9,13 @@ import Foundation
 import Moya
 
 struct PostRecruitingAPIManager {
-    fileprivate let provider = MoyaProvider<APIService>()
+    var realProvider = MoyaProvider<APIService>(plugins: [MoyaInterceptor()])
     
-    func requestpostRecruiting(title: String, storeName: String, content: String, targetPrice: Int, deliveryPrice: Int, longitude: Double, latitude: Double, category: String, targetTime: String, completion: @escaping (Result<PostRecruitingResponse, Error>) -> Void) {
-        provider.request(.postRecruiting(title: title, storeName: storeName, content: content, targetPrice: targetPrice, deliveryPrice: deliveryPrice, longitude: longitude, latitude: latitude, category: category, targetTime: targetTime)) { result in
+    func requestpostRecruiting(userId: Int, title: String, storeName: String, content: String, targetPrice: Int, deliveryPrice: Int, longitude: Double, latitude: Double, category: String, targetTime: Int, completion: @escaping (Result<PostRecruitingResponse, Error>) -> Void) {
+        realProvider.request(.postRecruiting(userId: userId, title: title, storeName: storeName, content: content, targetPrice: targetPrice, deliveryPrice: deliveryPrice, longitude: longitude, latitude: latitude, category: category, targetTime: targetTime)) { result in
             switch result {
             case let .success(response):
+                print(response.description)
                 do {
                     let decoded = try JSONDecoder().decode(PostRecruitingResponse.self, from: response.data)
                     completion(.success(decoded))

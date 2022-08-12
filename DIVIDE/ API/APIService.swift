@@ -8,33 +8,34 @@
 import Foundation
 import Moya
 
+public let token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlbWFpbEBnbWFpbC5jb20iLCJhdXRoIjoiVVNFUiIsImV4cCI6MjY2MDEyOTMxMH0.vbzMK8T0YUKb3TTc-y-t_fQfRJaiGV2dHxQqk-Hvim8Qkoryzw9Rs5sLg-NC9j6FFL_l5fFoPwOLIjuMtm7fQA"
 
 enum APIService {
-    case postRecruiting(title: String, storeName: String, content: String, targetPrice: Int, deliveryPrice: Int, longitude: Double, latitude: Double, category: String, targetTime: String)
+    case postRecruiting(userId: Int, title: String, storeName: String, content: String, targetPrice: Int, deliveryPrice: Int, longitude: Double, latitude: Double, category: String, targetTime: Int)
 }
 
 extension APIService: TargetType {
     var baseURL: URL {
-            return URL(string: "divide.kro.kr:8080/api/v1")!
+            return URL(string: "http://divide.kro.kr")!
     }
         
     var path: String {
         switch self { //path에 쓰일 parameter 받을 때만 let
-        case .postRecruiting(_, _, _, _, _, _, _, _, _):
-            return "/post"
+        case .postRecruiting(_, _, _, _, _, _, _, _, _, _):
+            return "/api/v1/post"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .postRecruiting(_, _, _, _, _, _, _, _, _):
+        case .postRecruiting(_, _, _, _, _, _, _, _, _, _):
             return .post
         }
     }
     
     var sampleData: Data {
         switch self {
-        case .postRecruiting(_, _, _, _, _, _, _, _, _):
+        case .postRecruiting(_, _, _, _, _, _, _, _, _, _):
             
             return Data(
                 """
@@ -58,7 +59,7 @@ extension APIService: TargetType {
     
     var task: Task {
         switch self {
-        case .postRecruiting(let title, let storeName, let content, let targetPrice, let deliveryPrice, let longitude, let latitude, let category, let targetTime):
+        case .postRecruiting(let userId, let title, let storeName, let content, let targetPrice, let deliveryPrice, let longitude, let latitude, let category, let targetTime):
             let params: [String: Any] = [
                 "title": title,
                 "storeName": storeName,
@@ -72,12 +73,13 @@ extension APIService: TargetType {
                 "category": category,
                 "targetTime": targetTime
             ]
-            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
+            
+            
+            return .requestParameters(parameters: params, encoding: JSONEncoding.default)
         }
     }
     
     var headers: [String : String]? {
-        return nil
-//        return ["Authorization" : "Bearer \(token)"]
+        return ["Authorization" : "Bearer \(token)"]
     }
 }

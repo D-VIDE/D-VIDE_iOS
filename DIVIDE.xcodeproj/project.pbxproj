@@ -14,6 +14,7 @@
 		324C3448286AF32B0057286A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 324C3446286AF32B0057286A /* LaunchScreen.storyboard */; };
 		3294CDAA289D07E800FF14AD /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3294CDA9289D07E800FF14AD /* ChatListViewController.swift */; };
 		3294CDAC289D0A4400FF14AD /* ChatListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3294CDAB289D0A4400FF14AD /* ChatListTableViewCell.swift */; };
+		32AA8E4C28A4EEE300BA68E3 /* MoyaInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AA8E4B28A4EEE300BA68E3 /* MoyaInterceptor.swift */; };
 		32AAD824289BA44700902A2A /* NotoSansKR-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 32AAD81B289BA44700902A2A /* NotoSansKR-Light.otf */; };
 		32AAD825289BA44700902A2A /* NotoSansKR-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 32AAD81C289BA44700902A2A /* NotoSansKR-Bold.otf */; };
 		32AAD826289BA44700902A2A /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 32AAD81D289BA44700902A2A /* NotoSansKR-Thin.otf */; };
@@ -84,6 +85,7 @@
 		324C3449286AF32B0057286A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3294CDA9289D07E800FF14AD /* ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
 		3294CDAB289D0A4400FF14AD /* ChatListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewCell.swift; sourceTree = "<group>"; };
+		32AA8E4B28A4EEE300BA68E3 /* MoyaInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaInterceptor.swift; sourceTree = "<group>"; };
 		32AAD81B289BA44700902A2A /* NotoSansKR-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Light.otf"; sourceTree = "<group>"; };
 		32AAD81C289BA44700902A2A /* NotoSansKR-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Bold.otf"; sourceTree = "<group>"; };
 		32AAD81D289BA44700902A2A /* NotoSansKR-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Thin.otf"; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 			isa = PBXGroup;
 			children = (
 				32B7B8A328A23FAB0092CFD6 /* APIService.swift */,
+				32AA8E4B28A4EEE300BA68E3 /* MoyaInterceptor.swift */,
 			);
 			path = " API";
 			sourceTree = "<group>";
@@ -482,7 +485,7 @@
 			);
 			mainGroup = 324C342F286AF32A0057286A;
 			packageReferences = (
-				FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher.git" */,
+				FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 324C3439286AF32A0057286A /* Products */;
 			projectDirPath = "";
@@ -591,6 +594,7 @@
 				FA8A71FB289ABA4700E26196 /* UIImage.swift in Sources */,
 				FA8A71F7289ABA4700E26196 /* UIFont.swift in Sources */,
 				FA8A7203289ABA4700E26196 /* UIViewController.swift in Sources */,
+				32AA8E4C28A4EEE300BA68E3 /* MoyaInterceptor.swift in Sources */,
 				FA8A7206289ABA4700E26196 /* UITextField.swift in Sources */,
 				FAAD4903289ABA1200508C12 /* ButtonClass.swift in Sources */,
 				FA8A71FF289ABA4700E26196 /* UINavigationController.swift in Sources */,
@@ -824,7 +828,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher.git" */ = {
+		FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {
@@ -837,12 +841,12 @@
 /* Begin XCSwiftPackageProductDependency section */
 		FA4967B9288A9D5C000247E4 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher.git" */;
+			package = FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
 		FA4967BC288A9D83000247E4 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher.git" */;
+			package = FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */

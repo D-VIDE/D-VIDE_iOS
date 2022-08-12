@@ -18,9 +18,14 @@ enum Reusable {
   }
 
 
+public let imgWidth = (Device.width - 139 - 20) / 3
+
 class PostRecruitingViewController: UIViewController {
     
     var tagList: [String] = ["한식", "중식", "양식", "태국식", "남원정", "정지윤", "정명진", "조병우", "홍유준", "패스파인더"]
+    
+    
+    let apiManager = PostRecruitingAPIManager()
     
     // 위,경도
     var coordinate = NMGLatLng(lat: 37, lng: 127)
@@ -28,6 +33,12 @@ class PostRecruitingViewController: UIViewController {
     lazy var marker = NMFMarker(position: NMGLatLng(lat: coordinate.lat, lng: coordinate.lng))
 
 
+    // 사진 고른 횟수
+    var imgSelectNum : Int!
+    
+    // 시간 milliseconds
+    var milliseconds : Int?
+    
     // UIScrollView 정의
     let scrollView = UIScrollView().then {
         $0.backgroundColor = .viewBackgroundGray
@@ -134,13 +145,7 @@ class PostRecruitingViewController: UIViewController {
         $0.font = UIFont.NotoSansKR(.medium, size: 15)
 //        $0.addTarget(self, action: #selector(textFieldTextChanged(_:)), for: .editingChanged)
     }
-    
-    //UIView 정의
-    
-//    let timeTouchView = MainView(type: .touch).then {
-//    }
-//    GMSMapView.map(withFrame: self.view.frame, camera: camera)
-    
+        
     let mapView = NMFMapView().then {
         $0.backgroundColor = .white
         $0.layer.borderWidth = 0.2
@@ -154,7 +159,7 @@ class PostRecruitingViewController: UIViewController {
     //UIButton 정의
     let uploadButton =  MainButton(type: .mainAction).then {
         $0.setTitle("업로드 하기", for: .normal)
-//        $0.addTarget(self, action: #selector(onTapButton), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(post), for: .touchUpInside)
     }
     
     let dropDownButton = UIButton().then {
@@ -163,10 +168,17 @@ class PostRecruitingViewController: UIViewController {
         $0.addTarget(self, action: #selector(showCategory), for: .touchUpInside)
     }
     
-    let imgUploadButton = UIButton().then {
-        $0.setBackgroundImage(UIImage(named: "selectPhoto"), for: .normal)
-        $0.tintColor = .lightGray
-        $0.addTarget(self, action: #selector(selectPhoto), for: .touchUpInside)
+    //View for Button 정의
+    let imgUploadButton = UIView().then {
+        $0.backgroundColor = .clear
+        $0.isUserInteractionEnabled = true
+        $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto)))
+    }
+    
+    let imgUploadButton2 = UIView().then {
+        $0.backgroundColor = .clear
+        $0.isUserInteractionEnabled = true
+        $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto)))
     }
     
     // UIImageView 선언
@@ -175,11 +187,16 @@ class PostRecruitingViewController: UIViewController {
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 13
     }
-
-    //DropDown 정의
-//    let dropDown = DropDown().then {
-//        $0.dataSource = ["1", "2", "3", "4", "5"]
-//    }
+    let imgForUpload1 = UIImageView().then {
+        $0.image = UIImage(named: "selectPhoto")
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 13
+    }
+    let imgForUpload2 = UIImageView().then {
+        $0.image = UIImage(named: "selectPhoto")
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 13
+    }
     
     //DatePicker 정의
     let datePicker = UIDatePicker().then {
@@ -215,7 +232,7 @@ class PostRecruitingViewController: UIViewController {
         
 //        navigationController?.additionalSafeAreaInsets.top = 40
         
-        view.addSubview(scrollView)
+        self.view.addSubview(scrollView)
         scrollView.addSubview(scrollContentView)
         
         categoryCollectionView.delegate = self
@@ -234,11 +251,29 @@ class PostRecruitingViewController: UIViewController {
         scrollContentView.addSubviews([contentTextView, mapView])
         
         //UIButton add
-        scrollContentView.addSubviews([uploadButton, dropDownButton, imgUploadButton])
+        scrollContentView.addSubviews([uploadButton, dropDownButton])
+        imgForUpload1.addSubview(imgUploadButton)
+        imgForUpload2.addSubview(imgUploadButton2)
+        
         
         //UIImageView add
-        scrollContentView.addSubviews([imgForUpload])
+        scrollContentView.addSubviews([imgForUpload, imgForUpload1, imgForUpload2])
         
+        
+        
+        dueTimeTextField.inputView = datePicker
+        categoryCollectionView.isHidden = true
+        imgUploadButton2.isHidden = true
+        imgForUpload2.isHidden = true
+        imgSelectNum = 0
+        
+        
+        imgUploadButton.isUserInteractionEnabled = true
+        imgUploadButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto)))
+        imgUploadButton2.isUserInteractionEnabled = true
+        imgUploadButton2.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto)))
+        
+        setConstraints()
         
         //카메라 이동
         mapView.touchDelegate = self
@@ -268,102 +303,111 @@ class PostRecruitingViewController: UIViewController {
         scrollContentView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
             make.width.equalTo(scrollView.snp.width)
-            make.height.equalTo(870)
         }
         
         // Label
         titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(scrollContentView.snp.leading).offset(26)
+            make.width.equalTo(93)
             make.centerY.equalTo(titleTextField.snp.centerY)
         }
         storeLabel.snp.makeConstraints { make in
             make.leading.equalTo(scrollContentView.snp.leading).offset(26)
+            make.width.equalTo(93)
             make.centerY.equalTo(storeTextField.snp.centerY)
         }
         categoryLabel.snp.makeConstraints { make in
             make.leading.equalTo(scrollContentView.snp.leading).offset(26)
+            make.width.equalTo(93)
             make.centerY.equalTo(categoryTextField.snp.centerY)
         }
         deliveryFeeLabel.snp.makeConstraints { make in
             make.leading.equalTo(scrollContentView.snp.leading).offset(26)
+            make.width.equalTo(93)
             make.centerY.equalTo(deliveryFeeTextField.snp.centerY)
         }
         deliveryAimMoneyLabel.snp.makeConstraints { make in
             make.leading.equalTo(scrollContentView.snp.leading).offset(26)
+            make.width.equalTo(93)
             make.centerY.equalTo(deliveryAimTextField.snp.centerY)
         }
         deliveryFeeUnitLabel.snp.makeConstraints { make in
-            make.leading.equalTo(deliveryFeeTextField.snp.trailing).offset(-25)
+            make.trailing.equalTo(deliveryFeeTextField.snp.trailing).offset(-18)
             make.centerY.equalTo(deliveryFeeTextField.snp.centerY)
         }
         aimUnitLabel.snp.makeConstraints { make in
-            make.leading.equalTo(deliveryAimTextField.snp.trailing).offset(-25)
+            make.trailing.equalTo(deliveryAimTextField.snp.trailing).offset(-18)
             make.centerY.equalTo(deliveryAimTextField.snp.centerY)
         }
         dueTimeLabel.snp.makeConstraints { make in
             make.leading.equalTo(scrollContentView.snp.leading).offset(26)
+            make.width.equalTo(93)
             make.centerY.equalTo(dueTimeTextField.snp.centerY)
         }
         photoLabel.snp.makeConstraints { make in
             make.leading.equalTo(scrollContentView.snp.leading).offset(26)
+            make.width.equalTo(93)
             make.top.equalTo(imgForUpload.snp.top)
         }
         placeLabel.snp.makeConstraints { make in
             make.leading.equalTo(scrollContentView.snp.leading).offset(26)
+            make.width.equalTo(93)
             make.top.equalTo(mapView.snp.top).offset(7)
         }
         contentLabel.snp.makeConstraints { make in
             make.leading.equalTo(scrollContentView.snp.leading).offset(26)
+            make.width.equalTo(93)
             make.top.equalTo(contentTextView.snp.top).offset(7)
         }
         
         //TextField
         titleTextField.snp.makeConstraints { make in
             make.top.equalTo(scrollContentView.snp.top).offset(28)
-            make.leading.equalTo(dueTimeLabel.snp.trailing).offset(20)
+            make.leading.equalTo(titleLabel.snp.trailing)
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(36)
-            make.width.equalTo(251)
+//            make.width.equalTo(251)
         }
         storeTextField.snp.makeConstraints { make in
             make.top.equalTo(titleTextField.snp.bottom).offset(12)
-            make.leading.equalTo(dueTimeLabel.snp.trailing).offset(20)
+            make.leading.equalTo(storeLabel.snp.trailing)
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(36)
-            make.width.equalTo(251)
+//            make.width.equalTo(251)
         }
         categoryTextField.snp.makeConstraints { make in
             make.top.equalTo(storeTextField.snp.bottom).offset(12)
-            make.leading.equalTo(dueTimeLabel.snp.trailing).offset(20)
+            make.leading.equalTo(categoryLabel.snp.trailing)
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(36)
-            make.width.equalTo(251)
+//            make.width.equalTo(251)
         }
         deliveryFeeTextField.snp.makeConstraints { make in
             make.top.equalTo(categoryTextField.snp.bottom).offset(12)
-            make.leading.equalTo(dueTimeLabel.snp.trailing).offset(20)
+            make.leading.equalTo(deliveryFeeLabel.snp.trailing)
+            make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(36)
-            make.width.equalTo(251)
+//            make.width.equalTo(251)
         }
         deliveryAimTextField.snp.makeConstraints { make in
             make.top.equalTo(deliveryFeeTextField.snp.bottom).offset(12)
-            make.leading.equalTo(dueTimeLabel.snp.trailing).offset(20)
+            make.leading.equalTo(deliveryAimMoneyLabel.snp.trailing)
+            make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(36)
-            make.width.equalTo(251)
+//            make.width.equalTo(251)
         }
         dueTimeTextField.snp.makeConstraints { make in
             make.top.equalTo(deliveryAimTextField.snp.bottom).offset(12)
-            make.leading.equalTo(dueTimeLabel.snp.trailing).offset(20)
+            make.leading.equalTo(dueTimeLabel.snp.trailing)
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(36)
-            make.width.equalTo(251)
+//            make.width.equalTo(251)
         }
         
         //UICollectionView
         categoryCollectionView.snp.makeConstraints { make in
             make.top.equalTo(categoryTextField.snp.bottom).offset(-10)
-            make.leading.equalTo(categoryTextField.snp.leading)
-            make.width.equalTo(251)
+            make.horizontalEdges.equalTo(categoryTextField.snp.horizontalEdges)
             make.height.equalTo(134)
         }
         
@@ -371,19 +415,18 @@ class PostRecruitingViewController: UIViewController {
         //UIView
         mapView.snp.makeConstraints { make in
             make.top.equalTo(imgForUpload.snp.bottom).offset(17)
-            make.leading.equalTo(dueTimeLabel.snp.trailing).offset(20)
+            make.leading.equalTo(placeLabel.snp.trailing)
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(178)
-            make.width.equalTo(251)
         }
         
         //UITextView
         contentTextView.snp.makeConstraints { make in
             make.top.equalTo(mapView.snp.bottom).offset(12)
-            make.leading.equalTo(dueTimeLabel.snp.trailing).offset(20)
+            make.bottom.equalTo(uploadButton.snp.top).offset(-20)
+            make.leading.equalTo(contentLabel.snp.trailing)
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(178)
-            make.width.equalTo(251)
         }
         
         
@@ -391,7 +434,7 @@ class PostRecruitingViewController: UIViewController {
         uploadButton.snp.makeConstraints { make in
             make.top.greaterThanOrEqualTo(contentTextView.snp.bottom).offset(20)
             make.centerX.equalTo(scrollContentView)
-            make.bottom.equalTo(scrollContentView.snp.bottom).offset(-20)
+            make.bottom.equalTo(scrollContentView.snp.bottom).offset(-29)
             make.width.equalTo(scrollContentView.snp.width).inset(20)
             make.height.equalTo(50)
         }
@@ -402,57 +445,48 @@ class PostRecruitingViewController: UIViewController {
             make.trailing.equalTo(categoryTextField.snp.trailing)
         }
         imgUploadButton.snp.makeConstraints { make in
-            make.centerY.equalTo(imgForUpload.snp.centerY)
-            make.leading.equalTo(imgForUpload.snp.trailing).offset(10)
-            make.height.equalTo(71)
-            make.width.equalTo(77)
+            make.edges.equalTo(imgForUpload1.snp.edges)
+        }
+        imgUploadButton2.snp.makeConstraints { make in
+            make.edges.equalTo(imgForUpload2.snp.edges)
         }
         
         //UIImageView
         imgForUpload.snp.makeConstraints { make in
             make.top.equalTo(dueTimeTextField.snp.bottom).offset(17)
-            make.leading.equalTo(dueTimeLabel.snp.trailing).offset(20)
+            make.leading.equalTo(dueTimeLabel.snp.trailing)
             make.height.equalTo(71)
-            make.width.equalTo(77)
+            make.width.equalTo(imgWidth)
+        }
+        imgForUpload1.snp.makeConstraints { make in
+            make.centerY.equalTo(imgForUpload.snp.centerY)
+            make.leading.equalTo(imgForUpload.snp.trailing).offset(10)
+            make.height.equalTo(71)
+            make.width.equalTo(imgWidth)
+        }
+        imgForUpload2.snp.makeConstraints { make in
+            make.centerY.equalTo(imgForUpload.snp.centerY)
+            make.leading.equalTo(imgUploadButton.snp.trailing).offset(10)
+            make.height.equalTo(71)
+            make.width.equalTo(imgWidth)
         }
     }
     
-    
-    
-    
-//    @objc func onTapButton() {
-//        print("Button was tapped.")
-//        dropDown.show()
-//    }
+
     func inOutCategory() {
         if categoryCollectionView.isHidden {
             dropDownButton.setImage(UIImage(named: "dropUpButton"), for: .normal)
             deliveryFeeTextField.snp.remakeConstraints { make in
                 make.top.equalTo(categoryCollectionView.snp.bottom).offset(12)
-                make.leading.equalTo(dueTimeLabel.snp.trailing).offset(20)
+                make.leading.equalTo(deliveryFeeLabel.snp.trailing)
                 make.height.equalTo(36)
-                make.width.equalTo(251)
             }
-            
-            scrollContentView.snp.remakeConstraints { make in
-                make.edges.equalToSuperview()
-                make.width.equalTo(scrollView.snp.width)
-                make.height.equalTo(1004)
-            }
-            
         } else {
             dropDownButton.setImage(UIImage(named: "dropDownButton"), for: .normal)
             deliveryFeeTextField.snp.remakeConstraints { make in
                 make.top.equalTo(categoryTextField.snp.bottom).offset(12)
-                make.leading.equalTo(dueTimeLabel.snp.trailing).offset(20)
+                make.leading.equalTo(deliveryFeeLabel.snp.trailing)
                 make.height.equalTo(36)
-                make.width.equalTo(251)
-            }
-            
-            scrollContentView.snp.remakeConstraints { make in
-                make.edges.equalToSuperview()
-                make.width.equalTo(scrollView.snp.width)
-                make.height.equalTo(870)
             }
         }
         
@@ -464,6 +498,7 @@ class PostRecruitingViewController: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "a h 시 m 분"
         let dateString = dateFormatter.string(from: sender.date)
+        milliseconds = Int(sender.date.timeIntervalSince1970)
         self.dueTimeTextField.text = dateString
         self.dueTimeTextField.resignFirstResponder()
     }
@@ -503,9 +538,24 @@ class PostRecruitingViewController: UIViewController {
         }
     }
     
-//    @objc func post() {
-//        APIService.postRecruiting(title: titleTextField.text, storeName: storeTextField.text, content: contentTextView.text, targetPrice: Int(deliveryAimTextField.text), deliveryPrice: Int(deliveryFeeTextField.text), longitude: coordinate.lng, latitude: coordinate.lat, category: categoryTextField.text, targetTime: dueTimeTextField.text)
-//    }
+    @objc func post() {
+        
+        print("post")
+        
+        if let title = titleTextField.text, let store = storeTextField.text, let category = categoryTextField.text, let deliveryFee = deliveryFeeTextField.text, let targetPrice = deliveryAimTextField.text, let content = contentTextView.text, let targetTime = milliseconds {
+            
+            apiManager.requestpostRecruiting(userId: 1, title: title, storeName: store, content: content, targetPrice: Int(targetPrice)!, deliveryPrice: Int(deliveryFee)!, longitude: coordinate.lng, latitude: coordinate.lat, category: category, targetTime: targetTime) { [weak self] result in
+                switch result {
+                case .success(let response):
+                    self?.presentAlert(title: "post 성공: \(response.postId)")
+                case .failure(let err):
+                    print(err)
+                }
+            }
+        } else {
+            self.presentAlert(title: "누락된 정보가 있습니다.")
+        }
+    }
 }
 extension PostRecruitingViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -587,9 +637,23 @@ extension PostRecruitingViewController: UICollectionViewDelegate, UICollectionVi
 extension PostRecruitingViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            imgForUpload.contentMode = .scaleToFill
-            imgForUpload.image = pickedImage //4
+            
+            switch imgSelectNum{
+            case 0:
+                imgForUpload.contentMode = .scaleToFill
+                imgForUpload.image = pickedImage //4
+            case 1:
+                imgForUpload1.contentMode = .scaleToFill
+                imgForUpload1.image = pickedImage //4
+                imgForUpload2.isHidden = false
+                imgUploadButton2.isHidden = false
+            default:
+                imgForUpload2.contentMode = .scaleToFill
+                imgForUpload2.image = pickedImage //4
+            }
         }
+        
+        imgSelectNum += 1
         dismiss(animated: true, completion: nil)
     }
         

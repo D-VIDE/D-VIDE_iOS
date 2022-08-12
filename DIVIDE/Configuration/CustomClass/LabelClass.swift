@@ -40,6 +40,7 @@ class MainLabel: UILabel {
         case .bold:
             self.textColor = .mainDarkGray
             self.font = UIFont.NotoSansKR(.bold, size: 15)
+            self.textAlignment = .left
         case .medium:
             self.textColor = .mainDarkGray
             self.font = UIFont.NotoSansKR(.medium, size: 15)
