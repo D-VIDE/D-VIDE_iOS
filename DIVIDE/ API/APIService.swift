@@ -11,18 +11,18 @@ import Moya
 public let token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlbWFpbEBnbWFpbC5jb20iLCJhdXRoIjoiVVNFUiIsImV4cCI6MjY2MDEyOTMxMH0.vbzMK8T0YUKb3TTc-y-t_fQfRJaiGV2dHxQqk-Hvim8Qkoryzw9Rs5sLg-NC9j6FFL_l5fFoPwOLIjuMtm7fQA"
 
 enum APIService {
-    case postRecruiting(userId: Int, title: String, storeName: String, content: String, targetPrice: Int, deliveryPrice: Int, longitude: Double, latitude: Double, category: String, targetTime: Int)
+    case postRecruiting(title: String, storeName: String, content: String, targetPrice: Int, deliveryPrice: Int, longitude: Double, latitude: Double, category: String, targetTime: Int, img: Data)
 }
 
 extension APIService: TargetType {
     var baseURL: URL {
-            return URL(string: "http://divide.kro.kr")!
+            return URL(string: "http://divide.kro.kr/api")!
     }
         
     var path: String {
         switch self { //path에 쓰일 parameter 받을 때만 let
         case .postRecruiting(_, _, _, _, _, _, _, _, _, _):
-            return "/api/v1/post"
+            return "/v1/post"
         }
     }
     
@@ -59,7 +59,7 @@ extension APIService: TargetType {
     
     var task: Task {
         switch self {
-        case .postRecruiting(let userId, let title, let storeName, let content, let targetPrice, let deliveryPrice, let longitude, let latitude, let category, let targetTime):
+        case .postRecruiting(let title, let storeName, let content, let targetPrice, let deliveryPrice, let longitude, let latitude, let category, let targetTime, let img):
             let params: [String: Any] = [
                 "title": title,
                 "storeName": storeName,
@@ -75,7 +75,21 @@ extension APIService: TargetType {
             ]
             
             
-            return .requestParameters(parameters: params, encoding: JSONEncoding.default)
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: params, options: [])
+                print(jsonData)
+                let imgData = MultipartFormData(provider: .data(img), name: "postImageFiles", fileName: "postImage.jpeg", mimeType: "image/jpeg")
+                let requestData = MultipartFormData(provider: .data(jsonData), name: "request")
+                let multipartData = [requestData, imgData]
+                
+                return .uploadMultipart(multipartData)
+
+            
+            } catch {
+                print("절대 안돼")
+                print(error.localizedDescription)
+                return .requestData(img)
+            }
         }
     }
     
