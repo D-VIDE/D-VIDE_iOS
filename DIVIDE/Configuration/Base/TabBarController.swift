@@ -41,8 +41,8 @@ class TabBarController: UITabBarController {
         let TabList = [firstTab, secondTab, thirdTab, fourthTab]
         
         self.tabBar.backgroundColor = .white
-        self.tabBar.tintColor = .mainGray
-        self.tabBar.unselectedItemTintColor = .mainGray
+        self.tabBar.tintColor = .gray3
+        self.tabBar.unselectedItemTintColor = .gray2
         self.tabBar.roundCorners(cornerRadius: 26, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
         
         TabList.forEach {

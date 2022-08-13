@@ -21,7 +21,7 @@ class ChatListViewController: UIViewController {
     
     lazy var navigationView = UIView().then {
         $0.backgroundColor = .white
-        $0.layer.addBorder([.bottom], color: .mainLightGray, width: 1)
+        $0.layer.addBorder([.bottom], color: .borderGray, width: 1)
         $0.layer.cornerRadius = 18
         $0.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMaxYCorner, .layerMinXMaxYCorner)
         $0.layer.addShadow(location: .bottom)

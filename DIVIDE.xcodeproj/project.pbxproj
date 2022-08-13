@@ -15,6 +15,8 @@
 		3294CDAA289D07E800FF14AD /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3294CDA9289D07E800FF14AD /* ChatListViewController.swift */; };
 		3294CDAC289D0A4400FF14AD /* ChatListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3294CDAB289D0A4400FF14AD /* ChatListTableViewCell.swift */; };
 		32AA8E4C28A4EEE300BA68E3 /* MoyaInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AA8E4B28A4EEE300BA68E3 /* MoyaInterceptor.swift */; };
+		32AA8E4E28A760FC00BA68E3 /* SNSTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AA8E4D28A760FC00BA68E3 /* SNSTableViewCell.swift */; };
+		32AA8E5028A7655800BA68E3 /* SNSCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AA8E4F28A7655800BA68E3 /* SNSCollectionViewCell.swift */; };
 		32AAD824289BA44700902A2A /* NotoSansKR-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 32AAD81B289BA44700902A2A /* NotoSansKR-Light.otf */; };
 		32AAD825289BA44700902A2A /* NotoSansKR-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 32AAD81C289BA44700902A2A /* NotoSansKR-Bold.otf */; };
 		32AAD826289BA44700902A2A /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 32AAD81D289BA44700902A2A /* NotoSansKR-Thin.otf */; };
@@ -37,8 +39,6 @@
 		FA2AE75C2897C0B000702D43 /* 채팅Unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2AE7582897C0AF00702D43 /* 채팅Unselected.png */; };
 		FA2AE75D2897C0B000702D43 /* 리뷰Unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2AE7592897C0B000702D43 /* 리뷰Unselected.png */; };
 		FA2C9ECB289A201600B3ACAC /* DetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C9ECA289A201600B3ACAC /* DetailPage.swift */; };
-		FA4967BA288A9D5C000247E4 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = FA4967B9288A9D5C000247E4 /* Kingfisher */; };
-		FA4967BD288A9D83000247E4 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = FA4967BC288A9D83000247E4 /* Kingfisher */; };
 		FA4967C4288A9E2B000247E4 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4967C3288A9E2B000247E4 /* HomeTableViewCell.swift */; };
 		FA4967CA288AA249000247E4 /* pizzaImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FA4967C9288AA249000247E4 /* pizzaImage.jpg */; };
 		FA59C601288D762F001ADD50 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = FA59C600288D762F001ADD50 /* logo.png */; };
@@ -69,7 +69,7 @@
 		FAAD48FC289ABA0100508C12 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD48FA289ABA0100508C12 /* Device.swift */; };
 		FAAD4903289ABA1200508C12 /* ButtonClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD48FD289ABA1200508C12 /* ButtonClass.swift */; };
 		FAAD4904289ABA1200508C12 /* ViewClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD48FE289ABA1200508C12 /* ViewClass.swift */; };
-		FAAD4905289ABA1200508C12 /* CollectionViewClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD48FF289ABA1200508C12 /* CollectionViewClass.swift */; };
+		FAAD4905289ABA1200508C12 /* LeftAlignedClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD48FF289ABA1200508C12 /* LeftAlignedClass.swift */; };
 		FAAD4906289ABA1200508C12 /* TextFieldClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD4900289ABA1200508C12 /* TextFieldClass.swift */; };
 		FAAD4907289ABA1200508C12 /* LabelClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD4901289ABA1200508C12 /* LabelClass.swift */; };
 		FAAD4908289ABA1200508C12 /* NavBarClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD4902289ABA1200508C12 /* NavBarClass.swift */; };
@@ -86,6 +86,8 @@
 		3294CDA9289D07E800FF14AD /* ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
 		3294CDAB289D0A4400FF14AD /* ChatListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewCell.swift; sourceTree = "<group>"; };
 		32AA8E4B28A4EEE300BA68E3 /* MoyaInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaInterceptor.swift; sourceTree = "<group>"; };
+		32AA8E4D28A760FC00BA68E3 /* SNSTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSTableViewCell.swift; sourceTree = "<group>"; };
+		32AA8E4F28A7655800BA68E3 /* SNSCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSCollectionViewCell.swift; sourceTree = "<group>"; };
 		32AAD81B289BA44700902A2A /* NotoSansKR-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Light.otf"; sourceTree = "<group>"; };
 		32AAD81C289BA44700902A2A /* NotoSansKR-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Bold.otf"; sourceTree = "<group>"; };
 		32AAD81D289BA44700902A2A /* NotoSansKR-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Thin.otf"; sourceTree = "<group>"; };
@@ -140,7 +142,7 @@
 		FAAD48FA289ABA0100508C12 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		FAAD48FD289ABA1200508C12 /* ButtonClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonClass.swift; sourceTree = "<group>"; };
 		FAAD48FE289ABA1200508C12 /* ViewClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewClass.swift; sourceTree = "<group>"; };
-		FAAD48FF289ABA1200508C12 /* CollectionViewClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewClass.swift; sourceTree = "<group>"; };
+		FAAD48FF289ABA1200508C12 /* LeftAlignedClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftAlignedClass.swift; sourceTree = "<group>"; };
 		FAAD4900289ABA1200508C12 /* TextFieldClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldClass.swift; sourceTree = "<group>"; };
 		FAAD4901289ABA1200508C12 /* LabelClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelClass.swift; sourceTree = "<group>"; };
 		FAAD4902289ABA1200508C12 /* NavBarClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavBarClass.swift; sourceTree = "<group>"; };
@@ -151,8 +153,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA4967BD288A9D83000247E4 /* Kingfisher in Frameworks */,
-				FA4967BA288A9D5C000247E4 /* Kingfisher in Frameworks */,
 				78B691AC0D85452047520A6D /* Pods_DIVIDE.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -336,6 +336,8 @@
 			isa = PBXGroup;
 			children = (
 				FA59C614289115EE001ADD50 /* SNSViewController.swift */,
+				32AA8E4F28A7655800BA68E3 /* SNSCollectionViewCell.swift */,
+				32AA8E4D28A760FC00BA68E3 /* SNSTableViewCell.swift */,
 			);
 			path = SNS;
 			sourceTree = "<group>";
@@ -395,7 +397,7 @@
 			isa = PBXGroup;
 			children = (
 				FAAD48FD289ABA1200508C12 /* ButtonClass.swift */,
-				FAAD48FF289ABA1200508C12 /* CollectionViewClass.swift */,
+				FAAD48FF289ABA1200508C12 /* LeftAlignedClass.swift */,
 				FAAD4901289ABA1200508C12 /* LabelClass.swift */,
 				FAAD4902289ABA1200508C12 /* NavBarClass.swift */,
 				FAAD4900289ABA1200508C12 /* TextFieldClass.swift */,
@@ -453,8 +455,6 @@
 			);
 			name = DIVIDE;
 			packageProductDependencies = (
-				FA4967B9288A9D5C000247E4 /* Kingfisher */,
-				FA4967BC288A9D83000247E4 /* Kingfisher */,
 			);
 			productName = DIVIDE;
 			productReference = 324C3438286AF32A0057286A /* DIVIDE.app */;
@@ -578,9 +578,10 @@
 				32B7B8A828A248100092CFD6 /* PostRecrutingViewModel.swift in Sources */,
 				FAAD48FC289ABA0100508C12 /* Device.swift in Sources */,
 				FA8A71F8289ABA4700E26196 /* UIColor.swift in Sources */,
-				FAAD4905289ABA1200508C12 /* CollectionViewClass.swift in Sources */,
+				FAAD4905289ABA1200508C12 /* LeftAlignedClass.swift in Sources */,
 				FA8A7200289ABA4700E26196 /* UIImageView.swift in Sources */,
 				32B7B8A628A245350092CFD6 /* PostRecruitingResponse.swift in Sources */,
+				32AA8E4E28A760FC00BA68E3 /* SNSTableViewCell.swift in Sources */,
 				3294CDAA289D07E800FF14AD /* ChatListViewController.swift in Sources */,
 				FAAD4908289ABA1200508C12 /* NavBarClass.swift in Sources */,
 				324C3440286AF32A0057286A /* HomeViewController.swift in Sources */,
@@ -600,6 +601,7 @@
 				FA8A71FF289ABA4700E26196 /* UINavigationController.swift in Sources */,
 				FA8A71F9289ABA4700E26196 /* String.swift in Sources */,
 				FAAD4907289ABA1200508C12 /* LabelClass.swift in Sources */,
+				32AA8E5028A7655800BA68E3 /* SNSCollectionViewCell.swift in Sources */,
 				FA2C9ECB289A201600B3ACAC /* DetailPage.swift in Sources */,
 				32B7B8A428A23FAB0092CFD6 /* APIService.swift in Sources */,
 				324C343C286AF32A0057286A /* AppDelegate.swift in Sources */,
@@ -837,19 +839,6 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		FA4967B9288A9D5C000247E4 /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
-		};
-		FA4967BC288A9D83000247E4 /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FA4967B8288A9D5C000247E4 /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 324C3430286AF32A0057286A /* Project object */;
 }

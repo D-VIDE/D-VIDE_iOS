@@ -17,13 +17,13 @@ class TagCollectionViewCell: UICollectionViewCell {
                 tagLabel.textColor = .white
             } else {
                 contentView.backgroundColor = .white
-                tagLabel.textColor = .mainGray
+                tagLabel.textColor = .gray2
             }
         }
     }
     
     let tagLabel = MainLabel().then {
-        $0.textColor = .mainGray
+        $0.textColor = .gray2
         $0.font = UIFont.NotoSansKR(.bold, size: 12)
     }
     

@@ -13,7 +13,7 @@ import DropDown
 import ReusableKit
 import NMapsMap
 
-enum Reusable {
+enum PostReusable {
     static let tagCell = ReusableCell<TagCollectionViewCell>()
   }
 
@@ -57,41 +57,39 @@ class PostRecruitingViewController: UIViewController {
     
     
     // UILabel 정의
-    let titleLabel = MainLabel(type: .bold).then {
+    let titleLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 제목"
     }
-    let storeLabel = MainLabel(type: .bold).then {
+    let storeLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 가게 이름"
     }
-    let categoryLabel = MainLabel(type: .bold).then {
+    let categoryLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 카테고리"
     }
-    let deliveryFeeLabel = MainLabel(type: .bold).then {
+    let deliveryFeeLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 배달비"
     }
-    let deliveryFeeUnitLabel = MainLabel(type: .bold).then {
+    let deliveryFeeUnitLabel = MainLabel(type: .Point2).then {
         $0.text = "원"
-        $0.textColor = .mainLightGray
-        $0.font = UIFont.NotoSansKR(.bold, size: 12)
+        $0.textColor = .unitGray
     }
-    let aimUnitLabel = MainLabel(type: .bold).then {
+    let aimUnitLabel = MainLabel(type: .Point2).then {
         $0.text = "원"
-        $0.textColor = .mainLightGray
-        $0.font = UIFont.NotoSansKR(.bold, size: 12)
+        $0.textColor = .unitGray
     }
-    let deliveryAimMoneyLabel = MainLabel(type: .bold).then {
+    let deliveryAimMoneyLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 목표 금액"
     }
-    let dueTimeLabel = MainLabel(type: .bold).then {
+    let dueTimeLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 마감 시간"
     }
-    let photoLabel = MainLabel(type: .bold).then {
+    let photoLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 사진"
     }
-    let placeLabel = MainLabel(type: .bold).then {
+    let placeLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 장소"
     }
-    let contentLabel = MainLabel(type: .bold).then {
+    let contentLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 내용"
     }
     
@@ -130,15 +128,15 @@ class PostRecruitingViewController: UIViewController {
         $0.layer.cornerRadius = 20
         $0.isScrollEnabled = false
         $0.collectionViewLayout = layout
-        $0.register(Reusable.tagCell)
+        $0.register(PostReusable.tagCell)
       }
     
     //UITextView 정의
     let contentTextView = UITextView().then {
         $0.textContainerInset = UIEdgeInsets(top: 18.0, left: 18.0, bottom: 18.0, right: 18.0)
         $0.backgroundColor = .white
-        $0.layer.borderWidth = 0.2
-        $0.layer.borderColor = UIColor.mainLightGray.cgColor
+//        $0.layer.borderWidth = 0.2
+//        $0.layer.borderColor = UIColor.borderGray.cgColor
         $0.layer.cornerRadius = 18
         $0.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMinYCorner, .layerMaxXMaxYCorner)
         $0.layer.addShadow(location: .all)
@@ -148,8 +146,8 @@ class PostRecruitingViewController: UIViewController {
         
     let mapView = NMFMapView().then {
         $0.backgroundColor = .white
-        $0.layer.borderWidth = 0.2
-        $0.layer.borderColor = UIColor.mainLightGray.cgColor
+//        $0.layer.borderWidth = 0.2
+//        $0.layer.borderColor = UIColor.borderGray.cgColor
         $0.layer.cornerRadius = 18
         $0.clipsToBounds = true
         $0.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMinYCorner, .layerMaxXMaxYCorner)
@@ -225,7 +223,7 @@ class PostRecruitingViewController: UIViewController {
             .font: UIFont.SDSamliphopang(.basic, size: 25)
         ]
         
-        navigationController?.navigationBar.layer.addBorder([.bottom, .left, .right], color: .mainLightGray, width: 0.1)
+        navigationController?.navigationBar.layer.addBorder([.bottom, .left, .right], color: .borderGray, width: 0.1)
         navigationController?.navigationBar.topItem?.title = "D/VIDE 모집글 작성"
         navigationController?.navigationBar.layer.cornerRadius = 18
         navigationController?.navigationBar.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMaxYCorner, .layerMinXMaxYCorner)
@@ -548,7 +546,7 @@ class PostRecruitingViewController: UIViewController {
         if let title = titleTextField.text, let store = storeTextField.text, let category = categoryTextField.text, let deliveryFee = deliveryFeeTextField.text, let targetPrice = deliveryAimTextField.text, let content = contentTextView.text, let targetTime = milliseconds, let data = imgForUpload.image?.jpegData(compressionQuality: 1)
  {
             
-            apiManager.requestpostRecruiting(title: title, storeName: store, content: content, targetPrice: Int(targetPrice)!, deliveryPrice: Int(deliveryFee)!, longitude: coordinate.lng, latitude: coordinate.lat, category: category, targetTime: targetTime, img: data) { [weak self] result in
+            apiManager.requestpostRecruiting(title: title, storeName: store, content: content, targetPrice: Int(targetPrice)!, deliveryPrice: Int(deliveryFee)!, longitude: coordinate.lng, latitude: coordinate.lat, category: category, targetTime: targetTime) { [weak self] result in
                 switch result {
                 case .success(let response):
                     self?.presentAlert(title: "post 성공: \(response.postId)")
@@ -611,7 +609,7 @@ extension PostRecruitingViewController: UICollectionViewDelegate, UICollectionVi
         return tagList.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeue(Reusable.tagCell, for: indexPath)
+        let cell = collectionView.dequeue(PostReusable.tagCell, for: indexPath)
         cell.tagLabel.text = tagList[indexPath.row]
         
         return cell
@@ -619,7 +617,7 @@ extension PostRecruitingViewController: UICollectionViewDelegate, UICollectionVi
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        let label = MainLabel(type: .bold).then {
+        let label = MainLabel(type: .Point2).then {
             $0.text = tagList[indexPath.item]
             $0.sizeToFit()
         }
@@ -629,7 +627,7 @@ extension PostRecruitingViewController: UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.dequeue(Reusable.tagCell, for: indexPath)
+        let cell = collectionView.dequeue(PostReusable.tagCell, for: indexPath)
         categoryTextField.text = tagList[indexPath.row]
         inOutCategory()
 

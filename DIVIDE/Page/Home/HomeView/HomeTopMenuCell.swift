@@ -12,9 +12,8 @@ class HomeTopMenuCell: UICollectionViewCell {
     
     static let identifier = "HomeTopMenuCell"
     
-    let menuLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 12, weight: .bold)
-        $0.textColor = .mainGray
+    let menuLabel = MainLabel(type: .Basics2).then {
+        $0.textColor = .gray2
     }
     
 //    override var isSelected: Bool{

@@ -57,7 +57,7 @@ class HomeTableViewCell: UITableViewCell {
     
     private let closingTimeTitle = UILabel().then{
         $0.text = "마감시간"
-        $0.textColor = .mainGray
+        $0.textColor = .gray2
         $0.textAlignment = .center
         $0.font = .systemFont(ofSize: 10, weight: .medium)
     }
@@ -78,7 +78,7 @@ class HomeTableViewCell: UITableViewCell {
     
     private let insufficientChargeTitle = UILabel().then{
         $0.text = "부족한 금액"
-        $0.textColor = .mainGray
+        $0.textColor = .gray2
         $0.textAlignment = .center
         $0.font = .systemFont(ofSize: 10, weight: .medium)
     }
@@ -97,7 +97,7 @@ class HomeTableViewCell: UITableViewCell {
         $0.font = .boldSystemFont(ofSize: 10)
     }
     private let progressBarBackground = UIView().then{
-        $0.backgroundColor = .mainGray
+        $0.backgroundColor = .gray4
     }
     
     private let progressBar = UIView().then{

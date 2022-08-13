@@ -24,10 +24,19 @@ extension UIColor {
     class var mainOrange2: UIColor { UIColor(hex: 0xFF7C03)}
     class var mainYellow: UIColor { UIColor(hex: 0xFFBD2F)}
     
-    class var mainDarkGray: UIColor { UIColor(hex: 0x5B5B5B)}
-    class var mainGray: UIColor { UIColor(hex: 0x8D8D8D)}
-    class var mainLightGray: UIColor { UIColor(hex: 0xB0B0B0)}
-    class var backgroundGray: UIColor { UIColor(hex: 0xF5F5F5)}
+    
+    class var gray3: UIColor { UIColor(hex: 0x5B5B5B)}
+    class var gray2: UIColor { UIColor(hex: 0x8D8D8D)}
+    class var gray1: UIColor { UIColor(hex: 0xB0B0B0)}
+    class var gray0: UIColor { UIColor(hex: 0xF3F3F3)}
+    class var gray1_1: UIColor { UIColor(hex: 0xF3F3F3)}
+    class var gray4: UIColor { UIColor(hex: 0xF3F3F3)}
+    class var unitGray: UIColor { UIColor(hex: 0x777777)}
+    class var shadowGray: UIColor { UIColor(hex: 000000, alpha: 15) }
+    class var highlight: UIColor { UIColor(hex: 0xFF4800)}
+    class var recruitDone: UIColor { UIColor(hex: 0xDD5B5B)}
+    
+    class var borderGray : UIColor {UIColor(hex: 0xF3F3F3)}
     class var viewBackgroundGray: UIColor { UIColor(hex: 0xF8F8F8)}
 
 }

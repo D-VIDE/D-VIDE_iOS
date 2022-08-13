@@ -22,28 +22,26 @@ class ChatListTableViewCell: UITableViewCell {
         $0.image = UIImage(systemName: "globe.asia.australia")
         $0.roundCorners(cornerRadius: 15, maskedCorners: [.layerMinXMaxYCorner, .layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner])
     }
-    let titleLabel = MainLabel(type: .bold).then {
+    let titleLabel = MainLabel(type: .Point4).then {
         $0.text = "삼첩분식 드실 분 ~"
         $0.textColor = .black
     }
     
-    let lastTextLabel = MainLabel(type: .medium).then {
+    let lastTextLabel = MainLabel(type: .Basics1).then {
         $0.text = "넹 좋아요"
-        $0.font = UIFont.NotoSansKR(.medium, size: 11)
-        $0.textColor = .lightGray
+        $0.textColor = .gray2
     }
     
-    let timeLabel = MainLabel(type: .regular).then {
+    let timeLabel = MainLabel(type: .small1).then {
         $0.text = "오후 2:32"
-        $0.textColor = .lightGray
+        $0.textColor = .gray1
     }
     let msgNumView = UIView().then {
         $0.backgroundColor = .mainYellow
         $0.cornerRadius = 10
     }
-    let msgNumLabel = MainLabel(type: .medium).then {
+    let msgNumLabel = MainLabel(type: .Basics3).then {
         $0.text = "5"
-        $0.font = UIFont.NotoSansKR(.medium, size: 11)
         $0.textColor = .white
     }
     
