@@ -32,7 +32,9 @@ class PostRecruitingViewController: UIViewController {
     var tagList: [String] = ["한식", "중식", "양식", "태국식", "남원정", "정지윤", "정명진", "조병우", "홍유준", "패스파인더"]
     
     
+    let viewModel = PostRecruitingViewModel()
     let apiManager = PostRecruitingAPIManager()
+    var disposeBag = DisposeBag()
     
     // 위,경도
     var coordinate = NMGLatLng(lat: 37, lng: 127)
@@ -189,58 +191,65 @@ class PostRecruitingViewController: UIViewController {
         $0.distribution = .equalSpacing
         $0.spacing = 10
     }
-
-    //View for Button 정의
-    lazy var imgUploadView1 = UIView().then {
-        $0.tag = 0
-        $0.backgroundColor = .clear
-        $0.isUserInteractionEnabled = true
-        $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto(_:))))
-    }
-    lazy var imgUploadView2 = UIView().then {
-        $0.tag = 1
-        $0.backgroundColor = .clear
-        $0.isUserInteractionEnabled = true
-        $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto(_:))))
-    }
     
-    lazy var imgUploadView3 = UIView().then {
-        $0.tag = 2
-        $0.backgroundColor = .clear
-        $0.isUserInteractionEnabled = true
-        $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto(_:))))
-    }
     
     // UIImageView 선언
     lazy var imgForUpload1 = CustomImageView().then {
         $0.image = UIImage(named: "defaultPhoto")
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 13
-        $0.backgroundColor = .blue
-//        $0.snp.makeConstraints { make in
-//            make.height.equalTo(71)
-//            make.width.equalTo(imgWidth)
-//        }
+        
+        $0.setOnEventListener { gesture in
+            self.currentTag = 1
+            if type(of: gesture) == UITapGestureRecognizer.self {
+                print("photo selected")
+                let imagePicker = UIImagePickerController()
+                imagePicker.sourceType = .photoLibrary
+                imagePicker.delegate = self //3
+                // imagePicker.allowsEditing = true
+                self.present(imagePicker, animated: true)
+            } else {
+                self.imgDropDown.show()
+            }
+        }
     }
     lazy var imgForUpload2 = CustomImageView().then {
         $0.image = UIImage(named: "selectPhoto")
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 13
-        $0.backgroundColor = .black
-//        $0.snp.makeConstraints { make in
-//            make.height.equalTo(71)
-//            make.width.equalTo(imgWidth)
-//        }
+        
+        $0.setOnEventListener { gesture in
+            self.currentTag = 2
+            if type(of: gesture) == UITapGestureRecognizer.self {
+                print("photo selected")
+                let imagePicker = UIImagePickerController()
+                imagePicker.sourceType = .photoLibrary
+                imagePicker.delegate = self //3
+                // imagePicker.allowsEditing = true
+                self.present(imagePicker, animated: true)
+            } else {
+                self.imgDropDown.show()
+            }
+        }
     }
-    lazy var imgForUpload3 = UIImageView().then {
+    lazy var imgForUpload3 = CustomImageView().then {
         $0.image = UIImage(named: "selectPhoto")
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 13
-        $0.backgroundColor = .red
-//        $0.snp.makeConstraints { make in
-//            make.height.equalTo(71)
-//            make.width.equalTo(imgWidth)
-//        }
+        
+        $0.setOnEventListener { gesture in
+            self.currentTag = 3
+            if type(of: gesture) == UITapGestureRecognizer.self {
+                print("photo selected")
+                let imagePicker = UIImagePickerController()
+                imagePicker.sourceType = .photoLibrary
+                imagePicker.delegate = self //3
+                // imagePicker.allowsEditing = true
+                self.present(imagePicker, animated: true)
+            } else {
+                self.imgDropDown.show()
+            }
+        }
     }
     
     lazy var mapPointer = UIImageView().then {
@@ -305,20 +314,10 @@ class PostRecruitingViewController: UIViewController {
         
         //UIImageView add
         scrollContentView.addSubview(imgStackView)
-        [imgForUpload2, imgForUpload1].forEach { img in
+        [imgForUpload1, imgForUpload2].forEach { img in
             imgStackView.addArrangedSubview(img)
         }
-//        imgStackView.addArrangedSubview(imgForUpload1)
-//        imgStackView.addArrangedSubview(imgForUpload2)
-//        imgStackView.addArrangedSubview(imgUploadView2)
-        
-        imgForUpload2.setOnEventListener {
-            print("Hello, World!")
-        }
-        
-        imgForUpload1.setOnEventListener {
-            print("Hello, World!")
-        }
+
 
         mapView.addSubviews([mapPointer, mapMarker])
         
@@ -326,9 +325,9 @@ class PostRecruitingViewController: UIViewController {
         categoryCollectionView.isHidden = true
 
         
-        initDropDown(dropDown: imgDropDown, anchor: imgUploadView1)
-        initDropDown(dropDown: imgDropDown, anchor: imgUploadView2)
-        initDropDown(dropDown: imgDropDown, anchor: imgUploadView3)
+        initDropDown(dropDown: imgDropDown, anchor: imgForUpload1)
+        initDropDown(dropDown: imgDropDown, anchor: imgForUpload2)
+        initDropDown(dropDown: imgDropDown, anchor: imgForUpload3)
 
 
         
@@ -610,15 +609,7 @@ class PostRecruitingViewController: UIViewController {
         self.dueTimeTextField.resignFirstResponder()
     }
 
-    @objc func selectPhoto(_ sender: UIView) {
-        print("photo selected")
-        currentTag = sender.tag
-        let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.delegate = self //3
-        // imagePicker.allowsEditing = true
-        present(imagePicker, animated: true)
-    }
+    
     
     @objc func longPressed(_ sender: UIView) {
         print("long pressed")
