@@ -17,4 +17,5 @@ target 'DIVIDE' do
   pod 'NMapsMap'
   pod 'Moya'
   pod 'Kingfisher'
+  pod 'RxGesture'
 end

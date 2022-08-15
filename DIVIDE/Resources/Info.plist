@@ -6,11 +6,11 @@
 	<string>위치 좀 쓸게</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>위치 좀 쓸게</string>
-    <key>NSAppTransportSecurity</key>
-        <dict>
-            <key>NSAllowsArbitraryLoads</key>
-            <true/>
-        </dict>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>UIAppFonts</key>
 	<array>
 		<string>NotoSansKR-Regular.otf</string>

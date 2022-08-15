@@ -13,12 +13,19 @@ import DropDown
 import ReusableKit
 import NMapsMap
 
+import RxSwift
+import RxCocoa
+import RxGesture
+
+
+
 enum PostReusable {
     static let tagCell = ReusableCell<TagCollectionViewCell>()
   }
 
 
 public let imgWidth = (Device.width - 139 - 20) / 3
+public let textfieldWidth = Device.width - 139
 
 class PostRecruitingViewController: UIViewController {
     
@@ -29,96 +36,105 @@ class PostRecruitingViewController: UIViewController {
     
     // 위,경도
     var coordinate = NMGLatLng(lat: 37, lng: 127)
-    lazy var CAMERA_POSITION = NMFCameraPosition(coordinate, zoom: 12, tilt: 0, heading: 0)
-    lazy var marker = NMFMarker(position: NMGLatLng(lat: coordinate.lat, lng: coordinate.lng))
 
+    // 사진
+    var currentTag : Int!
+    var imgArray: [UIImage]? = []
+    let imgDropDown = DropDown()
 
-    // 사진 고른 횟수
-    var imgSelectNum : Int!
     
     // 시간 milliseconds
     var milliseconds : Int?
     
     // UIScrollView 정의
-    let scrollView = UIScrollView().then {
+    lazy var scrollView = UIScrollView().then {
         $0.backgroundColor = .viewBackgroundGray
         $0.showsVerticalScrollIndicator = false
         $0.showsHorizontalScrollIndicator = false
     }
     
-    let scrollContentView = UIView().then {
+    lazy var scrollContentView = UIView().then {
         $0.backgroundColor = .viewBackgroundGray
     }
     
     // 중복 선언
-    let navBar = MainNavBar().then {
+    lazy var navBar = MainNavBar().then {
         $0.backgroundColor = .white
     }
     
     
     // UILabel 정의
-    let titleLabel = MainLabel(type: .Basics5).then {
+    lazy var titleLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 제목"
     }
-    let storeLabel = MainLabel(type: .Basics5).then {
+    lazy var storeLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 가게 이름"
     }
-    let categoryLabel = MainLabel(type: .Basics5).then {
+    lazy var categoryLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 카테고리"
     }
-    let deliveryFeeLabel = MainLabel(type: .Basics5).then {
+    lazy var deliveryFeeLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 배달비"
     }
-    let deliveryFeeUnitLabel = MainLabel(type: .Point2).then {
+    lazy var deliveryFeeUnitLabel = MainLabel(type: .Point2).then {
         $0.text = "원"
         $0.textColor = .unitGray
     }
-    let aimUnitLabel = MainLabel(type: .Point2).then {
+    lazy var aimUnitLabel = MainLabel(type: .Point2).then {
         $0.text = "원"
         $0.textColor = .unitGray
     }
-    let deliveryAimMoneyLabel = MainLabel(type: .Basics5).then {
+    lazy var deliveryAimMoneyLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 목표 금액"
     }
-    let dueTimeLabel = MainLabel(type: .Basics5).then {
+    lazy var dueTimeLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 마감 시간"
     }
-    let photoLabel = MainLabel(type: .Basics5).then {
+    lazy var photoLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 사진"
     }
-    let placeLabel = MainLabel(type: .Basics5).then {
+    lazy var placeLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 장소"
     }
-    let contentLabel = MainLabel(type: .Basics5).then {
+    lazy var contentLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 내용"
     }
     
     //UITextField 정의
-    let titleTextField = MainTextField(type: .main).then {
+    lazy var titleTextField = MainTextField(type: .main).then {
         $0.textFieldTextChanged($0)
+        $0.resignFirstResponder()
     }
-    let storeTextField = MainTextField(type: .main).then {
+    lazy var storeTextField = MainTextField(type: .main).then {
         $0.textFieldTextChanged($0)
+        $0.resignFirstResponder()
     }
-    let categoryTextField = MainTextField(type: .main).then {
+    lazy var categoryTextField = MainTextField(type: .main).then {
         $0.isUserInteractionEnabled = false
+        $0.resignFirstResponder()
     }
-    let deliveryFeeTextField = MainTextField(type: .main).then {
+    lazy var deliveryFeeTextField = MainTextField(type: .main).then {
         $0.textFieldTextChanged($0)
         $0.keyboardType = .numberPad
-        $0.text = $0.text?.insertComma
+        $0.delegate = self
+        $0.resignFirstResponder()
+
     }
-    let deliveryAimTextField = MainTextField(type: .main).then {
+    lazy var deliveryAimTextField = MainTextField(type: .main).then {
         $0.textFieldTextChanged($0)
         $0.keyboardType = .numberPad
-        $0.text = $0.text?.insertComma
+        $0.delegate = self
+        $0.resignFirstResponder()
+
     }
-    let dueTimeTextField = MainTextField(type: .main).then {
+    lazy var dueTimeTextField = MainTextField(type: .main).then {
         $0.textFieldTextChanged($0)
+        $0.resignFirstResponder()
+
     }
     
     // UICollectionView 정의
-    let categoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then {
+    lazy var categoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then {
         let layout = LeftAlignedCollectionViewFlowLayout()
         layout.minimumLineSpacing = 7
         layout.minimumInteritemSpacing = 7
@@ -132,7 +148,7 @@ class PostRecruitingViewController: UIViewController {
       }
     
     //UITextView 정의
-    let contentTextView = UITextView().then {
+    lazy var contentTextView = UITextView().then {
         $0.textContainerInset = UIEdgeInsets(top: 18.0, left: 18.0, bottom: 18.0, right: 18.0)
         $0.backgroundColor = .white
 //        $0.layer.borderWidth = 0.2
@@ -144,7 +160,7 @@ class PostRecruitingViewController: UIViewController {
 //        $0.addTarget(self, action: #selector(textFieldTextChanged(_:)), for: .editingChanged)
     }
         
-    let mapView = NMFMapView().then {
+    lazy var mapView = NMFMapView().then {
         $0.backgroundColor = .white
 //        $0.layer.borderWidth = 0.2
 //        $0.layer.borderColor = UIColor.borderGray.cgColor
@@ -155,50 +171,90 @@ class PostRecruitingViewController: UIViewController {
     }
     
     //UIButton 정의
-    let uploadButton =  MainButton(type: .mainAction).then {
+    lazy var uploadButton =  MainButton(type: .mainAction).then {
         $0.setTitle("업로드 하기", for: .normal)
         $0.addTarget(self, action: #selector(post), for: .touchUpInside)
     }
     
-    let dropDownButton = UIButton().then {
+    lazy var dropDownButton = UIButton().then {
         $0.setImage(UIImage(named: "dropDownButton"), for: .normal)
         $0.layer.cornerRadius = 18
         $0.addTarget(self, action: #selector(showCategory), for: .touchUpInside)
     }
     
+    //StackView 정의
+    lazy var imgStackView = UIStackView().then {
+        $0.axis = .horizontal
+//        $0.alignment = .fill
+        $0.distribution = .equalSpacing
+        $0.spacing = 10
+    }
+
     //View for Button 정의
-    lazy var imgUploadButton = UIView().then {
+    lazy var imgUploadView1 = UIView().then {
+        $0.tag = 0
         $0.backgroundColor = .clear
         $0.isUserInteractionEnabled = true
-        $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto)))
+        $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto(_:))))
+    }
+    lazy var imgUploadView2 = UIView().then {
+        $0.tag = 1
+        $0.backgroundColor = .clear
+        $0.isUserInteractionEnabled = true
+        $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto(_:))))
     }
     
-    lazy var imgUploadButton2 = UIView().then {
+    lazy var imgUploadView3 = UIView().then {
+        $0.tag = 2
         $0.backgroundColor = .clear
         $0.isUserInteractionEnabled = true
-        $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto)))
+        $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto(_:))))
     }
     
     // UIImageView 선언
-    let imgForUpload = UIImageView().then {
+    lazy var imgForUpload1 = CustomImageView().then {
         $0.image = UIImage(named: "defaultPhoto")
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 13
+        $0.backgroundColor = .blue
+//        $0.snp.makeConstraints { make in
+//            make.height.equalTo(71)
+//            make.width.equalTo(imgWidth)
+//        }
     }
-    let imgForUpload1 = UIImageView().then {
+    lazy var imgForUpload2 = CustomImageView().then {
         $0.image = UIImage(named: "selectPhoto")
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 13
+        $0.backgroundColor = .black
+//        $0.snp.makeConstraints { make in
+//            make.height.equalTo(71)
+//            make.width.equalTo(imgWidth)
+//        }
     }
-    let imgForUpload2 = UIImageView().then {
+    lazy var imgForUpload3 = UIImageView().then {
         $0.image = UIImage(named: "selectPhoto")
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 13
+        $0.backgroundColor = .red
+//        $0.snp.makeConstraints { make in
+//            make.height.equalTo(71)
+//            make.width.equalTo(imgWidth)
+//        }
+    }
+    
+    lazy var mapPointer = UIImageView().then {
+        $0.image = UIImage(named: "pointer")
+    }
+    lazy var mapMarker = UIImageView().then {
+        $0.image = UIImage(named: "mSNormalBlue")
     }
     
     //DatePicker 정의
-    let datePicker = UIDatePicker().then {
+    lazy var datePicker = UIDatePicker().then {
         $0.preferredDatePickerStyle = .wheels
+        $0.minimumDate = .now
+        $0.minuteInterval = 5
         $0.datePickerMode = .time
         $0.locale = Locale(identifier: "ko-KR")
         $0.timeZone = .autoupdatingCurrent
@@ -210,14 +266,9 @@ class PostRecruitingViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         view.backgroundColor = .viewBackgroundGray
-        
-
-        let image = UIImage(named: "NavRecruitPost")
-        
         navigationController?.view.backgroundColor = .white
         navigationController?.navigationBar.isTransparent = false
         navigationController?.navigationBar.backgroundColor = .white
-        
         navigationController?.navigationBar.titleTextAttributes = [
             .foregroundColor: UIColor.mainOrange2,
             .font: UIFont.SDSamliphopang(.basic, size: 25)
@@ -250,43 +301,48 @@ class PostRecruitingViewController: UIViewController {
         
         //UIButton add
         scrollContentView.addSubviews([uploadButton, dropDownButton])
-        imgForUpload1.addSubview(imgUploadButton)
-        imgForUpload2.addSubview(imgUploadButton2)
-        
+
         
         //UIImageView add
-        scrollContentView.addSubviews([imgForUpload, imgForUpload1, imgForUpload2])
+        scrollContentView.addSubview(imgStackView)
+        [imgForUpload2, imgForUpload1].forEach { img in
+            imgStackView.addArrangedSubview(img)
+        }
+//        imgStackView.addArrangedSubview(imgForUpload1)
+//        imgStackView.addArrangedSubview(imgForUpload2)
+//        imgStackView.addArrangedSubview(imgUploadView2)
         
-        imgUploadButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto)))
+        imgForUpload2.setOnEventListener {
+            print("Hello, World!")
+        }
+        
+        imgForUpload1.setOnEventListener {
+            print("Hello, World!")
+        }
 
+        mapView.addSubviews([mapPointer, mapMarker])
         
         dueTimeTextField.inputView = datePicker
         categoryCollectionView.isHidden = true
-        imgUploadButton2.isHidden = true
-        imgForUpload2.isHidden = true
-        imgSelectNum = 0
+
         
-        
-        imgUploadButton.isUserInteractionEnabled = true
-        imgUploadButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto)))
-        imgUploadButton2.isUserInteractionEnabled = true
-        imgUploadButton2.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto)))
+        initDropDown(dropDown: imgDropDown, anchor: imgUploadView1)
+        initDropDown(dropDown: imgDropDown, anchor: imgUploadView2)
+        initDropDown(dropDown: imgDropDown, anchor: imgUploadView3)
+
+
         
         setConstraints()
-        
+        initLongPressGesture()
         //카메라 이동
-        mapView.touchDelegate = self
-        mapView.moveCamera(NMFCameraUpdate(position: CAMERA_POSITION))
+        mapView.addCameraDelegate(delegate: self)
+        mapView.moveCamera(NMFCameraUpdate(position: NMFCameraPosition(NMGLatLng(lat: coordinate.lat, lng: coordinate.lng), zoom: 16, tilt: 0, heading: 0)))
 
-        // Creates a marker in the center of the map.
-        marker.iconImage = NMF_MARKER_IMAGE_BLACK
-        marker.mapView = mapView
+//        imgUploadView2.isUserInteractionEnabled = true
+//        imgUploadView2.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto)))
+//        imgUploadView3.isUserInteractionEnabled = true
+//        imgUploadView3.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto)))
         
-        
-        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.setMarker))
-        longPressRecognizer.minimumPressDuration = 0.5
-        mapView.addGestureRecognizer(longPressRecognizer)
-
         
     }
     
@@ -346,7 +402,7 @@ class PostRecruitingViewController: UIViewController {
         photoLabel.snp.makeConstraints { make in
             make.leading.equalTo(scrollContentView.snp.leading).offset(26)
             make.width.equalTo(93)
-            make.top.equalTo(imgForUpload.snp.top)
+            make.top.equalTo(imgForUpload1.snp.top)
         }
         placeLabel.snp.makeConstraints { make in
             make.leading.equalTo(scrollContentView.snp.leading).offset(26)
@@ -413,7 +469,7 @@ class PostRecruitingViewController: UIViewController {
         
         //UIView
         mapView.snp.makeConstraints { make in
-            make.top.equalTo(imgForUpload.snp.bottom).offset(17)
+            make.top.equalTo(imgForUpload1.snp.bottom).offset(17)
             make.leading.equalTo(placeLabel.snp.trailing)
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(178)
@@ -427,7 +483,6 @@ class PostRecruitingViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(178)
         }
-        
         
         //Button
         uploadButton.snp.makeConstraints { make in
@@ -443,31 +498,44 @@ class PostRecruitingViewController: UIViewController {
             make.centerY.equalTo(categoryTextField.snp.centerY)
             make.trailing.equalTo(categoryTextField.snp.trailing)
         }
-        imgUploadButton.snp.makeConstraints { make in
-            make.edges.equalTo(imgForUpload1.snp.edges)
-        }
-        imgUploadButton2.snp.makeConstraints { make in
-            make.edges.equalTo(imgForUpload2.snp.edges)
-        }
+        
+        
+        
         
         //UIImageView
-        imgForUpload.snp.makeConstraints { make in
+        imgStackView.snp.makeConstraints { make in
             make.top.equalTo(dueTimeTextField.snp.bottom).offset(17)
-            make.leading.equalTo(dueTimeLabel.snp.trailing)
-            make.height.equalTo(71)
-            make.width.equalTo(imgWidth)
+            make.leading.equalTo(photoLabel.snp.trailing)
+//            make.height.equalTo(71)
+//            make.trailing.lessThanOrEqualToSuperview().offset(-20)
         }
         imgForUpload1.snp.makeConstraints { make in
-            make.centerY.equalTo(imgForUpload.snp.centerY)
-            make.leading.equalTo(imgForUpload.snp.trailing).offset(10)
             make.height.equalTo(71)
             make.width.equalTo(imgWidth)
         }
         imgForUpload2.snp.makeConstraints { make in
-            make.centerY.equalTo(imgForUpload.snp.centerY)
-            make.leading.equalTo(imgUploadButton.snp.trailing).offset(10)
             make.height.equalTo(71)
             make.width.equalTo(imgWidth)
+        }
+//        imgForUpload3.snp.makeConstraints { make in
+//            make.height.equalTo(71)
+//            make.width.equalTo(imgWidth)
+//        }
+//
+//        imgUploadView2.snp.makeConstraints { make in
+//            make.edges.equalTo(imgForUpload2.snp.edges)
+//        }
+        
+        
+        mapPointer.snp.makeConstraints { make in
+            make.width.height.equalTo(14)
+            make.center.equalToSuperview()
+        }
+        mapMarker.snp.makeConstraints { make in
+            make.width.equalTo(40)
+            make.height.equalTo(53)
+            make.centerX.equalTo(mapPointer)
+            make.bottom.equalTo(mapPointer.snp.top).offset(7)
         }
     }
     
@@ -495,21 +563,56 @@ class PostRecruitingViewController: UIViewController {
     }
     
     
+    func initLongPressGesture() {
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
+        self.imgStackView.arrangedSubviews.forEach { view in
+            view.addGestureRecognizer(longPressRecognizer)
+        }
+    }
+    
+    func initDropDown(dropDown: DropDown, anchor: UIView) {
+        dropDown.anchorView = anchor
+        dropDown.bottomOffset = CGPoint(x: 0, y:(dropDown.anchorView?.plainView.bounds.height)!)
+        dropDown.direction = .bottom
+        
+        dropDown.dataSource = ["삭제"]
+        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            imgArray?.remove(at: currentTag)
+            
+            switch imgArray?.count {
+            case 2:
+                imgForUpload1.image = imgArray?[0]
+                imgForUpload2.image = imgArray?[1]
+                imgForUpload3.image = UIImage(named: "selectPhoto")
+            case 1:
+                imgForUpload1.image = imgArray?[0]
+                imgForUpload2.image = UIImage(named: "selectPhoto")
+                imgStackView.removeArrangedSubview(imgUploadView3)
+                imgStackView.removeArrangedSubview(imgForUpload3)
+            default:
+                imgForUpload1.image = UIImage(named: "defaultPhoto")
+                imgStackView.removeArrangedSubview(imgUploadView2)
+            }
+            
+            
+            //선택한 아이템 초기화
+            dropDown.clearSelection()
+        }
+    }
+    
+    
     @objc func handleDatePicker(_ sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "a h 시 m 분"
         let dateString = dateFormatter.string(from: sender.date)
-        milliseconds = Int(sender.date.timeIntervalSince1970)
+        milliseconds = Int(sender.date.timeIntervalSince1970) + 32400
         self.dueTimeTextField.text = dateString
         self.dueTimeTextField.resignFirstResponder()
     }
-    
-//    @objc func upload() {
-//        print("Button was tapped.")
-//        dropDown.show()
-//    }
-    @objc func selectPhoto() {
+
+    @objc func selectPhoto(_ sender: UIView) {
         print("photo selected")
+        currentTag = sender.tag
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self //3
@@ -517,36 +620,48 @@ class PostRecruitingViewController: UIViewController {
         present(imagePicker, animated: true)
     }
     
+    @objc func longPressed(_ sender: UIView) {
+        print("long pressed")
+        currentTag = sender.tag
+        imgDropDown.show()
+    }
+    
+    
     @objc func showCategory() {
         inOutCategory()
     }
     
-    @objc func setMarker(_ sender: UILongPressGestureRecognizer) {
-        print("Long Pressed")
-        
-        if sender.state == .began {
-            
-            marker.mapView = nil
-            
-            let coord = sender.location(in: mapView)
-            let latlng = mapView.projection.latlng(from: coord)
-            print(latlng)
-            
-            marker.position.lat = latlng.lat
-            marker.position.lng = latlng.lng
-            marker.mapView = mapView
-            print("위치 변경")
-        }
-    }
-    
+//    @objc func setMarker(_ sender: UILongPressGestureRecognizer) {
+//        print("Long Pressed")
+//
+//        if sender.state == .began {
+//
+//            marker.mapView = nil
+//
+//            let coord = sender.location(in: mapView)
+//            let latlng = mapView.projection.latlng(from: coord)
+//            print(latlng)
+//
+//            marker.position.lat = latlng.lat
+//            marker.position.lng = latlng.lng
+//            marker.mapView = mapView
+//            print("위치 변경")
+//        }
+//    }
+//
     @objc func post() {
         
         print("post")
         
-        if let title = titleTextField.text, let store = storeTextField.text, let category = categoryTextField.text, let deliveryFee = deliveryFeeTextField.text, let targetPrice = deliveryAimTextField.text, let content = contentTextView.text, let targetTime = milliseconds, let data = imgForUpload.image?.jpegData(compressionQuality: 1)
+        // Check 1: 있는지 없는지
+        if let title = titleTextField.text, let store = storeTextField.text, let category = categoryTextField.text, let deliveryFee = deliveryFeeTextField.text, let targetPrice = deliveryAimTextField.text, let content = contentTextView.text, let targetTime = milliseconds, let data = imgForUpload1.image?.jpegData(compressionQuality: 1)
  {
             
-            apiManager.requestpostRecruiting(title: title, storeName: store, content: content, targetPrice: Int(targetPrice)!, deliveryPrice: Int(deliveryFee)!, longitude: coordinate.lng, latitude: coordinate.lat, category: category, targetTime: targetTime) { [weak self] result in
+            // Check 2: 타입에 맞게 변환
+            // 일단은 KOREAN_FOOD만 넣어놓음
+            let inputData = PostRecruitingInput(title: title, storeName: store, content: content, targetPrice: Int(deliveryFee.split(separator: ",").joined())!, deliveryPrice: Int(targetPrice.split(separator: ",").joined())!, longitude: coordinate.lng, latitude: coordinate.lat, category: "KOREAN_FOOD", targetTime: targetTime)
+            
+            apiManager.requestpostRecruiting(param: inputData, img: data) { [weak self] result in
                 switch result {
                 case .success(let response):
                     self?.presentAlert(title: "post 성공: \(response.postId)")
@@ -565,7 +680,7 @@ extension PostRecruitingViewController: UITextFieldDelegate {
         // return -> 텍스트가 바뀌어야 한다면 true, 아니라면 false
         // 이 메소드 내에서 textField.text는 현재 입력된 string이 붙기 전의 string
         
-        if textField == deliveryFeeTextField {
+        if textField == deliveryFeeTextField || textField == deliveryAimTextField {
             let formatter = NumberFormatter()
             formatter.numberStyle = .decimal // 1,000,000
             formatter.locale = Locale.current
@@ -640,25 +755,49 @@ extension PostRecruitingViewController: UIImagePickerControllerDelegate, UINavig
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             
-            imgForUpload.contentMode = .scaleToFill
-            imgForUpload.image = pickedImage //4
-            
-//            switch imgSelectNum{
-//            case 0:
-//                imgForUpload.contentMode = .scaleToFill
-//                imgForUpload.image = pickedImage //4
-//            case 1:
-//                imgForUpload1.contentMode = .scaleToFill
-//                imgForUpload1.image = pickedImage //4
-//                imgForUpload2.isHidden = false
-//                imgUploadButton2.isHidden = false
-//            default:
-//                imgForUpload2.contentMode = .scaleToFill
-//                imgForUpload2.image = pickedImage //4
-//            }
+            //img 변경
+            if imgArray?.count == 3 {
+                imgArray?[currentTag] = pickedImage
+                switch currentTag{
+                case 0:
+                    imgForUpload1.contentMode = .scaleToFill
+                    imgForUpload1.image = imgArray?[0] //4
+                case 1:
+                    imgForUpload2.contentMode = .scaleToFill
+                    imgForUpload2.image = imgArray?[1] //4
+                default:
+                    imgForUpload3.contentMode = .scaleToFill
+                    imgForUpload3.image = imgArray?[2] //4
+                }
+            } else {
+                //img 추가
+                imgArray?.append(pickedImage)
+                            
+                switch imgArray?.count{
+                case 1:
+                    imgForUpload1.contentMode = .scaleToFill
+                    imgForUpload1.image = pickedImage //4
+                case 2:
+                    imgForUpload2.contentMode = .scaleToFill
+                    imgForUpload2.image = pickedImage //4
+                    imgStackView.addArrangedSubview(imgForUpload3)
+                    imgStackView.addArrangedSubview(imgUploadView3)
+                    
+                    imgUploadView3.snp.makeConstraints { make in
+                        make.edges.equalTo(imgForUpload3.snp.edges)
+                    }
+                default:
+                    imgForUpload3.contentMode = .scaleToFill
+                    imgForUpload3.image = pickedImage //4
+                    imgStackView.addArrangedSubview(imgForUpload1)
+                    
+                    imgUploadView1.snp.makeConstraints { make in
+                        make.edges.equalTo(imgForUpload1.snp.edges)
+                    }
+                }
+            }
         }
         
-//        imgSelectNum += 1
         dismiss(animated: true, completion: nil)
     }
         
@@ -667,20 +806,17 @@ extension PostRecruitingViewController: UIImagePickerControllerDelegate, UINavig
     }
 }
 
-extension PostRecruitingViewController: NMFMapViewTouchDelegate {
-    func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
-        
-        print("마커찍기")
-        marker.mapView = nil
-        
-        let newMarker = NMFMarker(position: NMGLatLng(lat: latlng.lat, lng: latlng.lng))
-        marker = newMarker
-        coordinate.lat = latlng.lat
-        coordinate.lng = latlng.lng
-        print(coordinate)
-        newMarker.iconImage = NMF_MARKER_IMAGE_BLACK
-        newMarker.mapView = mapView
-        
-   }
+extension PostRecruitingViewController: NMFMapViewCameraDelegate {
+    func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int) {
+        let camPosition = mapView.cameraPosition
+        coordinate.lat = camPosition.target.lat
+        coordinate.lng = camPosition.target.lng
+    }
+    
+    func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool) {
+        let camPosition = mapView.cameraPosition
+        coordinate.lat = camPosition.target.lat
+        coordinate.lng = camPosition.target.lng
+    }
 }
 

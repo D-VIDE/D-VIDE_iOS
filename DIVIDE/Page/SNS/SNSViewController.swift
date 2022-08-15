@@ -18,7 +18,6 @@ enum SNSReusable {
 
 class SNSViewController: UIViewController {
     
-    
     lazy var navigationView = UIView().then {
         $0.backgroundColor = .white
 //        $0.layer.addBorder([.bottom], color: .borderGray, width: 1)
@@ -34,9 +33,15 @@ class SNSViewController: UIViewController {
     lazy var recommendLabel = MainLabel(type: .Point2).then {
         $0.text = "• 디/바이더 추천 맛집"
     }
+    
     lazy var collectionView = UICollectionView().then {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 4
+        
         $0.dataSource = self
         $0.delegate = self
+        $0.collectionViewLayout = layout
         $0.backgroundColor = .viewBackgroundGray
         $0.showsVerticalScrollIndicator = false
 //        $0.refreshControl = UIRefreshControl()
@@ -53,6 +58,7 @@ class SNSViewController: UIViewController {
         $0.separatorStyle = .none
 //        $0.refreshControl = UIRefreshControl()
 //        $0.refreshControl?.addTarget(self, action: #selector(refreshTable(_:)), for: .valueChanged)
+        $0.tableHeaderView = collectionView
         $0.rowHeight = 146
         $0.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         $0.register(SNSReusable.snsCell)
@@ -96,7 +102,7 @@ class SNSViewController: UIViewController {
         }
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(recommendLabel.snp.bottom).offset(5)
-            make.horizontalEdges.equalToSuperview()
+            make.horizontalEdges.equalTo(tableView.tableHeaderView!.snp.horizontalEdges)
             make.height.equalTo(137)
         }
     }

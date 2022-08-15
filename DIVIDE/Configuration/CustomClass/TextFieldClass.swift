@@ -55,7 +55,7 @@ class MainTextField: UITextField {
     }
     
     @objc func textFieldTextChanged(_ sender: UITextField) {
-        if let text = sender.text, text.count > 0 && sender.isEditing {
+        if sender.isEditing {
             sender.backgroundColor = .white
             sender.borderWidth = 1.5
             sender.layer.borderColor = UIColor.mainOrange2.cgColor
