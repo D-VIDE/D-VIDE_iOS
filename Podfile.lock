@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (5.6.1)
   - DropDown (2.3.13)
+  - Kingfisher (7.3.0)
   - Moya (15.0.0):
     - Moya/Core (= 15.0.0)
   - Moya/Core (15.0.0):
@@ -21,6 +22,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - DropDown
+  - Kingfisher
   - Moya
   - NMapsMap
   - ReusableKit
@@ -34,6 +36,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - DropDown
+    - Kingfisher
     - Moya
     - NMapsMap
     - ReusableKit
@@ -46,6 +49,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 87bd8c952f9a4454320fce00d9cc3de57bcadaf5
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
+  Kingfisher: cdb1189a9223b1bc028816bd47c8b8101a58831c
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   NMapsMap: f151761c088d6516064c59da03ab6503769486e6
   ReusableKit: e5f853ad4652e411f96b6119b2488afa12929be6
@@ -55,6 +59,6 @@ SPEC CHECKSUMS:
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
 
-PODFILE CHECKSUM: 9c02a45e856f1d23c35c483debe7aad19d4eba11
+PODFILE CHECKSUM: 21ddb34a8ff1dde7f6a565c0ae5367b33da0469b
 
 COCOAPODS: 1.11.2

@@ -34,8 +34,8 @@ class MainTextField: UITextField {
         case .main:
             self.setPaddingFor(left: 18, right: 18)
             self.backgroundColor = .white
-            self.layer.borderWidth = 0.1
-            self.layer.borderColor = UIColor.mainLightGray.cgColor
+//            self.layer.borderWidth = 0.1
+//            self.layer.borderColor = UIColor.borderGray.cgColor
             self.layer.cornerRadius = 18
             self.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMinYCorner, .layerMaxXMaxYCorner)
             self.layer.addShadow(location: .all)
@@ -44,28 +44,14 @@ class MainTextField: UITextField {
             
         // 추후에 다른 타입 필요할 시 수정 에정
         case .color:
-            self.textColor = .mainOrange2
-            self.font = UIFont.AppleSDGothicNeo(.bold, size: 15)
+            self.textAlignment = .center
+            self.backgroundColor = .white
+            self.layer.borderWidth = 0.1
+            self.layer.borderColor = UIColor.mainYellow.cgColor
+            self.layer.cornerRadius = 18
+            self.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMinYCorner, .layerMaxXMaxYCorner)
+            self.font = UIFont.NotoSansKR(.medium, size: 20)
         }
-    }
-    
-    var style: TextFieldType = .main {
-       didSet {
-           switch style {
-           case .main:
-               self.setPaddingFor(left: 18, right: 18)
-               self.backgroundColor = .white
-               self.layer.borderWidth = 0.1
-               self.layer.borderColor = UIColor.mainLightGray.cgColor
-               self.layer.cornerRadius = 18
-               self.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMinYCorner, .layerMaxXMaxYCorner)
-               self.layer.addShadow(location: .all)
-               
-           case .color:
-               self.textColor = .mainOrange2
-               self.font = UIFont.AppleSDGothicNeo(.bold, size: 15)
-           }
-       }
     }
     
     @objc func textFieldTextChanged(_ sender: UITextField) {
@@ -76,7 +62,7 @@ class MainTextField: UITextField {
         } else {
             sender.backgroundColor = .white
             sender.borderWidth = 0.1
-            sender.layer.borderColor = UIColor.mainLightGray.cgColor
+            sender.layer.borderColor = .none
         }
     }
 }

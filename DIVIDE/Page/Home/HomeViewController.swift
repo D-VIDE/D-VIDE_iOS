@@ -71,7 +71,7 @@ class HomeViewController: UIViewController {
     }
     
     private func setHomeViewConstraint() {
-        self.view.backgroundColor = .backgroundGray
+        self.view.backgroundColor = .viewBackgroundGray
        
         
 

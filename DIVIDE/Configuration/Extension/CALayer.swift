@@ -44,7 +44,7 @@ extension CALayer {
             case all
         }
 
-    func addShadow(location: VerticalLocation, color: UIColor = .gray, opacity: Float = 0.3, radius: CGFloat = 2.0) {
+    func addShadow(location: VerticalLocation, color: UIColor = .shadowGray, opacity: Float = 0.3, radius: CGFloat = 2.0) {
         switch location {
         case .bottom:
              addShadow(offset: CGSize(width: 0, height: 2), color: color, opacity: opacity, radius: radius)

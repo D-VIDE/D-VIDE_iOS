@@ -22,7 +22,7 @@ class MainNavBar: UIView  {
     override init(frame: CGRect){
         super.init(frame: frame)
         self.backgroundColor = .white
-        self.layer.addBorder([.bottom], color: .mainLightGray, width: 1)
+        self.layer.addBorder([.bottom], color: .borderGray, width: 1)
         self.layer.cornerRadius = 18
         self.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMaxYCorner, .layerMinXMaxYCorner)
         self.layer.addShadow(location: .bottom)

@@ -16,4 +16,5 @@ target 'DIVIDE' do
   pod 'DropDown'
   pod 'NMapsMap'
   pod 'Moya'
+  pod 'Kingfisher'
 end

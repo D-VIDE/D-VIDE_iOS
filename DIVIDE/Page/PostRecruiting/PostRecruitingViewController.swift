@@ -13,7 +13,7 @@ import DropDown
 import ReusableKit
 import NMapsMap
 
-enum Reusable {
+enum PostReusable {
     static let tagCell = ReusableCell<TagCollectionViewCell>()
   }
 
@@ -57,41 +57,39 @@ class PostRecruitingViewController: UIViewController {
     
     
     // UILabel 정의
-    let titleLabel = MainLabel(type: .bold).then {
+    let titleLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 제목"
     }
-    let storeLabel = MainLabel(type: .bold).then {
+    let storeLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 가게 이름"
     }
-    let categoryLabel = MainLabel(type: .bold).then {
+    let categoryLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 카테고리"
     }
-    let deliveryFeeLabel = MainLabel(type: .bold).then {
+    let deliveryFeeLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 배달비"
     }
-    let deliveryFeeUnitLabel = MainLabel(type: .bold).then {
+    let deliveryFeeUnitLabel = MainLabel(type: .Point2).then {
         $0.text = "원"
-        $0.textColor = .mainLightGray
-        $0.font = UIFont.NotoSansKR(.bold, size: 12)
+        $0.textColor = .unitGray
     }
-    let aimUnitLabel = MainLabel(type: .bold).then {
+    let aimUnitLabel = MainLabel(type: .Point2).then {
         $0.text = "원"
-        $0.textColor = .mainLightGray
-        $0.font = UIFont.NotoSansKR(.bold, size: 12)
+        $0.textColor = .unitGray
     }
-    let deliveryAimMoneyLabel = MainLabel(type: .bold).then {
+    let deliveryAimMoneyLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 목표 금액"
     }
-    let dueTimeLabel = MainLabel(type: .bold).then {
+    let dueTimeLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 마감 시간"
     }
-    let photoLabel = MainLabel(type: .bold).then {
+    let photoLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 사진"
     }
-    let placeLabel = MainLabel(type: .bold).then {
+    let placeLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 장소"
     }
-    let contentLabel = MainLabel(type: .bold).then {
+    let contentLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 내용"
     }
     
@@ -130,15 +128,15 @@ class PostRecruitingViewController: UIViewController {
         $0.layer.cornerRadius = 20
         $0.isScrollEnabled = false
         $0.collectionViewLayout = layout
-        $0.register(Reusable.tagCell)
+        $0.register(PostReusable.tagCell)
       }
     
     //UITextView 정의
     let contentTextView = UITextView().then {
         $0.textContainerInset = UIEdgeInsets(top: 18.0, left: 18.0, bottom: 18.0, right: 18.0)
         $0.backgroundColor = .white
-        $0.layer.borderWidth = 0.2
-        $0.layer.borderColor = UIColor.mainLightGray.cgColor
+//        $0.layer.borderWidth = 0.2
+//        $0.layer.borderColor = UIColor.borderGray.cgColor
         $0.layer.cornerRadius = 18
         $0.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMinYCorner, .layerMaxXMaxYCorner)
         $0.layer.addShadow(location: .all)
@@ -148,8 +146,8 @@ class PostRecruitingViewController: UIViewController {
         
     let mapView = NMFMapView().then {
         $0.backgroundColor = .white
-        $0.layer.borderWidth = 0.2
-        $0.layer.borderColor = UIColor.mainLightGray.cgColor
+//        $0.layer.borderWidth = 0.2
+//        $0.layer.borderColor = UIColor.borderGray.cgColor
         $0.layer.cornerRadius = 18
         $0.clipsToBounds = true
         $0.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMinYCorner, .layerMaxXMaxYCorner)
@@ -169,13 +167,13 @@ class PostRecruitingViewController: UIViewController {
     }
     
     //View for Button 정의
-    let imgUploadButton = UIView().then {
+    lazy var imgUploadButton = UIView().then {
         $0.backgroundColor = .clear
         $0.isUserInteractionEnabled = true
         $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto)))
     }
     
-    let imgUploadButton2 = UIView().then {
+    lazy var imgUploadButton2 = UIView().then {
         $0.backgroundColor = .clear
         $0.isUserInteractionEnabled = true
         $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto)))
@@ -225,7 +223,7 @@ class PostRecruitingViewController: UIViewController {
             .font: UIFont.SDSamliphopang(.basic, size: 25)
         ]
         
-        navigationController?.navigationBar.layer.addBorder([.bottom, .left, .right], color: .mainLightGray, width: 0.1)
+        navigationController?.navigationBar.layer.addBorder([.bottom, .left, .right], color: .borderGray, width: 0.1)
         navigationController?.navigationBar.topItem?.title = "D/VIDE 모집글 작성"
         navigationController?.navigationBar.layer.cornerRadius = 18
         navigationController?.navigationBar.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMaxYCorner, .layerMinXMaxYCorner)
@@ -259,7 +257,8 @@ class PostRecruitingViewController: UIViewController {
         //UIImageView add
         scrollContentView.addSubviews([imgForUpload, imgForUpload1, imgForUpload2])
         
-        
+        imgUploadButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto)))
+
         
         dueTimeTextField.inputView = datePicker
         categoryCollectionView.isHidden = true
@@ -479,6 +478,7 @@ class PostRecruitingViewController: UIViewController {
             deliveryFeeTextField.snp.remakeConstraints { make in
                 make.top.equalTo(categoryCollectionView.snp.bottom).offset(12)
                 make.leading.equalTo(deliveryFeeLabel.snp.trailing)
+                make.trailing.equalToSuperview().offset(-20)
                 make.height.equalTo(36)
             }
         } else {
@@ -486,6 +486,7 @@ class PostRecruitingViewController: UIViewController {
             deliveryFeeTextField.snp.remakeConstraints { make in
                 make.top.equalTo(categoryTextField.snp.bottom).offset(12)
                 make.leading.equalTo(deliveryFeeLabel.snp.trailing)
+                make.trailing.equalToSuperview().offset(-20)
                 make.height.equalTo(36)
             }
         }
@@ -542,9 +543,10 @@ class PostRecruitingViewController: UIViewController {
         
         print("post")
         
-        if let title = titleTextField.text, let store = storeTextField.text, let category = categoryTextField.text, let deliveryFee = deliveryFeeTextField.text, let targetPrice = deliveryAimTextField.text, let content = contentTextView.text, let targetTime = milliseconds {
+        if let title = titleTextField.text, let store = storeTextField.text, let category = categoryTextField.text, let deliveryFee = deliveryFeeTextField.text, let targetPrice = deliveryAimTextField.text, let content = contentTextView.text, let targetTime = milliseconds, let data = imgForUpload.image?.jpegData(compressionQuality: 1)
+ {
             
-            apiManager.requestpostRecruiting(userId: 1, title: title, storeName: store, content: content, targetPrice: Int(targetPrice)!, deliveryPrice: Int(deliveryFee)!, longitude: coordinate.lng, latitude: coordinate.lat, category: category, targetTime: targetTime) { [weak self] result in
+            apiManager.requestpostRecruiting(title: title, storeName: store, content: content, targetPrice: Int(targetPrice)!, deliveryPrice: Int(deliveryFee)!, longitude: coordinate.lng, latitude: coordinate.lat, category: category, targetTime: targetTime) { [weak self] result in
                 switch result {
                 case .success(let response):
                     self?.presentAlert(title: "post 성공: \(response.postId)")
@@ -607,7 +609,7 @@ extension PostRecruitingViewController: UICollectionViewDelegate, UICollectionVi
         return tagList.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeue(Reusable.tagCell, for: indexPath)
+        let cell = collectionView.dequeue(PostReusable.tagCell, for: indexPath)
         cell.tagLabel.text = tagList[indexPath.row]
         
         return cell
@@ -615,7 +617,7 @@ extension PostRecruitingViewController: UICollectionViewDelegate, UICollectionVi
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        let label = MainLabel(type: .bold).then {
+        let label = MainLabel(type: .Point2).then {
             $0.text = tagList[indexPath.item]
             $0.sizeToFit()
         }
@@ -625,7 +627,7 @@ extension PostRecruitingViewController: UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.dequeue(Reusable.tagCell, for: indexPath)
+        let cell = collectionView.dequeue(PostReusable.tagCell, for: indexPath)
         categoryTextField.text = tagList[indexPath.row]
         inOutCategory()
 
@@ -638,22 +640,25 @@ extension PostRecruitingViewController: UIImagePickerControllerDelegate, UINavig
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             
-            switch imgSelectNum{
-            case 0:
-                imgForUpload.contentMode = .scaleToFill
-                imgForUpload.image = pickedImage //4
-            case 1:
-                imgForUpload1.contentMode = .scaleToFill
-                imgForUpload1.image = pickedImage //4
-                imgForUpload2.isHidden = false
-                imgUploadButton2.isHidden = false
-            default:
-                imgForUpload2.contentMode = .scaleToFill
-                imgForUpload2.image = pickedImage //4
-            }
+            imgForUpload.contentMode = .scaleToFill
+            imgForUpload.image = pickedImage //4
+            
+//            switch imgSelectNum{
+//            case 0:
+//                imgForUpload.contentMode = .scaleToFill
+//                imgForUpload.image = pickedImage //4
+//            case 1:
+//                imgForUpload1.contentMode = .scaleToFill
+//                imgForUpload1.image = pickedImage //4
+//                imgForUpload2.isHidden = false
+//                imgUploadButton2.isHidden = false
+//            default:
+//                imgForUpload2.contentMode = .scaleToFill
+//                imgForUpload2.image = pickedImage //4
+//            }
         }
         
-        imgSelectNum += 1
+//        imgSelectNum += 1
         dismiss(animated: true, completion: nil)
     }
         
