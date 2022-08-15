@@ -14,6 +14,7 @@
 		324C3448286AF32B0057286A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 324C3446286AF32B0057286A /* LaunchScreen.storyboard */; };
 		3294CDAA289D07E800FF14AD /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3294CDA9289D07E800FF14AD /* ChatListViewController.swift */; };
 		3294CDAC289D0A4400FF14AD /* ChatListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3294CDAB289D0A4400FF14AD /* ChatListTableViewCell.swift */; };
+		329B3DCB28AA272D00226775 /* PostRecruitingImgClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329B3DCA28AA272D00226775 /* PostRecruitingImgClass.swift */; };
 		32AA8E4C28A4EEE300BA68E3 /* MoyaInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AA8E4B28A4EEE300BA68E3 /* MoyaInterceptor.swift */; };
 		32AA8E4E28A760FC00BA68E3 /* SNSTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AA8E4D28A760FC00BA68E3 /* SNSTableViewCell.swift */; };
 		32AA8E5028A7655800BA68E3 /* SNSCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AA8E4F28A7655800BA68E3 /* SNSCollectionViewCell.swift */; };
@@ -85,6 +86,7 @@
 		324C3449286AF32B0057286A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3294CDA9289D07E800FF14AD /* ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
 		3294CDAB289D0A4400FF14AD /* ChatListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewCell.swift; sourceTree = "<group>"; };
+		329B3DCA28AA272D00226775 /* PostRecruitingImgClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRecruitingImgClass.swift; sourceTree = "<group>"; };
 		32AA8E4B28A4EEE300BA68E3 /* MoyaInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaInterceptor.swift; sourceTree = "<group>"; };
 		32AA8E4D28A760FC00BA68E3 /* SNSTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSTableViewCell.swift; sourceTree = "<group>"; };
 		32AA8E4F28A7655800BA68E3 /* SNSCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -402,6 +404,7 @@
 				FAAD4902289ABA1200508C12 /* NavBarClass.swift */,
 				FAAD4900289ABA1200508C12 /* TextFieldClass.swift */,
 				FAAD48FE289ABA1200508C12 /* ViewClass.swift */,
+				329B3DCA28AA272D00226775 /* PostRecruitingImgClass.swift */,
 			);
 			path = CustomClass;
 			sourceTree = "<group>";
@@ -583,6 +586,7 @@
 				32B7B8A628A245350092CFD6 /* PostRecruitingResponse.swift in Sources */,
 				32AA8E4E28A760FC00BA68E3 /* SNSTableViewCell.swift in Sources */,
 				3294CDAA289D07E800FF14AD /* ChatListViewController.swift in Sources */,
+				329B3DCB28AA272D00226775 /* PostRecruitingImgClass.swift in Sources */,
 				FAAD4908289ABA1200508C12 /* NavBarClass.swift in Sources */,
 				324C3440286AF32A0057286A /* HomeViewController.swift in Sources */,
 				FA8A7204289ABA4700E26196 /* Array.swift in Sources */,
