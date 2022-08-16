@@ -39,10 +39,10 @@ class PostRecruitingViewModel {
     
     var disposeBag = DisposeBag()
     
-    var imgArray = BehaviorRelay<[Int]>(value: [])
+    var imgArray : BehaviorRelay<[Int]> = BehaviorRelay(value: [])
     
-    imgArray.subscribe(onNext: {
-        print($0)
-    })
+//    imgArray.subscribe(onNext: {
+//        print($0)
+//    })
     
 }
