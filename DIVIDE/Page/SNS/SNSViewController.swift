@@ -34,21 +34,25 @@ class SNSViewController: UIViewController {
         $0.text = "• 디/바이더 추천 맛집"
     }
     
-    lazy var collectionView = UICollectionView().then {
+    lazy var collectionView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 4
+        layout.itemSize = CGSize(width: 106, height: 137)
+        layout.minimumInteritemSpacing = 4
+        layout.minimumLineSpacing = 0
         
-        $0.dataSource = self
-        $0.delegate = self
-        $0.collectionViewLayout = layout
-        $0.backgroundColor = .viewBackgroundGray
-        $0.showsVerticalScrollIndicator = false
-//        $0.refreshControl = UIRefreshControl()
-//        $0.refreshControl?.addTarget(self, action: #selector(refreshTable(_:)), for: .valueChanged)
-        $0.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        $0.register(SNSReusable.recommendCell)
-    }
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.dataSource = self
+        cv.delegate = self
+        cv.backgroundColor = .blue
+        cv.showsHorizontalScrollIndicator = false
+//        cv.refreshControl = UIRefreshControl()
+//        cv.refreshControl?.addTarget(self, action: #selector(refreshTable(_:)), for: .valueChanged)
+        cv.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        cv.register(SNSReusable.recommendCell)
+        
+        return cv
+    }()
     
     lazy var tableView = UITableView().then {
         $0.dataSource = self
@@ -58,10 +62,14 @@ class SNSViewController: UIViewController {
         $0.separatorStyle = .none
 //        $0.refreshControl = UIRefreshControl()
 //        $0.refreshControl?.addTarget(self, action: #selector(refreshTable(_:)), for: .valueChanged)
-        $0.tableHeaderView = collectionView
+//        $0.tableHeaderView = headerView
         $0.rowHeight = 146
         $0.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         $0.register(SNSReusable.snsCell)
+    }
+    
+    lazy var headerView = UIView().then {
+        $0.backgroundColor = .red
     }
     
 
@@ -73,7 +81,7 @@ class SNSViewController: UIViewController {
         
         self.view.addSubviews([navigationView, tableView])
         navigationView.addSubview(navigationLabel)
-        tableView.tableHeaderView?.addSubviews([recommendLabel, collectionView])
+//        headerView.addSubviews([recommendLabel, collectionView])
         
         setConstraints()
     }
@@ -93,18 +101,19 @@ class SNSViewController: UIViewController {
             make.horizontalEdges.equalTo(self.view)
             make.bottom.equalTo(self.view)
         }
-        tableView.tableHeaderView?.snp.makeConstraints { make in
-            make.height.equalTo(187)
-        }
-        recommendLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(15)
-            make.leading.equalToSuperview().offset(20)
-        }
-        collectionView.snp.makeConstraints { make in
-            make.top.equalTo(recommendLabel.snp.bottom).offset(5)
-            make.horizontalEdges.equalTo(tableView.tableHeaderView!.snp.horizontalEdges)
-            make.height.equalTo(137)
-        }
+//        headerView.snp.makeConstraints { make in
+//            make.edges.equalToSuperview()
+//        }
+//        recommendLabel.snp.makeConstraints { make in
+//            make.top.equalToSuperview().offset(15)
+//            make.leading.equalToSuperview().offset(20)
+//        }
+//        collectionView.snp.makeConstraints { make in
+//            make.top.equalTo(recommendLabel.snp.bottom).offset(5)
+//            make.horizontalEdges.equalToSuperview()
+//            make.height.equalTo(137)
+//            make.bottom.equalToSuperview()
+//        }
     }
     
     func refreshTable() {

@@ -18,4 +18,5 @@ target 'DIVIDE' do
   pod 'Moya'
   pod 'Kingfisher'
   pod 'RxGesture'
+  pod 'Cosmos'
 end
