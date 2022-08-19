@@ -12,6 +12,10 @@
 		324C3440286AF32A0057286A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324C343F286AF32A0057286A /* HomeViewController.swift */; };
 		324C3445286AF32B0057286A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 324C3444286AF32B0057286A /* Assets.xcassets */; };
 		324C3448286AF32B0057286A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 324C3446286AF32B0057286A /* LaunchScreen.storyboard */; };
+		326FA6F128AFADD7004A0268 /* SNSUpperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326FA6F028AFADD6004A0268 /* SNSUpperTableViewCell.swift */; };
+		326FA6F428AFC0CA004A0268 /* SNSViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326FA6F328AFC0CA004A0268 /* SNSViewModel.swift */; };
+		326FA6F828AFC8C3004A0268 /* SNSAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326FA6F728AFC8C3004A0268 /* SNSAPIManager.swift */; };
+		326FA6FA28AFC8D0004A0268 /* SNSResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326FA6F928AFC8D0004A0268 /* SNSResponse.swift */; };
 		3294CDAA289D07E800FF14AD /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3294CDA9289D07E800FF14AD /* ChatListViewController.swift */; };
 		3294CDAC289D0A4400FF14AD /* ChatListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3294CDAB289D0A4400FF14AD /* ChatListTableViewCell.swift */; };
 		329B3DCB28AA272D00226775 /* PostRecruitingImgClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329B3DCA28AA272D00226775 /* PostRecruitingImgClass.swift */; };
@@ -84,6 +88,10 @@
 		324C3444286AF32B0057286A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		324C3447286AF32B0057286A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		324C3449286AF32B0057286A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		326FA6F028AFADD6004A0268 /* SNSUpperTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSUpperTableViewCell.swift; sourceTree = "<group>"; };
+		326FA6F328AFC0CA004A0268 /* SNSViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSViewModel.swift; sourceTree = "<group>"; };
+		326FA6F728AFC8C3004A0268 /* SNSAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSAPIManager.swift; sourceTree = "<group>"; };
+		326FA6F928AFC8D0004A0268 /* SNSResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSResponse.swift; sourceTree = "<group>"; };
 		3294CDA9289D07E800FF14AD /* ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
 		3294CDAB289D0A4400FF14AD /* ChatListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewCell.swift; sourceTree = "<group>"; };
 		329B3DCA28AA272D00226775 /* PostRecruitingImgClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRecruitingImgClass.swift; sourceTree = "<group>"; };
@@ -200,6 +208,30 @@
 				324C343D286AF32A0057286A /* SceneDelegate.swift */,
 			);
 			path = DIVIDE;
+			sourceTree = "<group>";
+		};
+		326FA6F228AFC0B5004A0268 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				326FA6F328AFC0CA004A0268 /* SNSViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		326FA6F528AFC8A5004A0268 /* APIManager */ = {
+			isa = PBXGroup;
+			children = (
+				326FA6F728AFC8C3004A0268 /* SNSAPIManager.swift */,
+			);
+			path = APIManager;
+			sourceTree = "<group>";
+		};
+		326FA6F628AFC8AE004A0268 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				326FA6F928AFC8D0004A0268 /* SNSResponse.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		3294CDA8289D07CF00FF14AD /* Chat */ = {
@@ -337,9 +369,13 @@
 		FA59C6132891154A001ADD50 /* SNS */ = {
 			isa = PBXGroup;
 			children = (
+				326FA6F628AFC8AE004A0268 /* Model */,
+				326FA6F528AFC8A5004A0268 /* APIManager */,
+				326FA6F228AFC0B5004A0268 /* ViewModel */,
 				FA59C614289115EE001ADD50 /* SNSViewController.swift */,
 				32AA8E4F28A7655800BA68E3 /* SNSCollectionViewCell.swift */,
 				32AA8E4D28A760FC00BA68E3 /* SNSTableViewCell.swift */,
+				326FA6F028AFADD6004A0268 /* SNSUpperTableViewCell.swift */,
 			);
 			path = SNS;
 			sourceTree = "<group>";
@@ -606,12 +642,15 @@
 				FA8A71F9289ABA4700E26196 /* String.swift in Sources */,
 				FAAD4907289ABA1200508C12 /* LabelClass.swift in Sources */,
 				32AA8E5028A7655800BA68E3 /* SNSCollectionViewCell.swift in Sources */,
+				326FA6F828AFC8C3004A0268 /* SNSAPIManager.swift in Sources */,
 				FA2C9ECB289A201600B3ACAC /* DetailPage.swift in Sources */,
+				326FA6F128AFADD7004A0268 /* SNSUpperTableViewCell.swift in Sources */,
 				32B7B8A428A23FAB0092CFD6 /* APIService.swift in Sources */,
 				324C343C286AF32A0057286A /* AppDelegate.swift in Sources */,
 				324C343E286AF32A0057286A /* SceneDelegate.swift in Sources */,
 				FA8A71FA289ABA4700E26196 /* UINavigationBar.swift in Sources */,
 				FAAD48F3289AB85300508C12 /* PostRecruitingViewController.swift in Sources */,
+				326FA6F428AFC0CA004A0268 /* SNSViewModel.swift in Sources */,
 				FAAD48F2289AB85300508C12 /* TagCollectionViewCell.swift in Sources */,
 				FA59C615289115EE001ADD50 /* SNSViewController.swift in Sources */,
 				32B7B8AB28A24B400092CFD6 /* PostRecruitingAPIManager.swift in Sources */,
@@ -622,6 +661,7 @@
 				3294CDAC289D0A4400FF14AD /* ChatListTableViewCell.swift in Sources */,
 				FA8A7202289ABA4700E26196 /* CALayer.swift in Sources */,
 				FA4967C4288A9E2B000247E4 /* HomeTableViewCell.swift in Sources */,
+				326FA6FA28AFC8D0004A0268 /* SNSResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

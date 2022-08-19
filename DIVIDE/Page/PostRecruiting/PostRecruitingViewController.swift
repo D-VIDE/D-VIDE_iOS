@@ -32,7 +32,9 @@ class PostRecruitingViewController: UIViewController {
     var tagList: [String] = ["한식", "중식", "양식", "태국식", "남원정", "정지윤", "정명진", "조병우", "홍유준", "패스파인더"]
     
     
+    let viewModel = PostRecruitingViewModel()
     let apiManager = PostRecruitingAPIManager()
+    var disposeBag = DisposeBag()
     
     // 위,경도
     var coordinate = NMGLatLng(lat: 37, lng: 127)
@@ -40,7 +42,10 @@ class PostRecruitingViewController: UIViewController {
     // 사진
     var currentTag : Int!
     var imgArray: [UIImage]? = []
-    let imgDropDown = DropDown()
+    let imgDropDown1 = DropDown()
+    let imgDropDown2 = DropDown()
+    let imgDropDown3 = DropDown()
+
 
     
     // 시간 milliseconds
@@ -189,58 +194,69 @@ class PostRecruitingViewController: UIViewController {
         $0.distribution = .equalSpacing
         $0.spacing = 10
     }
-
-    //View for Button 정의
-    lazy var imgUploadView1 = UIView().then {
-        $0.tag = 0
-        $0.backgroundColor = .clear
-        $0.isUserInteractionEnabled = true
-        $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto(_:))))
-    }
-    lazy var imgUploadView2 = UIView().then {
-        $0.tag = 1
-        $0.backgroundColor = .clear
-        $0.isUserInteractionEnabled = true
-        $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto(_:))))
-    }
     
-    lazy var imgUploadView3 = UIView().then {
-        $0.tag = 2
-        $0.backgroundColor = .clear
-        $0.isUserInteractionEnabled = true
-        $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto(_:))))
-    }
     
     // UIImageView 선언
     lazy var imgForUpload1 = CustomImageView().then {
         $0.image = UIImage(named: "defaultPhoto")
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 13
-        $0.backgroundColor = .blue
-//        $0.snp.makeConstraints { make in
-//            make.height.equalTo(71)
-//            make.width.equalTo(imgWidth)
-//        }
+        
+        $0.setOnEventListener { gesture in
+            self.currentTag = 0
+            if type(of: gesture) == UITapGestureRecognizer.self {
+                print("photo selected")
+                let imagePicker = UIImagePickerController()
+                imagePicker.sourceType = .photoLibrary
+                imagePicker.delegate = self //3
+                // imagePicker.allowsEditing = true
+                self.present(imagePicker, animated: true)
+            } else {
+                print("LongPressed")
+                self.imgDropDown1.show()
+            }
+        }
+        $0.isUserInteractionEnabled = false
     }
     lazy var imgForUpload2 = CustomImageView().then {
         $0.image = UIImage(named: "selectPhoto")
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 13
-        $0.backgroundColor = .black
-//        $0.snp.makeConstraints { make in
-//            make.height.equalTo(71)
-//            make.width.equalTo(imgWidth)
-//        }
+        
+        $0.setOnEventListener { gesture in
+            self.currentTag = 1
+            if type(of: gesture) == UITapGestureRecognizer.self {
+                print("photo selected")
+                let imagePicker = UIImagePickerController()
+                imagePicker.sourceType = .photoLibrary
+                imagePicker.delegate = self //3
+                // imagePicker.allowsEditing = true
+                self.present(imagePicker, animated: true)
+            } else {
+                print("LongPressed")
+                self.imgDropDown2.show()
+            }
+        }
     }
-    lazy var imgForUpload3 = UIImageView().then {
+    lazy var imgForUpload3 = CustomImageView().then {
         $0.image = UIImage(named: "selectPhoto")
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 13
-        $0.backgroundColor = .red
-//        $0.snp.makeConstraints { make in
-//            make.height.equalTo(71)
-//            make.width.equalTo(imgWidth)
-//        }
+        
+        $0.setOnEventListener { gesture in
+            self.currentTag = 2
+            if type(of: gesture) == UITapGestureRecognizer.self {
+                print("photo selected")
+                let imagePicker = UIImagePickerController()
+                imagePicker.sourceType = .photoLibrary
+                imagePicker.delegate = self //3
+                // imagePicker.allowsEditing = true
+                self.present(imagePicker, animated: true)
+            } else {
+                print("LongPressed")
+                self.imgDropDown3.show()
+            }
+        }
     }
     
     lazy var mapPointer = UIImageView().then {
@@ -305,20 +321,10 @@ class PostRecruitingViewController: UIViewController {
         
         //UIImageView add
         scrollContentView.addSubview(imgStackView)
-        [imgForUpload2, imgForUpload1].forEach { img in
+        [imgForUpload1, imgForUpload2].forEach { img in
             imgStackView.addArrangedSubview(img)
         }
-//        imgStackView.addArrangedSubview(imgForUpload1)
-//        imgStackView.addArrangedSubview(imgForUpload2)
-//        imgStackView.addArrangedSubview(imgUploadView2)
-        
-        imgForUpload2.setOnEventListener {
-            print("Hello, World!")
-        }
-        
-        imgForUpload1.setOnEventListener {
-            print("Hello, World!")
-        }
+
 
         mapView.addSubviews([mapPointer, mapMarker])
         
@@ -326,22 +332,17 @@ class PostRecruitingViewController: UIViewController {
         categoryCollectionView.isHidden = true
 
         
-        initDropDown(dropDown: imgDropDown, anchor: imgUploadView1)
-        initDropDown(dropDown: imgDropDown, anchor: imgUploadView2)
-        initDropDown(dropDown: imgDropDown, anchor: imgUploadView3)
+        initDropDown(dropDown: imgDropDown1, anchor: imgForUpload1)
+        initDropDown(dropDown: imgDropDown2, anchor: imgForUpload2)
+        initDropDown(dropDown: imgDropDown3, anchor: imgForUpload3)
 
 
         
         setConstraints()
-        initLongPressGesture()
         //카메라 이동
         mapView.addCameraDelegate(delegate: self)
         mapView.moveCamera(NMFCameraUpdate(position: NMFCameraPosition(NMGLatLng(lat: coordinate.lat, lng: coordinate.lng), zoom: 16, tilt: 0, heading: 0)))
 
-//        imgUploadView2.isUserInteractionEnabled = true
-//        imgUploadView2.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto)))
-//        imgUploadView3.isUserInteractionEnabled = true
-//        imgUploadView3.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto)))
         
         
     }
@@ -517,15 +518,11 @@ class PostRecruitingViewController: UIViewController {
             make.height.equalTo(71)
             make.width.equalTo(imgWidth)
         }
-//        imgForUpload3.snp.makeConstraints { make in
-//            make.height.equalTo(71)
-//            make.width.equalTo(imgWidth)
-//        }
-//
-//        imgUploadView2.snp.makeConstraints { make in
-//            make.edges.equalTo(imgForUpload2.snp.edges)
-//        }
-        
+        imgForUpload3.snp.makeConstraints { make in
+            make.height.equalTo(71)
+            make.width.equalTo(imgWidth)
+        }
+
         
         mapPointer.snp.makeConstraints { make in
             make.width.height.equalTo(14)
@@ -562,15 +559,7 @@ class PostRecruitingViewController: UIViewController {
         categoryCollectionView.isHidden = !categoryCollectionView.isHidden
     }
     
-    
-    func initLongPressGesture() {
-        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
-        self.imgStackView.arrangedSubviews.forEach { view in
-            view.addGestureRecognizer(longPressRecognizer)
-        }
-    }
-    
-    func initDropDown(dropDown: DropDown, anchor: UIView) {
+    func initDropDown(dropDown: DropDown, anchor: UIImageView) {
         dropDown.anchorView = anchor
         dropDown.bottomOffset = CGPoint(x: 0, y:(dropDown.anchorView?.plainView.bounds.height)!)
         dropDown.direction = .bottom
@@ -585,13 +574,14 @@ class PostRecruitingViewController: UIViewController {
                 imgForUpload2.image = imgArray?[1]
                 imgForUpload3.image = UIImage(named: "selectPhoto")
             case 1:
+                print("1")
                 imgForUpload1.image = imgArray?[0]
                 imgForUpload2.image = UIImage(named: "selectPhoto")
-                imgStackView.removeArrangedSubview(imgUploadView3)
                 imgStackView.removeArrangedSubview(imgForUpload3)
+//                imgForUpload1.isUserInteractionEnabled = false
             default:
                 imgForUpload1.image = UIImage(named: "defaultPhoto")
-                imgStackView.removeArrangedSubview(imgUploadView2)
+                imgForUpload2.image = UIImage(named: "selectPhoto")
             }
             
             
@@ -610,21 +600,6 @@ class PostRecruitingViewController: UIViewController {
         self.dueTimeTextField.resignFirstResponder()
     }
 
-    @objc func selectPhoto(_ sender: UIView) {
-        print("photo selected")
-        currentTag = sender.tag
-        let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.delegate = self //3
-        // imagePicker.allowsEditing = true
-        present(imagePicker, animated: true)
-    }
-    
-    @objc func longPressed(_ sender: UIView) {
-        print("long pressed")
-        currentTag = sender.tag
-        imgDropDown.show()
-    }
     
     
     @objc func showCategory() {
@@ -654,14 +629,23 @@ class PostRecruitingViewController: UIViewController {
         print("post")
         
         // Check 1: 있는지 없는지
-        if let title = titleTextField.text, let store = storeTextField.text, let category = categoryTextField.text, let deliveryFee = deliveryFeeTextField.text, let targetPrice = deliveryAimTextField.text, let content = contentTextView.text, let targetTime = milliseconds, let data = imgForUpload1.image?.jpegData(compressionQuality: 1)
- {
+        if let title = titleTextField.text, let store = storeTextField.text, let category = categoryTextField.text, let deliveryFee = deliveryFeeTextField.text, let targetPrice = deliveryAimTextField.text, let content = contentTextView.text, let targetTime = milliseconds {
+            
+            var imgList : [Data] = []
+            imgArray?.forEach({ img in
+                if let jpegImg = img.jpegData(compressionQuality: 0.5) {
+                    imgList.append(jpegImg)
+                } else {
+                    print("사진 변환 오류")
+                    return
+                }
+            })
             
             // Check 2: 타입에 맞게 변환
             // 일단은 KOREAN_FOOD만 넣어놓음
             let inputData = PostRecruitingInput(title: title, storeName: store, content: content, targetPrice: Int(deliveryFee.split(separator: ",").joined())!, deliveryPrice: Int(targetPrice.split(separator: ",").joined())!, longitude: coordinate.lng, latitude: coordinate.lat, category: "KOREAN_FOOD", targetTime: targetTime)
             
-            apiManager.requestpostRecruiting(param: inputData, img: data) { [weak self] result in
+            apiManager.requestpostRecruiting(param: inputData, img: imgList) { [weak self] result in
                 switch result {
                 case .success(let response):
                     self?.presentAlert(title: "post 성공: \(response.postId)")
@@ -672,6 +656,7 @@ class PostRecruitingViewController: UIViewController {
         } else {
             self.presentAlert(title: "누락된 정보가 있습니다.")
         }
+        
     }
 }
 extension PostRecruitingViewController: UITextFieldDelegate {
@@ -781,19 +766,10 @@ extension PostRecruitingViewController: UIImagePickerControllerDelegate, UINavig
                     imgForUpload2.contentMode = .scaleToFill
                     imgForUpload2.image = pickedImage //4
                     imgStackView.addArrangedSubview(imgForUpload3)
-                    imgStackView.addArrangedSubview(imgUploadView3)
-                    
-                    imgUploadView3.snp.makeConstraints { make in
-                        make.edges.equalTo(imgForUpload3.snp.edges)
-                    }
                 default:
                     imgForUpload3.contentMode = .scaleToFill
                     imgForUpload3.image = pickedImage //4
-                    imgStackView.addArrangedSubview(imgForUpload1)
-                    
-                    imgUploadView1.snp.makeConstraints { make in
-                        make.edges.equalTo(imgForUpload1.snp.edges)
-                    }
+                    imgForUpload1.isUserInteractionEnabled = true
                 }
             }
         }

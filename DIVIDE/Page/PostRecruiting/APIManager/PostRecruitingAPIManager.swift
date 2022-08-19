@@ -11,7 +11,7 @@ import Moya
 struct PostRecruitingAPIManager {
     var realProvider = MoyaProvider<APIService>(plugins: [MoyaInterceptor()])
     
-    func requestpostRecruiting(param: PostRecruitingInput, img: Data, completion: @escaping (Result<PostRecruitingResponse, Error>) -> Void) {
+    func requestpostRecruiting(param: PostRecruitingInput, img: [Data], completion: @escaping (Result<PostRecruitingResponse, Error>) -> Void) {
         realProvider.request(.postRecruiting(param: param, img: img)) { result in
             switch result {
             case let .success(response):
