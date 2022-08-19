@@ -14,9 +14,19 @@ class SNSTableViewCell: UITableViewCell {
     
     static let identifier = "SNSTableViewCell"
     
+    let cellView = UIView().then {
+        $0.backgroundColor = .white
+        $0.roundCorners(cornerRadius: 26, maskedCorners: [.layerMaxXMinYCorner, .layerMaxXMaxYCorner])
+        $0.layer.addShadow(location: .all)
+    }
+    
+    let likeView = UIView().then {
+        $0.backgroundColor = .mainYellow
+    }
+    
     lazy var profileImg = UIImageView().then {
         $0.cornerRadius = 14
-        $0.image = UIImage(systemName: "person.fill")
+        $0.image = UIImage(named: "basicProfileImg")
         $0.clipsToBounds = true
     }
     lazy var nicknameLabel = MainLabel(type: .Basics1).then {
@@ -62,9 +72,13 @@ class SNSTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.backgroundColor = .viewBackgroundGray
-        contentView.addSubviews([profileImg, nicknameLabel, locationLabel, likeButton, likeCountLabel, foodImg, storeLabel, reviewLabel, starView])
+        contentView.addSubview(cellView)
+        contentView.addSubview(likeView)
+        cellView.addSubviews([profileImg, nicknameLabel, locationLabel, likeButton, likeCountLabel, foodImg, storeLabel, reviewLabel, starView])
         
         setConstraints()
+        
+        likeView.isHidden = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -84,26 +98,37 @@ class SNSTableViewCell: UITableViewCell {
     
     
     func setConstraints() {
+        cellView.snp.makeConstraints { make in
+            make.top.bottom.trailing.leading.equalToSuperview()
+                .inset(UIEdgeInsets(top: 0, left: 20, bottom: 15, right: 20))
+        }
+        likeView.snp.makeConstraints { make in
+            make.height.equalTo(146)
+            make.leading.equalToSuperview()
+            make.trailing.equalTo(cellView.snp.leading)
+            make.centerY.equalTo(cellView.snp.centerY)
+        }
         profileImg.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(9)
             make.leading.equalToSuperview().offset(19)
             make.width.height.equalTo(28)
         }
         nicknameLabel.snp.makeConstraints { make in
-            make.centerX.equalTo(profileImg)
+            make.centerY.equalTo(profileImg)
             make.leading.equalTo(profileImg.snp.trailing).offset(7)
         }
         locationLabel.snp.makeConstraints { make in
-            make.centerX.equalTo(profileImg)
+            make.centerY.equalTo(profileImg)
             make.leading.equalTo(nicknameLabel.snp.trailing).offset(7)
         }
         likeButton.snp.makeConstraints { make in
-            make.centerX.equalTo(profileImg)
-            make.trailing.equalToSuperview().offset(19)
+            make.centerY.equalTo(profileImg)
+            make.trailing.equalToSuperview().offset(-19)
             make.width.equalTo(17)
             make.height.equalTo(15)
         }
         likeCountLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(profileImg)
             make.trailing.equalTo(likeButton.snp.leading).offset(-3)
         }
         foodImg.snp.makeConstraints { make in
