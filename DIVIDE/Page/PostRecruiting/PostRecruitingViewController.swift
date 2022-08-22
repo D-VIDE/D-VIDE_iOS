@@ -28,12 +28,12 @@ public let imgWidth = (Device.width - 139 - 20) / 3
 public let textfieldWidth = Device.width - 139
 
 class PostRecruitingViewController: UIViewController {
-    
+
     var tagList: [String] = ["한식", "중식", "양식", "태국식", "남원정", "정지윤", "정명진", "조병우", "홍유준", "패스파인더"]
-    
-    
+
+
     let apiManager = PostRecruitingAPIManager()
-    
+
     // 위,경도
     var coordinate = NMGLatLng(lat: 37, lng: 127)
 
@@ -42,27 +42,27 @@ class PostRecruitingViewController: UIViewController {
     var imgArray: [UIImage]? = []
     let imgDropDown = DropDown()
 
-    
+
     // 시간 milliseconds
     var milliseconds : Int?
-    
+
     // UIScrollView 정의
     lazy var scrollView = UIScrollView().then {
         $0.backgroundColor = .viewBackgroundGray
         $0.showsVerticalScrollIndicator = false
         $0.showsHorizontalScrollIndicator = false
     }
-    
+
     lazy var scrollContentView = UIView().then {
         $0.backgroundColor = .viewBackgroundGray
     }
-    
+
     // 중복 선언
     lazy var navBar = MainNavBar().then {
         $0.backgroundColor = .white
     }
-    
-    
+
+
     // UILabel 정의
     lazy var titleLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 제목"
@@ -99,7 +99,7 @@ class PostRecruitingViewController: UIViewController {
     lazy var contentLabel = MainLabel(type: .Basics5).then {
         $0.text = "• 내용"
     }
-    
+
     //UITextField 정의
     lazy var titleTextField = MainTextField(type: .main).then {
         $0.textFieldTextChanged($0)
@@ -132,7 +132,7 @@ class PostRecruitingViewController: UIViewController {
         $0.resignFirstResponder()
 
     }
-    
+
     // UICollectionView 정의
     lazy var categoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then {
         let layout = LeftAlignedCollectionViewFlowLayout()
@@ -146,7 +146,7 @@ class PostRecruitingViewController: UIViewController {
         $0.collectionViewLayout = layout
         $0.register(PostReusable.tagCell)
       }
-    
+
     //UITextView 정의
     lazy var contentTextView = UITextView().then {
         $0.textContainerInset = UIEdgeInsets(top: 18.0, left: 18.0, bottom: 18.0, right: 18.0)
@@ -159,7 +159,7 @@ class PostRecruitingViewController: UIViewController {
         $0.font = UIFont.NotoSansKR(.medium, size: 15)
 //        $0.addTarget(self, action: #selector(textFieldTextChanged(_:)), for: .editingChanged)
     }
-        
+
     lazy var mapView = NMFMapView().then {
         $0.backgroundColor = .white
 //        $0.layer.borderWidth = 0.2
@@ -169,19 +169,19 @@ class PostRecruitingViewController: UIViewController {
         $0.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMinYCorner, .layerMaxXMaxYCorner)
         $0.layer.addShadow(location: .all)
     }
-    
+
     //UIButton 정의
     lazy var uploadButton =  MainButton(type: .mainAction).then {
         $0.setTitle("업로드 하기", for: .normal)
         $0.addTarget(self, action: #selector(post), for: .touchUpInside)
     }
-    
+
     lazy var dropDownButton = UIButton().then {
         $0.setImage(UIImage(named: "dropDownButton"), for: .normal)
         $0.layer.cornerRadius = 18
         $0.addTarget(self, action: #selector(showCategory), for: .touchUpInside)
     }
-    
+
     //StackView 정의
     lazy var imgStackView = UIStackView().then {
         $0.axis = .horizontal
@@ -203,14 +203,14 @@ class PostRecruitingViewController: UIViewController {
         $0.isUserInteractionEnabled = true
         $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto(_:))))
     }
-    
+
     lazy var imgUploadView3 = UIView().then {
         $0.tag = 2
         $0.backgroundColor = .clear
         $0.isUserInteractionEnabled = true
         $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto(_:))))
     }
-    
+
     // UIImageView 선언
     lazy var imgForUpload1 = CustomImageView().then {
         $0.image = UIImage(named: "defaultPhoto")
@@ -242,14 +242,14 @@ class PostRecruitingViewController: UIViewController {
 //            make.width.equalTo(imgWidth)
 //        }
     }
-    
+
     lazy var mapPointer = UIImageView().then {
         $0.image = UIImage(named: "pointer")
     }
     lazy var mapMarker = UIImageView().then {
         $0.image = UIImage(named: "mSNormalBlue")
     }
-    
+
     //DatePicker 정의
     lazy var datePicker = UIDatePicker().then {
         $0.preferredDatePickerStyle = .wheels
@@ -260,7 +260,7 @@ class PostRecruitingViewController: UIViewController {
         $0.timeZone = .autoupdatingCurrent
         $0.addTarget(self, action: #selector(handleDatePicker(_:)), for: .valueChanged)
     }
-    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -273,36 +273,36 @@ class PostRecruitingViewController: UIViewController {
             .foregroundColor: UIColor.mainOrange2,
             .font: UIFont.SDSamliphopang(.basic, size: 25)
         ]
-        
+
         navigationController?.navigationBar.layer.addBorder([.bottom, .left, .right], color: .borderGray, width: 0.1)
         navigationController?.navigationBar.topItem?.title = "D/VIDE 모집글 작성"
         navigationController?.navigationBar.layer.cornerRadius = 18
         navigationController?.navigationBar.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMaxYCorner, .layerMinXMaxYCorner)
-        
+
 //        navigationController?.additionalSafeAreaInsets.top = 40
-        
+
         self.view.addSubview(scrollView)
         scrollView.addSubview(scrollContentView)
-        
+
         categoryCollectionView.delegate = self
         categoryCollectionView.dataSource = self
-        
+
         //UILabel add
         scrollContentView.addSubviews([titleLabel, storeLabel, deliveryFeeLabel, deliveryAimMoneyLabel, dueTimeLabel, placeLabel, contentLabel, categoryLabel, photoLabel])
-        
+
         deliveryFeeTextField.addSubview(deliveryFeeUnitLabel)
         deliveryAimTextField.addSubview(aimUnitLabel)
-    
+
         //UITextField add
         scrollContentView.addSubviews([categoryCollectionView, titleTextField, storeTextField, categoryTextField, deliveryFeeTextField, deliveryAimTextField, dueTimeTextField])
-        
+
         // UIView add
         scrollContentView.addSubviews([contentTextView, mapView])
-        
+
         //UIButton add
         scrollContentView.addSubviews([uploadButton, dropDownButton])
 
-        
+
         //UIImageView add
         scrollContentView.addSubview(imgStackView)
         [imgForUpload2, imgForUpload1].forEach { img in
@@ -311,27 +311,27 @@ class PostRecruitingViewController: UIViewController {
 //        imgStackView.addArrangedSubview(imgForUpload1)
 //        imgStackView.addArrangedSubview(imgForUpload2)
 //        imgStackView.addArrangedSubview(imgUploadView2)
-        
+
         imgForUpload2.setOnEventListener {
             print("Hello, World!")
         }
-        
+
         imgForUpload1.setOnEventListener {
             print("Hello, World!")
         }
 
         mapView.addSubviews([mapPointer, mapMarker])
-        
+
         dueTimeTextField.inputView = datePicker
         categoryCollectionView.isHidden = true
 
-        
+
         initDropDown(dropDown: imgDropDown, anchor: imgUploadView1)
         initDropDown(dropDown: imgDropDown, anchor: imgUploadView2)
         initDropDown(dropDown: imgDropDown, anchor: imgUploadView3)
 
 
-        
+
         setConstraints()
         initLongPressGesture()
         //카메라 이동
@@ -342,12 +342,12 @@ class PostRecruitingViewController: UIViewController {
 //        imgUploadView2.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto)))
 //        imgUploadView3.isUserInteractionEnabled = true
 //        imgUploadView3.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto)))
-        
-        
+
+
     }
-    
+
     func setConstraints() {
-        
+
         // ScrollView
         scrollView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
@@ -359,7 +359,7 @@ class PostRecruitingViewController: UIViewController {
             make.edges.equalToSuperview()
             make.width.equalTo(scrollView.snp.width)
         }
-        
+
         // Label
         titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(scrollContentView.snp.leading).offset(26)
@@ -414,7 +414,7 @@ class PostRecruitingViewController: UIViewController {
             make.width.equalTo(93)
             make.top.equalTo(contentTextView.snp.top).offset(7)
         }
-        
+
         //TextField
         titleTextField.snp.makeConstraints { make in
             make.top.equalTo(scrollContentView.snp.top).offset(28)
@@ -458,15 +458,15 @@ class PostRecruitingViewController: UIViewController {
             make.height.equalTo(36)
 //            make.width.equalTo(251)
         }
-        
+
         //UICollectionView
         categoryCollectionView.snp.makeConstraints { make in
             make.top.equalTo(categoryTextField.snp.bottom).offset(-10)
             make.horizontalEdges.equalTo(categoryTextField.snp.horizontalEdges)
             make.height.equalTo(134)
         }
-        
-        
+
+
         //UIView
         mapView.snp.makeConstraints { make in
             make.top.equalTo(imgForUpload1.snp.bottom).offset(17)
@@ -474,7 +474,7 @@ class PostRecruitingViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(178)
         }
-        
+
         //UITextView
         contentTextView.snp.makeConstraints { make in
             make.top.equalTo(mapView.snp.bottom).offset(12)
@@ -483,7 +483,7 @@ class PostRecruitingViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(178)
         }
-        
+
         //Button
         uploadButton.snp.makeConstraints { make in
             make.top.greaterThanOrEqualTo(contentTextView.snp.bottom).offset(20)
@@ -498,10 +498,10 @@ class PostRecruitingViewController: UIViewController {
             make.centerY.equalTo(categoryTextField.snp.centerY)
             make.trailing.equalTo(categoryTextField.snp.trailing)
         }
-        
-        
-        
-        
+
+
+
+
         //UIImageView
         imgStackView.snp.makeConstraints { make in
             make.top.equalTo(dueTimeTextField.snp.bottom).offset(17)
@@ -525,8 +525,8 @@ class PostRecruitingViewController: UIViewController {
 //        imgUploadView2.snp.makeConstraints { make in
 //            make.edges.equalTo(imgForUpload2.snp.edges)
 //        }
-        
-        
+
+
         mapPointer.snp.makeConstraints { make in
             make.width.height.equalTo(14)
             make.center.equalToSuperview()
@@ -538,7 +538,7 @@ class PostRecruitingViewController: UIViewController {
             make.bottom.equalTo(mapPointer.snp.top).offset(7)
         }
     }
-    
+
 
     func inOutCategory() {
         if categoryCollectionView.isHidden {
@@ -558,27 +558,27 @@ class PostRecruitingViewController: UIViewController {
                 make.height.equalTo(36)
             }
         }
-        
+
         categoryCollectionView.isHidden = !categoryCollectionView.isHidden
     }
-    
-    
+
+
     func initLongPressGesture() {
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
         self.imgStackView.arrangedSubviews.forEach { view in
             view.addGestureRecognizer(longPressRecognizer)
         }
     }
-    
+
     func initDropDown(dropDown: DropDown, anchor: UIView) {
         dropDown.anchorView = anchor
         dropDown.bottomOffset = CGPoint(x: 0, y:(dropDown.anchorView?.plainView.bounds.height)!)
         dropDown.direction = .bottom
-        
+
         dropDown.dataSource = ["삭제"]
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             imgArray?.remove(at: currentTag)
-            
+
             switch imgArray?.count {
             case 2:
                 imgForUpload1.image = imgArray?[0]
@@ -593,14 +593,14 @@ class PostRecruitingViewController: UIViewController {
                 imgForUpload1.image = UIImage(named: "defaultPhoto")
                 imgStackView.removeArrangedSubview(imgUploadView2)
             }
-            
-            
+
+
             //선택한 아이템 초기화
             dropDown.clearSelection()
         }
     }
-    
-    
+
+
     @objc func handleDatePicker(_ sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "a h 시 m 분"
@@ -619,18 +619,18 @@ class PostRecruitingViewController: UIViewController {
         // imagePicker.allowsEditing = true
         present(imagePicker, animated: true)
     }
-    
+
     @objc func longPressed(_ sender: UIView) {
         print("long pressed")
         currentTag = sender.tag
         imgDropDown.show()
     }
-    
-    
+
+
     @objc func showCategory() {
         inOutCategory()
     }
-    
+
 //    @objc func setMarker(_ sender: UILongPressGestureRecognizer) {
 //        print("Long Pressed")
 //
@@ -650,17 +650,17 @@ class PostRecruitingViewController: UIViewController {
 //    }
 //
     @objc func post() {
-        
+
         print("post")
-        
+
         // Check 1: 있는지 없는지
         if let title = titleTextField.text, let store = storeTextField.text, let category = categoryTextField.text, let deliveryFee = deliveryFeeTextField.text, let targetPrice = deliveryAimTextField.text, let content = contentTextView.text, let targetTime = milliseconds, let data = imgForUpload1.image?.jpegData(compressionQuality: 1)
  {
-            
+
             // Check 2: 타입에 맞게 변환
             // 일단은 KOREAN_FOOD만 넣어놓음
             let inputData = PostRecruitingInput(title: title, storeName: store, content: content, targetPrice: Int(deliveryFee.split(separator: ",").joined())!, deliveryPrice: Int(targetPrice.split(separator: ",").joined())!, longitude: coordinate.lng, latitude: coordinate.lat, category: "KOREAN_FOOD", targetTime: targetTime)
-            
+
             apiManager.requestpostRecruiting(param: inputData, img: data) { [weak self] result in
                 switch result {
                 case .success(let response):
@@ -679,15 +679,15 @@ extension PostRecruitingViewController: UITextFieldDelegate {
         // replacementString : 방금 입력된 문자 하나, 붙여넣기 시에는 붙여넣어진 문자열 전체
         // return -> 텍스트가 바뀌어야 한다면 true, 아니라면 false
         // 이 메소드 내에서 textField.text는 현재 입력된 string이 붙기 전의 string
-        
+
         if textField == deliveryFeeTextField || textField == deliveryAimTextField {
             let formatter = NumberFormatter()
             formatter.numberStyle = .decimal // 1,000,000
             formatter.locale = Locale.current
             formatter.maximumFractionDigits = 0 // 허용하는 소숫점 자리수
-            
+
             // formatter.groupingSeparator // .decimal -> ,
-            
+
             if let removeAllSeprator = textField.text?.replacingOccurrences(of: formatter.groupingSeparator, with: ""){
                 var beforeForemattedString = removeAllSeprator + string
                 if formatter.number(from: string) != nil {
@@ -709,10 +709,10 @@ extension PostRecruitingViewController: UITextFieldDelegate {
                 }
 
             }
-            
+
             return true
         }
-        
+
         //다른 textField일 때
         return true
     }
@@ -726,7 +726,7 @@ extension PostRecruitingViewController: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeue(PostReusable.tagCell, for: indexPath)
         cell.tagLabel.text = tagList[indexPath.row]
-        
+
         return cell
     }
 
@@ -740,7 +740,7 @@ extension PostRecruitingViewController: UICollectionViewDelegate, UICollectionVi
 
         return CGSize(width: size.width + 16, height: size.height + 10)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.dequeue(PostReusable.tagCell, for: indexPath)
         categoryTextField.text = tagList[indexPath.row]
@@ -754,7 +754,7 @@ extension PostRecruitingViewController: UICollectionViewDelegate, UICollectionVi
 extension PostRecruitingViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            
+
             //img 변경
             if imgArray?.count == 3 {
                 imgArray?[currentTag] = pickedImage
@@ -772,7 +772,7 @@ extension PostRecruitingViewController: UIImagePickerControllerDelegate, UINavig
             } else {
                 //img 추가
                 imgArray?.append(pickedImage)
-                            
+
                 switch imgArray?.count{
                 case 1:
                     imgForUpload1.contentMode = .scaleToFill
@@ -782,7 +782,7 @@ extension PostRecruitingViewController: UIImagePickerControllerDelegate, UINavig
                     imgForUpload2.image = pickedImage //4
                     imgStackView.addArrangedSubview(imgForUpload3)
                     imgStackView.addArrangedSubview(imgUploadView3)
-                    
+
                     imgUploadView3.snp.makeConstraints { make in
                         make.edges.equalTo(imgForUpload3.snp.edges)
                     }
@@ -790,17 +790,17 @@ extension PostRecruitingViewController: UIImagePickerControllerDelegate, UINavig
                     imgForUpload3.contentMode = .scaleToFill
                     imgForUpload3.image = pickedImage //4
                     imgStackView.addArrangedSubview(imgForUpload1)
-                    
+
                     imgUploadView1.snp.makeConstraints { make in
                         make.edges.equalTo(imgForUpload1.snp.edges)
                     }
                 }
             }
         }
-        
+
         dismiss(animated: true, completion: nil)
     }
-        
+
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
@@ -812,7 +812,7 @@ extension PostRecruitingViewController: NMFMapViewCameraDelegate {
         coordinate.lat = camPosition.target.lat
         coordinate.lng = camPosition.target.lng
     }
-    
+
     func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool) {
         let camPosition = mapView.cameraPosition
         coordinate.lat = camPosition.target.lat

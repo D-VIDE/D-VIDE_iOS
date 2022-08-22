@@ -12,6 +12,7 @@ public let token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlbWFpbEBnbWFpbC5jb20iLCJhdXR
 
 enum APIService {
     case postRecruiting(param: PostRecruitingInput, img: Data)
+    case showAroundPost(param: ShowAroundPostInput)
 }
 
 extension APIService: TargetType {
@@ -21,7 +22,7 @@ extension APIService: TargetType {
         
     var path: String {
         switch self { //path에 쓰일 parameter 받을 때만 let
-        case .postRecruiting:
+        case .postRecruiting, .showAroundPost:
             return "/api/v1/post"
         }
     }
@@ -30,6 +31,8 @@ extension APIService: TargetType {
         switch self {
         case .postRecruiting:
             return .post
+        case .showAroundPost:
+            return .get
         }
     }
     
@@ -37,6 +40,8 @@ extension APIService: TargetType {
     var sampleData: Data {
         switch self {
         case .postRecruiting:
+            return Data()
+        case .showAroundPost:
             return Data()
         }
     }
@@ -64,12 +69,14 @@ extension APIService: TargetType {
                 print(error.localizedDescription)
                 return .requestData(img)
             }
+        case .showAroundPost:
+            return .requestPlain
         }
     }
     
     var headers: [String : String]? {
         switch self{
-        case .postRecruiting:
+        case .postRecruiting, .showAroundPost:
             return [
                 "Authorization" : "Bearer \(token)"
             ]

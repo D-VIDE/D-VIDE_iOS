@@ -45,6 +45,7 @@ class HomeViewController: UIViewController {
 
     }()
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         topMenuCollectionView.delegate = self
@@ -62,8 +63,8 @@ class HomeViewController: UIViewController {
         setTopMenuCollection()
         
         setTableViewConstraint()
+       
 //        setTableViewBackground()
-        
            // autoHeight
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = UITableView.automaticDimension
@@ -129,7 +130,8 @@ class HomeViewController: UIViewController {
             make.height.equalTo(300)
         }
     }
-
+    
+   
 }
 
 //컬렉션
@@ -186,7 +188,11 @@ extension HomeViewController:  UITableViewDelegate, UITableViewDataSource {
         return 168
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "DetailPage", sender: nil)
+        self.navigationController?.navigationBar.topItem?.title = ""
+        self.navigationController?.pushViewController(DetailViewController(), animated: true)
+        print(indexPath)
+        
+
     }
 }
 

@@ -110,6 +110,7 @@ class HomeTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setInfoConstraint()
         setContentsConstraint()
+        
 
     }
 
