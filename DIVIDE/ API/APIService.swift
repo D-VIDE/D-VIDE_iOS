@@ -30,6 +30,8 @@ extension APIService: TargetType {
         switch self {
         case .postRecruiting:
             return .post
+        case .showAroundPost:
+            return .get
         }
     }
     
@@ -37,6 +39,8 @@ extension APIService: TargetType {
     var sampleData: Data {
         switch self {
         case .postRecruiting:
+            return Data()
+        case .showAroundPost:
             return Data()
         }
     }
@@ -62,12 +66,14 @@ extension APIService: TargetType {
                 print(error.localizedDescription)
                 return .requestData(img[0])
             }
+        case .showAroundPost:
+            return .requestPlain
         }
     }
     
     var headers: [String : String]? {
         switch self{
-        case .postRecruiting:
+        case .postRecruiting, .showAroundPost:
             return [
                 "Authorization" : "Bearer \(token)"
             ]
