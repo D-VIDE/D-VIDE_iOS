@@ -51,6 +51,8 @@
 		FA59C6122890067F001ADD50 /* Search.png in Resources */ = {isa = PBXBuildFile; fileRef = FA59C6112890067E001ADD50 /* Search.png */; };
 		FA59C615289115EE001ADD50 /* SNSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA59C614289115EE001ADD50 /* SNSViewController.swift */; };
 		FA59C63728911DD2001ADD50 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA59C63628911DD2001ADD50 /* TabBarController.swift */; };
+		FA633B6E28C202EB00D4BCC9 /* CarouselLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA633B6D28C202EB00D4BCC9 /* CarouselLayout.swift */; };
+		FA633B7028C21A3B00D4BCC9 /* CarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA633B6F28C21A3B00D4BCC9 /* CarouselCell.swift */; };
 		FA8A71F7289ABA4700E26196 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A71E7289ABA4700E26196 /* UIFont.swift */; };
 		FA8A71F8289ABA4700E26196 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A71E8289ABA4700E26196 /* UIColor.swift */; };
 		FA8A71F9289ABA4700E26196 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A71E9289ABA4700E26196 /* String.swift */; };
@@ -68,8 +70,6 @@
 		FA8A7205289ABA4700E26196 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A71F5289ABA4700E26196 /* UIView.swift */; };
 		FA8A7206289ABA4700E26196 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A71F6289ABA4700E26196 /* UITextField.swift */; };
 		FA9DFB8928AF31670036B106 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9DFB8828AF31670036B106 /* DetailViewController.swift */; };
-		FA9DFB8C28AF69AA0036B106 /* PassThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9DFB8B28AF69AA0036B106 /* PassThroughView.swift */; };
-		FA9DFB8E28AF69DF0036B106 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9DFB8D28AF69DF0036B106 /* BottomSheetViewController.swift */; };
 		FA9DFB9128B375D10036B106 /* ShowAroundPostResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9DFB9028B375D10036B106 /* ShowAroundPostResponse.swift */; };
 		FA9DFB9428B37A6A0036B106 /* ShowAroundPostAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9DFB9328B37A6A0036B106 /* ShowAroundPostAPIManager.swift */; };
 		FAAD48F2289AB85300508C12 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD48F0289AB85300508C12 /* TagCollectionViewCell.swift */; };
@@ -133,6 +133,8 @@
 		FA59C6112890067E001ADD50 /* Search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Search.png; sourceTree = "<group>"; };
 		FA59C614289115EE001ADD50 /* SNSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSViewController.swift; sourceTree = "<group>"; };
 		FA59C63628911DD2001ADD50 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		FA633B6D28C202EB00D4BCC9 /* CarouselLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselLayout.swift; sourceTree = "<group>"; };
+		FA633B6F28C21A3B00D4BCC9 /* CarouselCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCell.swift; sourceTree = "<group>"; };
 		FA8A71E7289ABA4700E26196 /* UIFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		FA8A71E8289ABA4700E26196 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		FA8A71E9289ABA4700E26196 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -150,8 +152,6 @@
 		FA8A71F5289ABA4700E26196 /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		FA8A71F6289ABA4700E26196 /* UITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		FA9DFB8828AF31670036B106 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		FA9DFB8B28AF69AA0036B106 /* PassThroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassThroughView.swift; sourceTree = "<group>"; };
-		FA9DFB8D28AF69DF0036B106 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		FA9DFB9028B375D10036B106 /* ShowAroundPostResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAroundPostResponse.swift; sourceTree = "<group>"; };
 		FA9DFB9328B37A6A0036B106 /* ShowAroundPostAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAroundPostAPIManager.swift; sourceTree = "<group>"; };
 		FAAD48F0289AB85300508C12 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -361,7 +361,7 @@
 		FA59C608288ED6BD001ADD50 /* HomeView */ = {
 			isa = PBXGroup;
 			children = (
-				FA9DFB9228B37A4F0036B106 /* APIManager */,
+				FA9DFB9228B37A4F0036B106 /* ViewModel */,
 				FA9DFB8F28B375B80036B106 /* Model */,
 				FAD55DA02892A865006437BF /* JoinOrder */,
 				324C343F286AF32A0057286A /* HomeViewController.swift */,
@@ -394,8 +394,8 @@
 			isa = PBXGroup;
 			children = (
 				FA9DFB8828AF31670036B106 /* DetailViewController.swift */,
-				FA9DFB8B28AF69AA0036B106 /* PassThroughView.swift */,
-				FA9DFB8D28AF69DF0036B106 /* BottomSheetViewController.swift */,
+				FA633B6D28C202EB00D4BCC9 /* CarouselLayout.swift */,
+				FA633B6F28C21A3B00D4BCC9 /* CarouselCell.swift */,
 			);
 			path = DetailView;
 			sourceTree = "<group>";
@@ -408,12 +408,12 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		FA9DFB9228B37A4F0036B106 /* APIManager */ = {
+		FA9DFB9228B37A4F0036B106 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				FA9DFB9328B37A6A0036B106 /* ShowAroundPostAPIManager.swift */,
 			);
-			path = APIManager;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		FAAD48EE289AB82900508C12 /* Page */ = {
@@ -652,7 +652,6 @@
 				FAAD48FC289ABA0100508C12 /* Device.swift in Sources */,
 				FA8A71F8289ABA4700E26196 /* UIColor.swift in Sources */,
 				FA9DFB9128B375D10036B106 /* ShowAroundPostResponse.swift in Sources */,
-				FA9DFB8C28AF69AA0036B106 /* PassThroughView.swift in Sources */,
 				FAAD4905289ABA1200508C12 /* LeftAlignedClass.swift in Sources */,
 				FA8A7200289ABA4700E26196 /* UIImageView.swift in Sources */,
 				32B7B8A628A245350092CFD6 /* PostRecruitingResponse.swift in Sources */,
@@ -677,12 +676,13 @@
 				FAAD4903289ABA1200508C12 /* ButtonClass.swift in Sources */,
 				FA8A71FF289ABA4700E26196 /* UINavigationController.swift in Sources */,
 				FA8A71F9289ABA4700E26196 /* String.swift in Sources */,
+				FA633B6E28C202EB00D4BCC9 /* CarouselLayout.swift in Sources */,
 				FAAD4907289ABA1200508C12 /* LabelClass.swift in Sources */,
 				FA9DFB9428B37A6A0036B106 /* ShowAroundPostAPIManager.swift in Sources */,
 				32AA8E5028A7655800BA68E3 /* SNSCollectionViewCell.swift in Sources */,
 				326FA6F828AFC8C3004A0268 /* SNSAPIManager.swift in Sources */,
-				FA2C9ECB289A201600B3ACAC /* DetailPage.swift in Sources */,
 				326FA6F128AFADD7004A0268 /* SNSUpperTableViewCell.swift in Sources */,
+				FA633B7028C21A3B00D4BCC9 /* CarouselCell.swift in Sources */,
 				32B7B8A428A23FAB0092CFD6 /* APIService.swift in Sources */,
 				324C343C286AF32A0057286A /* AppDelegate.swift in Sources */,
 				324C343E286AF32A0057286A /* SceneDelegate.swift in Sources */,
@@ -691,7 +691,6 @@
 				326FA6F428AFC0CA004A0268 /* SNSViewModel.swift in Sources */,
 				FAAD48F2289AB85300508C12 /* TagCollectionViewCell.swift in Sources */,
 				FA59C615289115EE001ADD50 /* SNSViewController.swift in Sources */,
-				FA9DFB8E28AF69DF0036B106 /* BottomSheetViewController.swift in Sources */,
 				32B7B8AB28A24B400092CFD6 /* PostRecruitingAPIManager.swift in Sources */,
 				FA8A71FD289ABA4700E26196 /* UITableView.swift in Sources */,
 				FAAD48FB289ABA0100508C12 /* IndicatorView.swift in Sources */,

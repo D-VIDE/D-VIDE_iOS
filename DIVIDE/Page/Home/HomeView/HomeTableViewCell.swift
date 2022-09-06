@@ -20,28 +20,28 @@ class HomeTableViewCell: UITableViewCell {
     
     //MARK: - conponents
     // 로고
-    private let logo = UIImageView().then{
+    lazy var logo = UIImageView().then{
         $0.image = UIImage(named: "logo.png")
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
         $0.cornerRadius = 20
     }
     // 사용자 닉네임orID
-    private let userName = UILabel().then{
+    lazy var userName = UILabel().then{
         $0.text = "kksmedd10204"
         $0.textAlignment = .left
         $0.font = .systemFont(ofSize: 12, weight: .regular)
     }
     // 지역
-    private let userLocation = UILabel().then{
+    lazy var userLocation = UILabel().then{
         $0.text = "세종시 조치원읍"
         $0.textAlignment = .left
         $0.font = .systemFont(ofSize: 10, weight: .regular)
     }
     // 남은 시간 말풍선
-    
+//    private let
     // Image 생성
-    private let img = UIImageView().then{
+    lazy var img = UIImageView().then{
         $0.image = UIImage(named: "pizzaImage.jpg")
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
@@ -49,7 +49,7 @@ class HomeTableViewCell: UITableViewCell {
     }
     
     // label 생성
-    private let title = UILabel().then {
+    lazy var title = UILabel().then {
         $0.text = "삼첩분식 드실분~ 저는 빨리..."
         $0.textAlignment = .center
         $0.font = .systemFont(ofSize: 16, weight: .regular)
@@ -62,14 +62,14 @@ class HomeTableViewCell: UITableViewCell {
         $0.font = .systemFont(ofSize: 10, weight: .medium)
     }
     
-    private let AMPMLabel = UILabel().then{
+    lazy var AMPMLabel = UILabel().then{
         $0.text = "오후"
         $0.textColor = .mainYellow
         $0.textAlignment = .center
         $0.font = .boldSystemFont(ofSize: 10)
     }
     
-    private let closingTimeValue = UILabel().then{
+    lazy var closingTimeValue = UILabel().then{
         $0.text  = "04:00"
         $0.textColor = .mainOrange2
         $0.textAlignment = .center
@@ -83,14 +83,14 @@ class HomeTableViewCell: UITableViewCell {
         $0.font = .systemFont(ofSize: 10, weight: .medium)
     }
     
-    private let insufficientChargeValueLabel = UILabel().then{
+    lazy var insufficientChargeValueLabel = UILabel().then{
         $0.text  = "0"
         $0.textColor = .mainOrange2
         $0.textAlignment = .center
         $0.font = .boldSystemFont(ofSize: 22)
     }
     
-    private let currency = UILabel().then{
+    lazy var currency = UILabel().then{
         $0.text = "원"
         $0.textColor = .mainYellow
         $0.textAlignment = .center
@@ -100,7 +100,7 @@ class HomeTableViewCell: UITableViewCell {
         $0.backgroundColor = .gray4
     }
     
-    private let progressBar = UIView().then{
+    lazy var progressBar = UIView().then{
         $0.backgroundColor = .mainOrange2
     }
     

@@ -8,7 +8,14 @@
 import UIKit
 import Then
 import SnapKit
+import Moya
+import RxCocoa
+import RxSwift
+
 class HomeViewController: UIViewController {
+    private var disposeBag = DisposeBag()
+    
+    private let userPosition = UserPositionModel(longitude: 127.030767490, latitude: 37.49015482509)
     
     private let searchBtn = UIButton().then{
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -36,7 +43,7 @@ class HomeViewController: UIViewController {
         $0.collectionViewLayout = layout
     }
     
-    private let tableView: UITableView = {
+    lazy var tableView: UITableView = {
         
         let tableview = UITableView()
         tableview.backgroundColor = .viewBackgroundGray
@@ -50,12 +57,14 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         topMenuCollectionView.delegate = self
         topMenuCollectionView.dataSource = self
-        tableView.delegate = self
-        tableView.dataSource = self
-
+//        tableView.delegate = self
+//        tableView.dataSource = self
+        
+        ShowAroundPosts.init().requestAroundPosts(param: userPosition)
             
         topMenuCollectionView.register(HomeTopMenuCell.self, forCellWithReuseIdentifier: HomeTopMenuCell.identifier)
         tableView.register(HomeTableViewCell.self, forCellReuseIdentifier: "HomeTableViewCell")
+        bindTableView()
         
         setHomeViewConstraint()
         
@@ -66,16 +75,22 @@ class HomeViewController: UIViewController {
        
 //        setTableViewBackground()
            // autoHeight
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = UITableView.automaticDimension
         // Do any additional setup after loading the view.
     }
     
+    func bindTableView(){
+        tableView.rx.setDelegate(self).disposed(by: disposeBag)
+        ShowAroundPosts.init().postsFromServer.bind(to: tableView.rx.items(cellIdentifier: "HomeTableViewCell",cellType: HomeTableViewCell.self)) { (row, item, cell) in
+            cell.userName.text = item.nickname
+            cell.userLocation.text = "세종시 조치원읍"
+            cell.title.text = item.title
+            cell.closingTimeValue.text = String(item.targetTime[-1])
+            cell.insufficientChargeValueLabel.text = String(item.targetPrice)
+            
+        }.disposed(by: disposeBag)
+    }
     private func setHomeViewConstraint() {
         self.view.backgroundColor = .viewBackgroundGray
-       
-        
-
     }
     
     private func setTopMenuBar() {
