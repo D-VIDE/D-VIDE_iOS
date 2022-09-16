@@ -107,7 +107,7 @@ class HomeTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        super.init(style: .value1, reuseIdentifier: "HomeTableViewCell")
         setInfoConstraint()
         setContentsConstraint()
         

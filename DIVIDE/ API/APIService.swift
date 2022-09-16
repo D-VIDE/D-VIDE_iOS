@@ -23,7 +23,7 @@ extension APIService: TargetType {
     var path: String {
         switch self { //path에 쓰일 parameter 받을 때만 let
         case .postRecruiting, .showAroundPost:
-            return "/v2/post"
+            return "/v2/posts"
         
         }
     }

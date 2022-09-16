@@ -53,6 +53,7 @@
 		FA59C63728911DD2001ADD50 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA59C63628911DD2001ADD50 /* TabBarController.swift */; };
 		FA633B6E28C202EB00D4BCC9 /* CarouselLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA633B6D28C202EB00D4BCC9 /* CarouselLayout.swift */; };
 		FA633B7028C21A3B00D4BCC9 /* CarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA633B6F28C21A3B00D4BCC9 /* CarouselCell.swift */; };
+		FA633B7A28CF4E7E00D4BCC9 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA633B7928CF4E7E00D4BCC9 /* ViewModel.swift */; };
 		FA8A71F7289ABA4700E26196 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A71E7289ABA4700E26196 /* UIFont.swift */; };
 		FA8A71F8289ABA4700E26196 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A71E8289ABA4700E26196 /* UIColor.swift */; };
 		FA8A71F9289ABA4700E26196 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A71E9289ABA4700E26196 /* String.swift */; };
@@ -135,6 +136,7 @@
 		FA59C63628911DD2001ADD50 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		FA633B6D28C202EB00D4BCC9 /* CarouselLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselLayout.swift; sourceTree = "<group>"; };
 		FA633B6F28C21A3B00D4BCC9 /* CarouselCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCell.swift; sourceTree = "<group>"; };
+		FA633B7928CF4E7E00D4BCC9 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		FA8A71E7289ABA4700E26196 /* UIFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		FA8A71E8289ABA4700E26196 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		FA8A71E9289ABA4700E26196 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -446,6 +448,7 @@
 				FAAD48F6289AB9A800508C12 /* Common Class */,
 				FAAD48F7289AB9B000508C12 /* CustomClass */,
 				FAAD48F8289AB9BC00508C12 /* Extension */,
+				FA633B7928CF4E7E00D4BCC9 /* ViewModel.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -677,6 +680,7 @@
 				FA8A71FF289ABA4700E26196 /* UINavigationController.swift in Sources */,
 				FA8A71F9289ABA4700E26196 /* String.swift in Sources */,
 				FA633B6E28C202EB00D4BCC9 /* CarouselLayout.swift in Sources */,
+				FA633B7A28CF4E7E00D4BCC9 /* ViewModel.swift in Sources */,
 				FAAD4907289ABA1200508C12 /* LabelClass.swift in Sources */,
 				FA9DFB9428B37A6A0036B106 /* ShowAroundPostAPIManager.swift in Sources */,
 				32AA8E5028A7655800BA68E3 /* SNSCollectionViewCell.swift in Sources */,
@@ -768,7 +772,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -822,7 +826,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
