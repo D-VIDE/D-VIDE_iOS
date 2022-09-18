@@ -19,9 +19,8 @@ class DetailViewController: UIViewController, UIScrollViewDelegate{
         layout.spacing = 11
         layout.isPagingEnabled = true
         layout.sideItemAlpha = 0.5
-        
         $0.collectionViewLayout = layout
-        $0.backgroundColor = .white
+        $0.backgroundColor = .clear
     }
     
     private var sampleImages = [UIImage]()
@@ -415,12 +414,11 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
            
-        return imageViews.count
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CarouselCell", for: indexPath) as? CarouselCell else { return UICollectionViewCell() }
-        cell.backgroundColor = .blue
         return cell
     }
     

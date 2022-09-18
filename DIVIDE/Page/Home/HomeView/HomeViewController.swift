@@ -56,7 +56,11 @@ class HomeViewController: UIViewController {
         return tableview
 
     }()
-    
+    let DVIDEBtn = MainButton(type: .mainAction).then {
+        $0.setTitle("지금 D/VIDE 하기", for: .normal)
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.cornerRadius = 15
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,7 +83,8 @@ class HomeViewController: UIViewController {
         setTopMenuCollection()
         
         setTableViewConstraint()
-       
+        
+        setDVIDEBtn()
         
 //        setTableViewBackground()
            // autoHeight
@@ -93,25 +98,24 @@ class HomeViewController: UIViewController {
         var changedLocation = ""
         geocoder.reverseGeocodeLocation(location, preferredLocale: locale, completionHandler: {(placemarks, error) in
             if let address: [CLPlacemark] = placemarks {
-                if let name: String = address.last?.name { changedLocation = name
-                    
-                    print(changedLocation)
-                } //전체 주소
+                changedLocation = (address.last?.name)!
             }
         })
+        print("changedLocation : \(changedLocation)")
         return changedLocation
         
     }
+    
     func bindTableView(){
         tableView.rx.setDelegate(self).disposed(by: disposeBag)
         viewModel.requestAroundPosts(param: userPosition)
             .asObservable()
             .bind(to: tableView.rx.items(cellIdentifier: "HomeTableViewCell", cellType: HomeTableViewCell.self)) { (row, item, cell) in
                 cell.img.image = UIImage(named: "logo.png")
-                cell.userLocation.text = self.changePositionToLocation(latitude: item.post.latitude, longitude: item.post.longitude)
+                cell.userLocation.text = "주소 변환 미적용"
                 cell.userName.text = String(item.user.id)
                 cell.title.text = item.post.title
-                cell.closingTimeValue.text = String((item.post.targetTime - self.realTime)/60) + "분"
+                cell.closingTimeValue.text = String((item.post.targetTime % 1440)/60 % 12) + "시"
                 cell.insufficientChargeValueLabel.text = String(item.post.targetPrice)
             }.disposed(by: disposeBag)
         
@@ -180,7 +184,15 @@ class HomeViewController: UIViewController {
         }
     }
     
-   
+    private func setDVIDEBtn() {
+        view.addSubview(DVIDEBtn)
+        DVIDEBtn.snp.makeConstraints { make in
+            make.width.equalTo(350)
+            make.height.equalTo(50)
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-90)
+        }
+    }
 }
 
 //컬렉션
@@ -226,7 +238,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 //테이블
 extension HomeViewController:  UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 5
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
