@@ -18,6 +18,9 @@ class HomeViewController: UIViewController {
     
     private var viewModel =  ShowAroundPosts()
     
+    let dateFormatter = DateFormatter().then{
+        $0.dateFormat = "H:mm"
+    }
     
     var realTime = Int(Date().timeIntervalSince1970)
     private let userPosition = UserPositionModel(longitude: 127.030767490, latitude: 37.49015482509)
@@ -115,17 +118,29 @@ class HomeViewController: UIViewController {
                 cell.userLocation.text = "주소 변환 미적용"
                 cell.userName.text = String(item.user.id)
                 cell.title.text = item.post.title
-                cell.closingTimeValue.text = String((item.post.targetTime % 1440)/60 % 12) + "시"
+                cell.closingTimeValue.text = self.setAMPMTime(closingTime: item.post.targetTime)
+                cell.AMPMLabel.text = self.setAMPM(closingTime: item.post.targetTime)
                 cell.insufficientChargeValueLabel.text = String(item.post.targetPrice)
             }.disposed(by: disposeBag)
         
-//        viewModel.postsFromServer.bind(to: tableView.rx.items(cellIdentifier: "HomeTableViewCell", cellType: HomeTableViewCell.self)) { (row, item, cell) in
-//            cell.img.image = UIImage(named: "logo.png")
-//            cell.userName.text = String(item.user.id)
-//            cell.title.text = item.post.title
-//            cell.closingTimeValue.text = String(item.post.targetTime)
-//            cell.insufficientChargeValueLabel.text = String(item.post.targetPrice)
-//        }.disposed(by: disposeBag)
+    }
+    private func setAMPMTime(closingTime: Int) -> String{
+        if (closingTime % 1440) / 60 == 12 {
+            return String((closingTime % 1440) / 60) + ":" + String(closingTime % 60)
+        } else if (closingTime % 1440) / 60 > 12 {
+            return String((closingTime % 1440) / 60 - 12) + ":" + String(closingTime % 60)
+        } else {
+            return String((closingTime % 1440) / 60) + ":" + String(closingTime % 60)
+        }
+    }
+    private func setAMPM(closingTime: Int) -> String {
+        if (closingTime % 1440) / 60 == 12 {
+            return "PM"
+        } else if (closingTime % 1440) / 60 > 12 {
+            return "PM"
+        } else {
+            return "AM"
+        }
     }
     private func setHomeViewConstraint() {
         self.view.backgroundColor = .viewBackgroundGray

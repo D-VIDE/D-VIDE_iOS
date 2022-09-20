@@ -27,16 +27,20 @@ class HomeTableViewCell: UITableViewCell {
         $0.cornerRadius = 20
     }
     // 사용자 닉네임orID
-    lazy var userName = UILabel().then{
+    lazy var userName = MainLabel(type: .Basics1).then{
         $0.text = "kksmedd10204"
         $0.textAlignment = .left
-        $0.font = .systemFont(ofSize: 12, weight: .regular)
     }
     // 지역
-    lazy var userLocation = UILabel().then{
+    lazy var userLocation = MainLabel(type: .small1).then{
         $0.text = "세종시 조치원읍"
         $0.textAlignment = .left
-        $0.font = .systemFont(ofSize: 10, weight: .regular)
+    }
+    //남은 시간 60분 미만일때 말풍선 띄우기 위한 기준값 설정
+    private let thresHoldTimeUnderOneHour = 60
+    
+    lazy var remainTimeUnderOneHour = MainLabel(type: .small3).then{
+        $0.text = "분 후 주문예정"
     }
     // 남은 시간 말풍선
 //    private let
@@ -49,52 +53,45 @@ class HomeTableViewCell: UITableViewCell {
     }
     
     // label 생성
-    lazy var title = UILabel().then {
+    lazy var title = MainLabel(type: .Point1).then {
         $0.text = "삼첩분식 드실분~ 저는 빨리..."
         $0.textAlignment = .center
-        $0.font = .systemFont(ofSize: 16, weight: .regular)
     }
     
-    private let closingTimeTitle = UILabel().then{
+    private let closingTimeTitle = MainLabel(type: .small2).then{
         $0.text = "마감시간"
         $0.textColor = .gray2
         $0.textAlignment = .center
         $0.font = .systemFont(ofSize: 10, weight: .medium)
     }
     
-    lazy var AMPMLabel = UILabel().then{
+    lazy var AMPMLabel = MainLabel(type: .small3).then{
         $0.text = "오후"
         $0.textColor = .mainYellow
         $0.textAlignment = .center
-        $0.font = .boldSystemFont(ofSize: 10)
     }
     
-    lazy var closingTimeValue = UILabel().then{
-        $0.text  = "04:00"
+    lazy var closingTimeValue = MainLabel(type: .Big1).then{
         $0.textColor = .mainOrange2
         $0.textAlignment = .center
-        $0.font = .boldSystemFont(ofSize: 22)
     }
     
-    private let insufficientChargeTitle = UILabel().then{
+    private let insufficientChargeTitle = MainLabel(type: .small2).then{
         $0.text = "부족한 금액"
         $0.textColor = .gray2
         $0.textAlignment = .center
-        $0.font = .systemFont(ofSize: 10, weight: .medium)
     }
     
-    lazy var insufficientChargeValueLabel = UILabel().then{
+    lazy var insufficientChargeValueLabel = MainLabel(type: .Big1).then{
         $0.text  = "0"
         $0.textColor = .mainOrange2
         $0.textAlignment = .center
-        $0.font = .boldSystemFont(ofSize: 22)
     }
     
-    lazy var currency = UILabel().then{
+    lazy var currency = MainLabel(type: .small3).then{
         $0.text = "원"
         $0.textColor = .mainYellow
         $0.textAlignment = .center
-        $0.font = .boldSystemFont(ofSize: 10)
     }
     private let progressBarBackground = UIView().then{
         $0.backgroundColor = .gray4
@@ -110,7 +107,6 @@ class HomeTableViewCell: UITableViewCell {
         super.init(style: .value1, reuseIdentifier: "HomeTableViewCell")
         setInfoConstraint()
         setContentsConstraint()
-        
 
     }
 
@@ -253,6 +249,11 @@ class HomeTableViewCell: UITableViewCell {
             make.bottom.equalToSuperview()
         }
     }
+    
+    
+//    private func setSpeechBubble() {
+//        if Int(self.closingTimeValue.text) > Date().timeIntervalSince1970 %
+//    }
 }
 
 extension UIView {
