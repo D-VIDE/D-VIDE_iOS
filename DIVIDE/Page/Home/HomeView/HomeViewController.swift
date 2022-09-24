@@ -86,7 +86,7 @@ class HomeViewController: UIViewController {
         setTopMenuCollection()
         
         setTableViewConstraint()
-        
+        self.tableView.reloadData()
         setDVIDEBtn()
         
 //        setTableViewBackground()
@@ -118,11 +118,24 @@ class HomeViewController: UIViewController {
                 cell.userLocation.text = "주소 변환 미적용"
                 cell.userName.text = String(item.user.id)
                 cell.title.text = item.post.title
+                cell.remainTimeUnderOneHour.text = self.calculatedRemainTime(targetTime: item.post.targetTime)
                 cell.closingTimeValue.text = self.setAMPMTime(closingTime: item.post.targetTime)
                 cell.AMPMLabel.text = self.setAMPM(closingTime: item.post.targetTime)
                 cell.insufficientChargeValueLabel.text = String(item.post.targetPrice)
             }.disposed(by: disposeBag)
         
+    }
+    private func calculatedRemainTime(targetTime : Int) -> String {
+        var remainTime = targetTime - Int(Date().timeIntervalSince1970)
+        if remainTime > 86400 {
+            return "D - 1 이후 주문예정"
+        } else if remainTime > 3600 {
+            return String(remainTime / 3600) + " 시간 " + String(remainTime % 3600 / 60) + "분 후 주문 예정"
+        } else if remainTime > 0 {
+            return String(remainTime / 60)
+        } else {
+            return "주문 시간이 지났습니다"
+        }
     }
     private func setAMPMTime(closingTime: Int) -> String{
         if (closingTime % 1440) / 60 == 12 {
@@ -253,7 +266,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 //테이블
 extension HomeViewController:  UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 10
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

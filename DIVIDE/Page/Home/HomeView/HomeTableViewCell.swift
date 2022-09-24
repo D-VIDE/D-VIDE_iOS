@@ -36,11 +36,15 @@ class HomeTableViewCell: UITableViewCell {
         $0.text = "세종시 조치원읍"
         $0.textAlignment = .left
     }
+    lazy var timeBubble = UIImageView().then {
+        $0.image = UIImage(named: "TimeBubble.png")
+        $0.contentMode = .scaleAspectFill
+        $0.clipsToBounds = true
+    }
     //남은 시간 60분 미만일때 말풍선 띄우기 위한 기준값 설정
-    private let thresHoldTimeUnderOneHour = 60
     
     lazy var remainTimeUnderOneHour = MainLabel(type: .small3).then{
-        $0.text = "분 후 주문예정"
+        $0.textColor = .white
     }
     // 남은 시간 말풍선
 //    private let
@@ -107,7 +111,8 @@ class HomeTableViewCell: UITableViewCell {
         super.init(style: .value1, reuseIdentifier: "HomeTableViewCell")
         setInfoConstraint()
         setContentsConstraint()
-
+//        layoutIfNeeded()
+        setTimeBubble()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -123,6 +128,7 @@ class HomeTableViewCell: UITableViewCell {
         contentView.addSubview(logo)
         contentView.addSubview(userName)
         contentView.addSubview(userLocation)
+        
         
         logo.snp.makeConstraints { make in
             make.width.equalTo(28)
@@ -144,8 +150,23 @@ class HomeTableViewCell: UITableViewCell {
             make.centerY.equalTo(userName)
             make.centerX.equalTo(userName).offset(100)
         }
+        
     }
     
+    private func setTimeBubble() {
+        contentView.addSubview(timeBubble)
+        timeBubble.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(-12)
+            make.width.equalTo(110)
+            make.height.equalTo(30)
+            make.top.equalTo(userLocation)
+        }
+        timeBubble.addSubview(remainTimeUnderOneHour)
+        remainTimeUnderOneHour.snp.makeConstraints { make in
+            make.centerY.equalToSuperview().offset(-4)
+            make.centerX.equalToSuperview()
+        }
+    }
     var cellWidth = 0.0
     var cellHeight = 0.0
     private func setContentsConstraint() {
@@ -215,7 +236,6 @@ class HomeTableViewCell: UITableViewCell {
             make.height.equalTo(32)
             make.centerX.equalToSuperview().offset(-15)
             make.bottom.equalTo(AMPMLabel).offset(3)
-//            make.bottom.equalTo(foodImageView).offset(2)
             
         }
         insufficientChargeTitle.snp.makeConstraints { make in

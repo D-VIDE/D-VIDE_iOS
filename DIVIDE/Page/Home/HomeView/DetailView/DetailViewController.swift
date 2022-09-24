@@ -267,7 +267,7 @@ class DetailViewController: UIViewController, UIScrollViewDelegate{
         informationView.addSubview(AMPM)
         informationView.addSubview(deliveryFeeLabel)
         informationView.addSubview(deliveryFee)
-        informationView.addSubview(deliveryFeeUnitLabel)
+        informatio  nView.addSubview(deliveryFeeUnitLabel)
         informationView.addSubview(deliveryAimMoneyLabel)
         informationView.addSubview(deliveryAimMoney)
         informationView.addSubview(aimUnitLabel)
