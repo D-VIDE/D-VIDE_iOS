@@ -8,7 +8,19 @@
 import UIKit
 import Then
 import SnapKit
+import Moya
+import RxCocoa
+import RxSwift
+import CoreLocation
+
 class HomeViewController: UIViewController {
+    private var disposeBag = DisposeBag()
+    
+    private var viewModel =  ShowAroundPosts()
+    
+    
+    var realTime = Int(Date().timeIntervalSince1970)
+    private let userPosition = UserPositionModel(longitude: 127.030767490, latitude: 37.49015482509)
     
     private let searchBtn = UIButton().then{
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -36,7 +48,7 @@ class HomeViewController: UIViewController {
         $0.collectionViewLayout = layout
     }
     
-    private let tableView: UITableView = {
+    lazy var tableView: UITableView = {
         
         let tableview = UITableView()
         tableview.backgroundColor = .viewBackgroundGray
@@ -50,12 +62,16 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         topMenuCollectionView.delegate = self
         topMenuCollectionView.dataSource = self
-        tableView.delegate = self
-        tableView.dataSource = self
-
-            
+//        tableView.delegate = self
+//        tableView.dataSource = self
+//        viewModel.postsFromServer.subscribe{ postsFromServer in
+//            print(postsFromServer.element!)
+//        }.disposed(by: disposeBag)
+        
+//        viewModel.requestAroundPosts(param: userPosition)
         topMenuCollectionView.register(HomeTopMenuCell.self, forCellWithReuseIdentifier: HomeTopMenuCell.identifier)
         tableView.register(HomeTableViewCell.self, forCellReuseIdentifier: "HomeTableViewCell")
+        bindTableView()
         
         setHomeViewConstraint()
         
@@ -64,18 +80,51 @@ class HomeViewController: UIViewController {
         
         setTableViewConstraint()
        
+        
 //        setTableViewBackground()
            // autoHeight
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = UITableView.automaticDimension
         // Do any additional setup after loading the view.
     }
-    
+    func changePositionToLocation(latitude : Double, longitude: Double) -> String {
+        
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        let geocoder = CLGeocoder()
+        let locale = Locale(identifier: "Ko-kr")
+        var changedLocation = ""
+        geocoder.reverseGeocodeLocation(location, preferredLocale: locale, completionHandler: {(placemarks, error) in
+            if let address: [CLPlacemark] = placemarks {
+                if let name: String = address.last?.name { changedLocation = name
+                    
+                    print(changedLocation)
+                } //전체 주소
+            }
+        })
+        return changedLocation
+        
+    }
+    func bindTableView(){
+        tableView.rx.setDelegate(self).disposed(by: disposeBag)
+        viewModel.requestAroundPosts(param: userPosition)
+            .asObservable()
+            .bind(to: tableView.rx.items(cellIdentifier: "HomeTableViewCell", cellType: HomeTableViewCell.self)) { (row, item, cell) in
+                cell.img.image = UIImage(named: "logo.png")
+                cell.userLocation.text = self.changePositionToLocation(latitude: item.post.latitude, longitude: item.post.longitude)
+                cell.userName.text = String(item.user.id)
+                cell.title.text = item.post.title
+                cell.closingTimeValue.text = String((item.post.targetTime - self.realTime)/60) + "분"
+                cell.insufficientChargeValueLabel.text = String(item.post.targetPrice)
+            }.disposed(by: disposeBag)
+        
+//        viewModel.postsFromServer.bind(to: tableView.rx.items(cellIdentifier: "HomeTableViewCell", cellType: HomeTableViewCell.self)) { (row, item, cell) in
+//            cell.img.image = UIImage(named: "logo.png")
+//            cell.userName.text = String(item.user.id)
+//            cell.title.text = item.post.title
+//            cell.closingTimeValue.text = String(item.post.targetTime)
+//            cell.insufficientChargeValueLabel.text = String(item.post.targetPrice)
+//        }.disposed(by: disposeBag)
+    }
     private func setHomeViewConstraint() {
         self.view.backgroundColor = .viewBackgroundGray
-       
-        
-
     }
     
     private func setTopMenuBar() {
