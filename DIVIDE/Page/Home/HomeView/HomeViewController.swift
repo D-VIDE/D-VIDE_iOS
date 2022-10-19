@@ -40,8 +40,8 @@ class HomeViewController: UIViewController {
         $0.image = UIImage(named: "HomeBackgroundImage")
         $0.backgroundColor = .orange
     }
-    let menuList: [String] = ["분식", "한식", "양식", "일식", "디저트", "---", "------" ]
-    
+    let menuList: [String] = ["분식", "KOREAN_FOOD", "양식", "일식", "디저트", "---", "------" ]
+    let categoryName : [String] = ["KOREAN_FOOD", "CHINESE_FOOD", ]
     private let topMenuCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then{
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -69,13 +69,6 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         topMenuCollectionView.delegate = self
         topMenuCollectionView.dataSource = self
-//        tableView.delegate = self
-//        tableView.dataSource = self
-//        viewModel.postsFromServer.subscribe{ postsFromServer in
-//            print(postsFromServer.element!)
-//        }.disposed(by: disposeBag)
-        
-//        viewModel.requestAroundPosts(param: userPosition)
         topMenuCollectionView.register(HomeTopMenuCell.self, forCellWithReuseIdentifier: HomeTopMenuCell.identifier)
         tableView.register(HomeTableViewCell.self, forCellReuseIdentifier: "HomeTableViewCell")
         bindTableView()
@@ -86,27 +79,22 @@ class HomeViewController: UIViewController {
         setTopMenuCollection()
         
         setTableViewConstraint()
-        self.tableView.reloadData()
         setDVIDEBtn()
         
-//        setTableViewBackground()
-           // autoHeight
-        // Do any additional setup after loading the view.
     }
-    func changePositionToLocation(latitude : Double, longitude: Double) -> String {
-        
+    func changePositionToLocation(latitude: Double, longitude: Double) -> String {
+        var result : String = ""
         let location = CLLocation(latitude: latitude, longitude: longitude)
         let geocoder = CLGeocoder()
         let locale = Locale(identifier: "Ko-kr")
-        var changedLocation = ""
-        geocoder.reverseGeocodeLocation(location, preferredLocale: locale, completionHandler: {(placemarks, error) in
+        geocoder.reverseGeocodeLocation(location, preferredLocale: locale) { (placemarks, error) in
             if let address: [CLPlacemark] = placemarks {
-                changedLocation = (address.last?.name)!
+                print("address : \(address.last?.administrativeArea as Any)")
+                result = (address.last?.administrativeArea)!
             }
-        })
-        print("changedLocation : \(changedLocation)")
-        return changedLocation
-        
+        }
+
+        return result
     }
     
     func bindTableView(){
@@ -115,18 +103,18 @@ class HomeViewController: UIViewController {
             .asObservable()
             .bind(to: tableView.rx.items(cellIdentifier: "HomeTableViewCell", cellType: HomeTableViewCell.self)) { (row, item, cell) in
                 cell.img.image = UIImage(named: "logo.png")
-                cell.userLocation.text = "주소 변환 미적용"
+//                cell.userLocation.text = self.changePositionToLocation(latitude: item.post.latitude, longitude: item.post.longitude)
                 cell.userName.text = String(item.user.id)
                 cell.title.text = item.post.title
                 cell.remainTimeUnderOneHour.text = self.calculatedRemainTime(targetTime: item.post.targetTime)
                 cell.closingTimeValue.text = self.setAMPMTime(closingTime: item.post.targetTime)
                 cell.AMPMLabel.text = self.setAMPM(closingTime: item.post.targetTime)
-                cell.insufficientChargeValueLabel.text = String(item.post.targetPrice)
+                cell.insufficientChargeValueLabel.text = String(item.post.targetPrice).insertComma
             }.disposed(by: disposeBag)
-        
     }
+    
     private func calculatedRemainTime(targetTime : Int) -> String {
-        var remainTime = targetTime - Int(Date().timeIntervalSince1970)
+        let remainTime = targetTime - Int(Date().timeIntervalSince1970)
         if remainTime > 86400 {
             return "D - 1 이후 주문예정"
         } else if remainTime > 3600 {
@@ -243,24 +231,27 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
         let size = label.frame.size
         
+        
         return CGSize(width: size.width+24, height: size.height+10)
     }
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let cell = collectionView.cellForItem(at: indexPath)
-//        if cell?.isSelected {
-//            collectionView.cellForItem(at: indexPath)?.backgroundColor = .mainOrange
-//            cell.menuLabel.textColor = .white
-//            print("Orange")
-//            collectionView.deselectItem(at: indexPath, animated: true)
-//            
-//        } else {
-//            collectionView.cellForItem(at: indexPath)?.backgroundColor = .tagBackgroundGray
-//            cell.menuLabel.textColor = .tagGray
-//            print("Gray")
-//            
-//        }
-//    }
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.tableView.delegate = nil
+        self.tableView.dataSource = nil
+        let selectedCatagory = menuList[indexPath.item]
+        tableView.rx.setDelegate(self).disposed(by: disposeBag)
+        viewModel.requestAroundPostsWithCategory(param: userPosition, category: selectedCatagory)
+            .asObservable()
+            .bind(to: tableView.rx.items(cellIdentifier: "HomeTableViewCell", cellType: HomeTableViewCell.self)) { (row, item, cell) in
+                cell.img.image = UIImage(named: "logo.png")
+//                cell.userLocation.text = self.changePositionToLocation(latitude: item.post.latitude, longitude: item.post.longitude)
+                cell.userName.text = String(item.user.id)
+                cell.title.text = item.post.title
+                cell.remainTimeUnderOneHour.text = self.calculatedRemainTime(targetTime: item.post.targetTime)
+                cell.closingTimeValue.text = self.setAMPMTime(closingTime: item.post.targetTime)
+                cell.AMPMLabel.text = self.setAMPM(closingTime: item.post.targetTime)
+                cell.insufficientChargeValueLabel.text = String(item.post.targetPrice).insertComma
+            }.disposed(by: disposeBag)
+    }
 }
 
 //테이블

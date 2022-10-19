@@ -245,16 +245,14 @@ class HomeTableViewCell: UITableViewCell {
             make.bottom.equalTo(closingTimeTitle)
         }
         insufficientChargeValueLabel.snp.makeConstraints { make in
-            make.width.equalTo(88)
-            make.height.equalTo(34)
-            make.left.equalTo(insufficientChargeTitle).offset(4)
+            make.centerX.equalTo(insufficientChargeTitle)
             make.bottom.equalTo(closingTimeValue)
         }
         
         currency.snp.makeConstraints { make in
             make.width.equalTo(12)
             make.height.equalTo(21)
-            make.right.equalTo(insufficientChargeValueLabel)
+            make.right.equalTo(insufficientChargeValueLabel).offset(15)
             make.bottom.equalTo(AMPMLabel)
         }
         progressBarBackground.snp.makeConstraints { make in
