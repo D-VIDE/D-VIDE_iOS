@@ -15,7 +15,7 @@ import CoreLocation
 
 class HomeViewController: UIViewController {
     private var disposeBag = DisposeBag()
-    
+        
     private var viewModel =  ShowAroundPosts()
     
     let dateFormatter = DateFormatter().then{
@@ -40,8 +40,8 @@ class HomeViewController: UIViewController {
         $0.image = UIImage(named: "HomeBackgroundImage")
         $0.backgroundColor = .orange
     }
-    let menuList: [String] = ["분식", "한식", "일식", "중식", "디저트", "양식" ]
-    let categoryName : [String] = ["STREET_FOOD", "KOREAN_FOOD", "JAPANESE_FOOD", "CHINESE_FOOD", "DESSERT", "WESTERN_FOOD"]
+    private let menuList: [String] = ["분식", "한식", "일식", "중식", "디저트", "양식" ]
+    private let categoryName : [String] = ["STREET_FOOD", "KOREAN_FOOD", "JAPANESE_FOOD", "CHINESE_FOOD", "DESSERT", "WESTERN_FOOD"]
     private let topMenuCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then{
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -59,10 +59,8 @@ class HomeViewController: UIViewController {
         return tableview
 
     }()
-    let DVIDEBtn = MainButton(type: .mainAction).then {
-        $0.setTitle("지금 D/VIDE 하기", for: .normal)
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.cornerRadius = 15
+    let DVIDEBtn = UIButton().then {
+        $0.setImage(UIImage(named: "WritePost.png"), for: .normal)
     }
 
     override func viewDidLoad() {
@@ -102,7 +100,9 @@ class HomeViewController: UIViewController {
         viewModel.requestAroundPosts(param: userPosition)
             .asObservable()
             .bind(to: tableView.rx.items(cellIdentifier: "HomeTableViewCell", cellType: HomeTableViewCell.self)) { (row, item, cell) in
-                cell.img.image = UIImage(named: "logo.png")
+//                image.load(url: url!)
+                
+                cell.img.load(url: URL(string: item.post.postImgUrl)!)
 //                cell.userLocation.text = self.changePositionToLocation(latitude: item.post.latitude, longitude: item.post.longitude)
                 cell.userName.text = String(item.user.id)
                 cell.title.text = item.post.title
@@ -110,6 +110,9 @@ class HomeViewController: UIViewController {
                 cell.closingTimeValue.text = self.setAMPMTime(closingTime: item.post.targetTime)
                 cell.AMPMLabel.text = self.setAMPM(closingTime: item.post.targetTime)
                 cell.insufficientChargeValueLabel.text = String(item.post.targetPrice).insertComma
+                cell.progressBar.snp.makeConstraints { make in
+                    make.width.equalTo(250*(item.post.orderedPrice - item.post.targetPrice)/item.post.targetPrice)
+                }
             }.disposed(by: disposeBag)
     }
     
@@ -203,9 +206,9 @@ class HomeViewController: UIViewController {
     private func setDVIDEBtn() {
         view.addSubview(DVIDEBtn)
         DVIDEBtn.snp.makeConstraints { make in
-            make.width.equalTo(350)
+            make.width.equalTo(121)
             make.height.equalTo(50)
-            make.centerX.equalToSuperview()
+            make.leading.equalToSuperview().offset(26)
             make.bottom.equalToSuperview().offset(-90)
         }
     }
@@ -242,7 +245,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         viewModel.requestAroundPostsWithCategory(param: userPosition, category: selectedCatagory)
             .asObservable()
             .bind(to: tableView.rx.items(cellIdentifier: "HomeTableViewCell", cellType: HomeTableViewCell.self)) { (row, item, cell) in
-                cell.img.image = UIImage(named: "logo.png")
+                cell.img.load(url: URL(string: item.post.postImgUrl)!)
 //                cell.userLocation.text = self.changePositionToLocation(latitude: item.post.latitude, longitude: item.post.longitude)
                 cell.userName.text = String(item.user.id)
                 cell.title.text = item.post.title
@@ -250,6 +253,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 cell.closingTimeValue.text = self.setAMPMTime(closingTime: item.post.targetTime)
                 cell.AMPMLabel.text = self.setAMPM(closingTime: item.post.targetTime)
                 cell.insufficientChargeValueLabel.text = String(item.post.targetPrice).insertComma
+                cell.progressBar.snp.makeConstraints { make in
+                    make.width.equalTo(250*(item.post.orderedPrice - item.post.targetPrice)/item.post.targetPrice)
+                }
             }.disposed(by: disposeBag)
     }
 }
