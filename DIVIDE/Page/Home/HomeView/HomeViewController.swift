@@ -40,8 +40,8 @@ class HomeViewController: UIViewController {
         $0.image = UIImage(named: "HomeBackgroundImage")
         $0.backgroundColor = .orange
     }
-    let menuList: [String] = ["분식", "KOREAN_FOOD", "양식", "일식", "디저트", "---", "------" ]
-    let categoryName : [String] = ["KOREAN_FOOD", "CHINESE_FOOD", ]
+    let menuList: [String] = ["분식", "한식", "일식", "중식", "디저트", "양식" ]
+    let categoryName : [String] = ["STREET_FOOD", "KOREAN_FOOD", "JAPANESE_FOOD", "CHINESE_FOOD", "DESSERT", "WESTERN_FOOD"]
     private let topMenuCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then{
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -237,7 +237,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.tableView.delegate = nil
         self.tableView.dataSource = nil
-        let selectedCatagory = menuList[indexPath.item]
+        let selectedCatagory = categoryName[indexPath.item]
         tableView.rx.setDelegate(self).disposed(by: disposeBag)
         viewModel.requestAroundPostsWithCategory(param: userPosition, category: selectedCatagory)
             .asObservable()
