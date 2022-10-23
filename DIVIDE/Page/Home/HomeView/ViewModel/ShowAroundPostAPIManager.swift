@@ -11,33 +11,25 @@ import RxSwift
 
 class ShowAroundPosts {
     var realProvider = MoyaProvider<APIService>(plugins: [MoyaInterceptor()])
-
-//    var postsFromServer = PublishSubject<[Datum]>()
-
+    
+    //    var postsFromServer = PublishSubject<[Datum]>()
+    
     func requestAroundPosts(param: UserPositionModel) -> Single<[Datum]> {
         realProvider.rx.request(.showAroundPost(param: param))
             .filterSuccessfulStatusCodes()
             .map(UserPostsModel.self) // Single<UserPostsModel>
             .flatMap { result in
-                .just(result.data) // .just({something}) -> Single<{something}.type>
+                    .just(result.data) // .just({something}) -> Single<{something}.type>
             }
         
-        
-        //        realProvider.request(.showAroundPost(param: param)) { result in
-        //            switch result {
-        //            case let.success(response):
-        //                print(response.description)
-        //                do {
-        ////                    let filteredResponse = try response.filterSuccessfulStatusCodes()
-        //                    let postsFromServer = try response.map(UserPostsModel.self,using: JSONDecoder())
-        //                    self.postsFromServer.on(.next(postsFromServer.data))
-        //                } catch let error {
-        //                    print(error.localizedDescription)
-        //                }
-        //            case let .failure(error):
-        //                print(error.localizedDescription)
-        //            }
-        //        }
+    }
+    func requestAroundPostsWithCategory(param: UserPositionModel, category: String) -> Single<[Datum]> {
+        realProvider.rx.request(.showAroundPostWithCategory(param: param, category: category))
+            .filterSuccessfulStatusCodes()
+            .map(UserPostsModel.self)
+            .flatMap { result in
+                    .just(result.data)
+            }
     }
 }
 
