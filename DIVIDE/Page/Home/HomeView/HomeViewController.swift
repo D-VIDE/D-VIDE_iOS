@@ -206,7 +206,7 @@ class HomeViewController: UIViewController {
     private func setDVIDEBtn() {
         view.addSubview(DVIDEBtn)
         DVIDEBtn.snp.makeConstraints { make in
-            make.width.equalTo(121)
+            make.width.equalTo(115)
             make.height.equalTo(50)
             make.leading.equalToSuperview().offset(26)
             make.bottom.equalToSuperview().offset(-90)

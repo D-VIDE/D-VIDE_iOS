@@ -259,12 +259,13 @@ class HomeTableViewCell: UITableViewCell {
             make.width.equalToSuperview()
             make.height.equalTo(7)
             make.bottom.equalToSuperview()
-            
+            make.left.equalToSuperview()
         }
         progressBar.snp.makeConstraints { make in
             make.width.equalTo(250)
             make.height.equalTo(7)
             make.bottom.equalToSuperview()
+            make.left.equalTo(progressBarBackground)
         }
     }
     
