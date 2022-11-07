@@ -22,8 +22,7 @@ class DetailViewController: UIViewController, UIScrollViewDelegate{
         $0.collectionViewLayout = layout
         $0.backgroundColor = .clear
     }
-    
-    private var sampleImages = [UIImage]()
+    var foodImage = UIImageView()
     var imageViews = [UIImageView]()
     
     private var pageControl = UIPageControl().then {
@@ -35,12 +34,12 @@ class DetailViewController: UIViewController, UIScrollViewDelegate{
     private let topBackground = UIView().then {
         $0.backgroundColor = .mainOrange1
     }
-    private let proposerImage = UIImageView().then {
+    var proposerImage = UIImageView().then {
         $0.image = UIImage(named: "logo.png")
         $0.sizeToFit()
         $0.cornerRadius = 20
     }
-    lazy var proposerNickName = MainLabel(type: .Basics5).then {
+    var proposerNickName = MainLabel(type: .Basics5).then {
         $0.text = "NICKNAME"
         $0.textColor = .white
     }
@@ -119,7 +118,7 @@ class DetailViewController: UIViewController, UIScrollViewDelegate{
         $0.cornerRadius = 8
     }
     
-    private var progressBar = UIView().then {
+    lazy var progressBar = UIView().then {
         $0.backgroundColor = .mainOrange2
         $0.cornerRadius = 8
     }
@@ -146,7 +145,6 @@ class DetailViewController: UIViewController, UIScrollViewDelegate{
         super.viewDidLoad()
         
         setBackground()
-        getResizedImages()
         setPageControl()
         setInformationView()
         setComponentsConstraints()
@@ -154,6 +152,9 @@ class DetailViewController: UIViewController, UIScrollViewDelegate{
         self.carouselView.delegate = self
         self.carouselView.dataSource = self
         self.carouselView.register(CarouselCell.self, forCellWithReuseIdentifier: "CarouselCell")
+        
+        print(foodImage)
+        
     }
     
     
@@ -188,20 +189,20 @@ class DetailViewController: UIViewController, UIScrollViewDelegate{
         
     }
     
-    func getResizedImages() {
-        let targetWidth = 301.0
-        let targetHeight = 213.0
-        
-        let getImage = [resizeImage(image: UIImage(named: "pizzaImage.jpg")!, width: targetWidth, height: targetHeight),
-                        resizeImage(image: UIImage(named: "HomeBackgroundImage.png")!, width: targetWidth, height: targetHeight),
-                        resizeImage(image: UIImage(named: "pizzaImage.jpg")!, width: targetWidth, height: targetHeight)]
-        var countNum = 0
-        getImage.forEach { image in
-            sampleImages.append(image)
-            countNum += 1
-        }
-        print("sampleImage is successfully resized and appended.")
-    }
+//    func getResizedImages() {
+//        let targetWidth = 301.0
+//        let targetHeight = 213.0
+//        
+//        let getImage = [resizeImage(image: UIImage(named: "pizzaImage.jpg")!, width: targetWidth, height: targetHeight),
+//                        resizeImage(image: UIImage(named: "HomeBackgroundImage.png")!, width: targetWidth, height: targetHeight),
+//                        resizeImage(image: UIImage(named: "pizzaImage.jpg")!, width: targetWidth, height: targetHeight)]
+//        var countNum = 0
+//        getImage.forEach { image in
+//            sampleImages.append(image)
+//            countNum += 1
+//        }
+//        print("sampleImage is successfully resized and appended.")
+//    }
     
     func resizeImage(image: UIImage, width: CGFloat, height: CGFloat) -> UIImage {
          UIGraphicsBeginImageContext(CGSize(width: width, height: height))
@@ -214,7 +215,7 @@ class DetailViewController: UIViewController, UIScrollViewDelegate{
     private func setPageControl() {
         self.view.addSubview(pageControl)
         pageControl.hidesForSinglePage = true
-        pageControl.numberOfPages = sampleImages.count
+        pageControl.numberOfPages = imageViews.count
         pageControl.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.bottom.equalTo(carouselView).offset(-12)
@@ -379,7 +380,7 @@ class DetailViewController: UIViewController, UIScrollViewDelegate{
         }
         
         self.progressBar.snp.makeConstraints { make in
-            make.width.equalTo(150)
+            make.width.equalTo(max(320 * Int(presentOrderMoney.text!)! / Int(deliveryAimMoney.text!)!, 1))
             make.height.equalTo(16)
             make.leading.equalTo(progressBarBackground)
             make.top.equalTo(progressBarBackground)

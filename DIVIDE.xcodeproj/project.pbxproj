@@ -357,7 +357,6 @@
 			children = (
 				FA9DFB9228B37A4F0036B106 /* ViewModel */,
 				FA9DFB8F28B375B80036B106 /* Model */,
-				FAD55DA02892A865006437BF /* JoinOrder */,
 				324C343F286AF32A0057286A /* HomeViewController.swift */,
 				FA4967C3288A9E2B000247E4 /* HomeTableViewCell.swift */,
 				FA59C604288E6A24001ADD50 /* HomeTopMenuCell.swift */,
@@ -493,13 +492,6 @@
 				FA8A71F3289ABA4700E26196 /* UIViewController.swift */,
 			);
 			path = Extension;
-			sourceTree = "<group>";
-		};
-		FAD55DA02892A865006437BF /* JoinOrder */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = JoinOrder;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

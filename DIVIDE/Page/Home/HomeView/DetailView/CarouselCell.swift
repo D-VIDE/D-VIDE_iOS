@@ -12,7 +12,7 @@ class CarouselCell: UICollectionViewCell {
             let view = UIView()
             view.translatesAutoresizingMaskIntoConstraints = false
             view.layer.cornerRadius = 12
-        view.backgroundColor = .red
+            view.backgroundColor = .red
             return view
         }()
     
