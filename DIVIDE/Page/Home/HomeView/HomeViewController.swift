@@ -63,6 +63,7 @@ class HomeViewController: UIViewController {
         $0.setImage(UIImage(named: "WritePost.png"), for: .normal)
     }
     var allDataFromServer = [Datum]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         topMenuCollectionView.delegate = self
@@ -78,7 +79,7 @@ class HomeViewController: UIViewController {
         
         setTableViewConstraint()
         setDVIDEBtn()
-        
+        DVIDEBtn.addTarget(self, action: #selector(self.tapDIVIDEBtn), for: .touchUpInside)
     }
     func changePositionToLocation(latitude: Double, longitude: Double) -> String {
         var result : String = ""
@@ -210,6 +211,13 @@ class HomeViewController: UIViewController {
             make.leading.equalToSuperview().offset(26)
             make.bottom.equalToSuperview().offset(-90)
         }
+        
+    }
+    @objc func tapDIVIDEBtn() {
+        self.navigationController?.navigationBar.topItem?.title = ""
+
+        let view = PostRecruitingViewController()
+        self.navigationController?.pushViewController(view, animated: true)
     }
 }
 
@@ -278,6 +286,7 @@ extension HomeViewController:  UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.navigationController?.navigationBar.topItem?.title = ""
+
         let cell = DetailViewController()
         print("===============")
         print("all Data From Server")
