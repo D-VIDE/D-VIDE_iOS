@@ -12,6 +12,8 @@ public let token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlbWFpbEBnbWFpbC5jb20iLCJhdXR
 
 enum APIService {
     case postRecruiting(param: PostRecruitingInput, img: [Data])
+    case showAroundPost(param: UserPositionModel)
+    case showAroundPostWithCategory(param: UserPositionModel, category: String)
 }
 
 extension APIService: TargetType {
@@ -23,6 +25,8 @@ extension APIService: TargetType {
         switch self { //path에 쓰일 parameter 받을 때만 let
         case .postRecruiting:
             return "/v2/post"
+        case .showAroundPost, .showAroundPostWithCategory:
+            return "/v2/posts"
         }
     }
     
@@ -30,7 +34,7 @@ extension APIService: TargetType {
         switch self {
         case .postRecruiting:
             return .post
-        case .showAroundPost:
+        case .showAroundPost, .showAroundPostWithCategory:
             return .get
         }
     }
@@ -38,15 +42,14 @@ extension APIService: TargetType {
     // 테스트 request - 있어도 되고 없어도 됨
     var sampleData: Data {
         switch self {
-        case .postRecruiting:
-            return Data()
-        case .showAroundPost:
+        case .postRecruiting, .showAroundPost, .showAroundPostWithCategory:
             return Data()
         }
     }
     
     var task: Task {
         switch self {
+            
         case .postRecruiting(let param, let img):
             do {
                 let jsonData = try JSONEncoder().encode(param)
@@ -60,23 +63,30 @@ extension APIService: TargetType {
                 }
                 print("DEBUG: \(multipartFormData)")
                 return .uploadMultipart(multipartFormData)
-            
+                
             } catch {
                 print("절대 안돼")
                 print(error.localizedDescription)
                 return .requestData(img[0])
             }
-        case .showAroundPost:
-            return .requestPlain
+            
+        case let .showAroundPost(param):
+            return .requestParameters(parameters: [
+                "longitude" : param.longitude,
+                "latitude" : param.latitude], encoding: URLEncoding.queryString)
+        case let .showAroundPostWithCategory(param, category):
+            return .requestParameters(parameters: [
+                "longitude" : param.longitude,
+                "latitude" : param.latitude,
+                "category": category], encoding: URLEncoding.queryString)
         }
     }
-    
     var headers: [String : String]? {
         switch self{
-        case .postRecruiting, .showAroundPost:
+        case .postRecruiting, .showAroundPost, .showAroundPostWithCategory:
             return [
                 "Authorization" : "Bearer \(token)"
             ]
         }
     }
-}
+    }

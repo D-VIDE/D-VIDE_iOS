@@ -30,12 +30,12 @@ public let textfieldWidth = Device.width - 139
 class PostRecruitingViewController: UIViewController {
 
     var tagList: [String] = ["한식", "중식", "양식", "태국식", "남원정", "정지윤", "정명진", "조병우", "홍유준", "패스파인더"]
-    
-    
+
+
     let viewModel = PostRecruitingViewModel()
     let apiManager = PostRecruitingAPIManager()
     var disposeBag = DisposeBag()
-    
+
     // 위,경도
     var coordinate = NMGLatLng(lat: 37, lng: 127)
 
@@ -47,7 +47,7 @@ class PostRecruitingViewController: UIViewController {
     let imgDropDown3 = DropDown()
 
 
-    
+
     // 시간 milliseconds
     var milliseconds : Int?
 
@@ -194,14 +194,14 @@ class PostRecruitingViewController: UIViewController {
         $0.distribution = .equalSpacing
         $0.spacing = 10
     }
-    
-    
+
+
     // UIImageView 선언
     lazy var imgForUpload1 = CustomImageView().then {
         $0.image = UIImage(named: "defaultPhoto")
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 13
-        
+
         $0.setOnEventListener { gesture in
             self.currentTag = 0
             if type(of: gesture) == UITapGestureRecognizer.self {
@@ -222,7 +222,7 @@ class PostRecruitingViewController: UIViewController {
         $0.image = UIImage(named: "selectPhoto")
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 13
-        
+
         $0.setOnEventListener { gesture in
             self.currentTag = 1
             if type(of: gesture) == UITapGestureRecognizer.self {
@@ -242,7 +242,7 @@ class PostRecruitingViewController: UIViewController {
         $0.image = UIImage(named: "selectPhoto")
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 13
-        
+
         $0.setOnEventListener { gesture in
             self.currentTag = 2
             if type(of: gesture) == UITapGestureRecognizer.self {
@@ -331,7 +331,7 @@ class PostRecruitingViewController: UIViewController {
         dueTimeTextField.inputView = datePicker
         categoryCollectionView.isHidden = true
 
-        
+
         initDropDown(dropDown: imgDropDown1, anchor: imgForUpload1)
         initDropDown(dropDown: imgDropDown2, anchor: imgForUpload2)
         initDropDown(dropDown: imgDropDown3, anchor: imgForUpload3)
@@ -343,8 +343,8 @@ class PostRecruitingViewController: UIViewController {
         mapView.addCameraDelegate(delegate: self)
         mapView.moveCamera(NMFCameraUpdate(position: NMFCameraPosition(NMGLatLng(lat: coordinate.lat, lng: coordinate.lng), zoom: 16, tilt: 0, heading: 0)))
 
-        
-        
+
+
     }
 
     func setConstraints() {
@@ -523,7 +523,7 @@ class PostRecruitingViewController: UIViewController {
             make.width.equalTo(imgWidth)
         }
 
-        
+
         mapPointer.snp.makeConstraints { make in
             make.width.height.equalTo(14)
             make.center.equalToSuperview()
@@ -558,7 +558,7 @@ class PostRecruitingViewController: UIViewController {
 
         categoryCollectionView.isHidden = !categoryCollectionView.isHidden
     }
-    
+
     func initDropDown(dropDown: DropDown, anchor: UIImageView) {
         dropDown.anchorView = anchor
         dropDown.bottomOffset = CGPoint(x: 0, y:(dropDown.anchorView?.plainView.bounds.height)!)
@@ -600,8 +600,8 @@ class PostRecruitingViewController: UIViewController {
         self.dueTimeTextField.resignFirstResponder()
     }
 
-    
-    
+
+
     @objc func showCategory() {
         inOutCategory()
     }
@@ -630,7 +630,7 @@ class PostRecruitingViewController: UIViewController {
 
         // Check 1: 있는지 없는지
         if let title = titleTextField.text, let store = storeTextField.text, let category = categoryTextField.text, let deliveryFee = deliveryFeeTextField.text, let targetPrice = deliveryAimTextField.text, let content = contentTextView.text, let targetTime = milliseconds {
-            
+
             var imgList : [Data] = []
             imgArray?.forEach({ img in
                 if let jpegImg = img.jpegData(compressionQuality: 0.5) {
@@ -640,11 +640,11 @@ class PostRecruitingViewController: UIViewController {
                     return
                 }
             })
-            
+
             // Check 2: 타입에 맞게 변환
             // 일단은 KOREAN_FOOD만 넣어놓음
             let inputData = PostRecruitingInput(title: title, storeName: store, content: content, targetPrice: Int(deliveryFee.split(separator: ",").joined())!, deliveryPrice: Int(targetPrice.split(separator: ",").joined())!, longitude: coordinate.lng, latitude: coordinate.lat, category: "KOREAN_FOOD", targetTime: targetTime)
-            
+
             apiManager.requestpostRecruiting(param: inputData, img: imgList) { [weak self] result in
                 switch result {
                 case .success(let response):
@@ -656,7 +656,7 @@ class PostRecruitingViewController: UIViewController {
         } else {
             self.presentAlert(title: "누락된 정보가 있습니다.")
         }
-        
+
     }
 }
 extension PostRecruitingViewController: UITextFieldDelegate {

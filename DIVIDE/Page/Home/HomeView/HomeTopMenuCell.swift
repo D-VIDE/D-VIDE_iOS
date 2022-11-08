@@ -12,21 +12,22 @@ class HomeTopMenuCell: UICollectionViewCell {
     
     static let identifier = "HomeTopMenuCell"
     
-    let menuLabel = MainLabel(type: .Basics2).then {
+    var menuLabel = MainLabel(type: .Basics2).then {
         $0.textColor = .gray2
     }
     
-//    override var isSelected: Bool{
-//        didSet{
-//            if isSelected == true {
-//                contentView.backgroundColor = .mainOrange
-//                menuLabel.textColor = .white
-//            } else {
-//                contentView.backgroundColor = .tagBackgroundGray
-//                menuLabel.textColor = .tagGray
-//            }
-//        }
-//    }
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                contentView.backgroundColor = .mainOrange1
+                menuLabel.textColor = .white
+            } else {
+                contentView.backgroundColor = .gray0
+                menuLabel.textColor = .gray2
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
