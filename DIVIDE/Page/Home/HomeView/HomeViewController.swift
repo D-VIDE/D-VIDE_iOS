@@ -240,6 +240,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         self.tableView.delegate = nil
         self.tableView.dataSource = nil
         allDataFromServer.removeAll()
+        self.tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         let selectedCatagory = categoryName[indexPath.item]
         tableView.rx.setDelegate(self).disposed(by: disposeBag)
         viewModel.requestAroundPostsWithCategory(param: userPosition, category: selectedCatagory)
@@ -277,7 +278,15 @@ extension HomeViewController:  UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.navigationController?.navigationBar.topItem?.title = ""
-        var cell = DetailViewController()
+        let cell = DetailViewController()
+        print("===============")
+        print("all Data From Server")
+        allDataFromServer.forEach { Datum in
+            print("--")
+            print(Datum)
+            print("--")
+        }
+        print("===============")
 //        cell.proposerImage =
         cell.proposerNickName.text = allDataFromServer[indexPath[1]].user.nickname
         cell.titleLabel.text = allDataFromServer[indexPath[1]].post.title
@@ -287,11 +296,8 @@ extension HomeViewController:  UITableViewDelegate, UITableViewDataSource {
         cell.deliveryAimMoney.text = String(allDataFromServer[indexPath[1]].post.orderedPrice)
         cell.presentOrderMoney.text = String(allDataFromServer[indexPath[1]].post.orderedPrice - allDataFromServer[indexPath[1]].post.targetPrice)
         
-        cell.foodImage.load(url: URL(string:  allDataFromServer[indexPath[1]].post.postImgUrl)!)
+        cell.foodImageView.load(url: URL(string:  allDataFromServer[indexPath[1]].post.postImgUrl)!)
         
-        print("==================")
-        print("progress Bar is updated.")
-        print("==================")
         self.navigationController?.pushViewController(cell, animated: true)
     }
     

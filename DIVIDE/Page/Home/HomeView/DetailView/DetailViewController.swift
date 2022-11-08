@@ -12,24 +12,9 @@ import Then
 class DetailViewController: UIViewController, UIScrollViewDelegate{
     
     // MARK: property
-    private let carouselView = UICollectionView(frame: .zero, collectionViewLayout: CarouselLayout()).then{
-        let layout = CarouselLayout()
-        layout.itemSize = CGSize(width: 301.0 , height: 203.0)
-        layout.sideItemScale = 0.8
-        layout.spacing = 11
-        layout.isPagingEnabled = true
-        layout.sideItemAlpha = 0.5
-        $0.collectionViewLayout = layout
-        $0.backgroundColor = .clear
-    }
-    var foodImage = UIImageView()
-    var imageViews = [UIImageView]()
     
-    private var pageControl = UIPageControl().then {
-        $0.pageIndicatorTintColor = .lightGray
-        $0.currentPageIndicatorTintColor = .white
-        $0.currentPage = 0
-    }
+    var foodImageView = UIImageView()
+    
     
     private let topBackground = UIView().then {
         $0.backgroundColor = .mainOrange1
@@ -78,7 +63,7 @@ class DetailViewController: UIViewController, UIScrollViewDelegate{
         $0.textColor = .gray3
     }
     lazy var deliveryFee = MainLabel(type: .Point4).then {
-        $0.text = "30,000"
+        $0.text = "---"
         $0.textColor = .gray3
     }
     lazy var deliveryFeeUnitLabel = MainLabel(type: .Basics2).then {
@@ -91,7 +76,7 @@ class DetailViewController: UIViewController, UIScrollViewDelegate{
         $0.textColor = .gray3
     }
     lazy var deliveryAimMoney = MainLabel(type: .Big1).then {
-        $0.text = "30,000"
+        $0.text = "---"
         $0.textColor = .mainOrange1
     }
     lazy var aimUnitLabel = MainLabel(type: .Basics2).then {
@@ -105,7 +90,7 @@ class DetailViewController: UIViewController, UIScrollViewDelegate{
         $0.textColor = .gray3
     }
     lazy var presentOrderMoney = MainLabel(type: .Big1).then {
-        $0.text = "16,000"
+        $0.text = "---"
         $0.textColor = .mainOrange1
     }
     lazy var presentUnitLabel = MainLabel(type: .Basics2).then {
@@ -144,21 +129,26 @@ class DetailViewController: UIViewController, UIScrollViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setFoodImageViews()
         setBackground()
-        setPageControl()
         setInformationView()
         setComponentsConstraints()
         
-        self.carouselView.delegate = self
-        self.carouselView.dataSource = self
-        self.carouselView.register(CarouselCell.self, forCellWithReuseIdentifier: "CarouselCell")
-        
-        print(foodImage)
+        print(foodImageView)
         
     }
     
-    
-    func setBackground() {
+    private func setFoodImageViews() {
+        self.mainScrollView.addSubview(foodImageView)
+        
+        foodImageView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.height.equalTo(250)
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(30)
+        }
+    }
+    private func setBackground() {
         self.view.backgroundColor = .white
         
         self.view.addSubview(topBackground)
@@ -178,56 +168,13 @@ class DetailViewController: UIViewController, UIScrollViewDelegate{
             make.top.equalToSuperview().offset(95)
         }
         
-        mainScrollView.addSubview(carouselView)
-        
-        carouselView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview()
-            make.height.equalTo(233)
-            make.width.equalToSuperview()
-        }
         
     }
-    
-//    func getResizedImages() {
-//        let targetWidth = 301.0
-//        let targetHeight = 213.0
-//        
-//        let getImage = [resizeImage(image: UIImage(named: "pizzaImage.jpg")!, width: targetWidth, height: targetHeight),
-//                        resizeImage(image: UIImage(named: "HomeBackgroundImage.png")!, width: targetWidth, height: targetHeight),
-//                        resizeImage(image: UIImage(named: "pizzaImage.jpg")!, width: targetWidth, height: targetHeight)]
-//        var countNum = 0
-//        getImage.forEach { image in
-//            sampleImages.append(image)
-//            countNum += 1
-//        }
-//        print("sampleImage is successfully resized and appended.")
-//    }
-    
-    func resizeImage(image: UIImage, width: CGFloat, height: CGFloat) -> UIImage {
-         UIGraphicsBeginImageContext(CGSize(width: width, height: height))
-         image.draw(in: CGRect(x: 0, y: 0, width: width, height: height))
-         let newImage = UIGraphicsGetImageFromCurrentImageContext()
-         UIGraphicsEndImageContext()
-         return newImage!
-     }
 
-    private func setPageControl() {
-        self.view.addSubview(pageControl)
-        pageControl.hidesForSinglePage = true
-        pageControl.numberOfPages = imageViews.count
-        pageControl.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalTo(carouselView).offset(-12)
-        }
-    }
+    
    
     
-    func scrollViewDidScroll(_ imageScrollView: UIScrollView) {
-        let value = imageScrollView.contentOffset.x/imageScrollView.frame.size.width
-        pageControl.currentPage =  Int(round(value))
-        
-    }
+    
     
     func setComponentsConstraints() {
         self.view.addSubview(proposerImage)
@@ -410,18 +357,4 @@ class DetailViewController: UIViewController, UIScrollViewDelegate{
 
 }
 
-extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-           
-        return 3
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CarouselCell", for: indexPath) as? CarouselCell else { return UICollectionViewCell() }
-        return cell
-    }
-    
-    
-}
+
