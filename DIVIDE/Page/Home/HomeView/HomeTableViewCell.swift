@@ -20,7 +20,7 @@ class HomeTableViewCell: UITableViewCell {
     
     //MARK: - conponents
     // 로고
-    lazy var logo = UIImageView().then{
+    var logo = UIImageView().then{
         $0.image = UIImage(named: "logo.png")
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true

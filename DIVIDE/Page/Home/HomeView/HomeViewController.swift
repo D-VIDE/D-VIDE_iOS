@@ -62,7 +62,7 @@ class HomeViewController: UIViewController {
     let DVIDEBtn = UIButton().then {
         $0.setImage(UIImage(named: "WritePost.png"), for: .normal)
     }
-
+    var allDataFromServer = [Datum]()
     override func viewDidLoad() {
         super.viewDidLoad()
         topMenuCollectionView.delegate = self
@@ -100,18 +100,17 @@ class HomeViewController: UIViewController {
         viewModel.requestAroundPosts(param: userPosition)
             .asObservable()
             .bind(to: tableView.rx.items(cellIdentifier: "HomeTableViewCell", cellType: HomeTableViewCell.self)) { (row, item, cell) in
-//                image.load(url: url!)
-                
+                self.allDataFromServer.append(item)
+                cell.userName.text = item.user.nickname
                 cell.img.load(url: URL(string: item.post.postImgUrl)!)
 //                cell.userLocation.text = self.changePositionToLocation(latitude: item.post.latitude, longitude: item.post.longitude)
-                cell.userName.text = String(item.user.id)
                 cell.title.text = item.post.title
                 cell.remainTimeUnderOneHour.text = self.calculatedRemainTime(targetTime: item.post.targetTime)
                 cell.closingTimeValue.text = self.setAMPMTime(closingTime: item.post.targetTime)
                 cell.AMPMLabel.text = self.setAMPM(closingTime: item.post.targetTime)
                 cell.insufficientChargeValueLabel.text = String(item.post.targetPrice).insertComma
                 cell.progressBar.snp.makeConstraints { make in
-                    make.width.equalTo(250*(item.post.orderedPrice - item.post.targetPrice)/item.post.targetPrice)
+                    make.width.equalTo(250*(item.post.orderedPrice - item.post.targetPrice)/item.post.orderedPrice)
                 }
             }.disposed(by: disposeBag)
     }
@@ -240,21 +239,25 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.tableView.delegate = nil
         self.tableView.dataSource = nil
+        allDataFromServer.removeAll()
+        self.tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         let selectedCatagory = categoryName[indexPath.item]
         tableView.rx.setDelegate(self).disposed(by: disposeBag)
         viewModel.requestAroundPostsWithCategory(param: userPosition, category: selectedCatagory)
             .asObservable()
             .bind(to: tableView.rx.items(cellIdentifier: "HomeTableViewCell", cellType: HomeTableViewCell.self)) { (row, item, cell) in
+                self.allDataFromServer.append(item)
                 cell.img.load(url: URL(string: item.post.postImgUrl)!)
+                cell.userName.text = item.user.nickname
 //                cell.userLocation.text = self.changePositionToLocation(latitude: item.post.latitude, longitude: item.post.longitude)
-                cell.userName.text = String(item.user.id)
+
                 cell.title.text = item.post.title
                 cell.remainTimeUnderOneHour.text = self.calculatedRemainTime(targetTime: item.post.targetTime)
                 cell.closingTimeValue.text = self.setAMPMTime(closingTime: item.post.targetTime)
                 cell.AMPMLabel.text = self.setAMPM(closingTime: item.post.targetTime)
                 cell.insufficientChargeValueLabel.text = String(item.post.targetPrice).insertComma
-                cell.progressBar.snp.makeConstraints { make in
-                    make.width.equalTo(250*(item.post.orderedPrice - item.post.targetPrice)/item.post.targetPrice)
+                cell.progressBar.snp.updateConstraints { make in
+                    make.width.equalTo(250*(item.post.orderedPrice - item.post.targetPrice)/item.post.orderedPrice)
                 }
             }.disposed(by: disposeBag)
     }
@@ -265,7 +268,7 @@ extension HomeViewController:  UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell", for: indexPath) as? HomeTableViewCell else { return UITableViewCell() }
         return cell
@@ -275,11 +278,30 @@ extension HomeViewController:  UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.navigationController?.navigationBar.topItem?.title = ""
-        self.navigationController?.pushViewController(DetailViewController(), animated: true)
-        print(indexPath)
+        let cell = DetailViewController()
+        print("===============")
+        print("all Data From Server")
+        allDataFromServer.forEach { Datum in
+            print("--")
+            print(Datum)
+            print("--")
+        }
+        print("===============")
+//        cell.proposerImage =
+        cell.proposerNickName.text = allDataFromServer[indexPath[1]].user.nickname
+        cell.titleLabel.text = allDataFromServer[indexPath[1]].post.title
+        cell.dueTime.text = setAMPMTime(closingTime: allDataFromServer[indexPath[1]].post.targetTime)
+        cell.AMPM.text = setAMPM(closingTime: allDataFromServer[indexPath[1]].post.targetTime)
+        cell.deliveryFee.text = "1000"
+        cell.deliveryAimMoney.text = String(allDataFromServer[indexPath[1]].post.orderedPrice)
+        cell.presentOrderMoney.text = String(allDataFromServer[indexPath[1]].post.orderedPrice - allDataFromServer[indexPath[1]].post.targetPrice)
         
-
+        cell.foodImageView.load(url: URL(string:  allDataFromServer[indexPath[1]].post.postImgUrl)!)
+        
+        self.navigationController?.pushViewController(cell, animated: true)
     }
+    
+    
 }
 
 
