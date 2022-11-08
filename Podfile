@@ -15,6 +15,7 @@ target 'DIVIDE' do
   pod 'DropDown'
   pod 'NMapsMap'
   pod 'Moya/RxSwift'
+  pod 'Alamofire'
   pod 'Kingfisher'
   pod 'RxGesture'
   pod 'Cosmos'

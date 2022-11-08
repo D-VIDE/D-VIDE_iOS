@@ -2,13 +2,13 @@ PODS:
   - Alamofire (5.6.2)
   - Cosmos (23.0.0)
   - DropDown (2.3.13)
-  - Kingfisher (7.3.0)
+  - Kingfisher (7.4.1)
   - Moya/Core (15.0.0):
     - Alamofire (~> 5.0)
   - Moya/RxSwift (15.0.0):
     - Moya/Core
     - RxSwift (~> 6.0)
-  - NMapsMap (3.15.0)
+  - NMapsMap (3.16.0)
   - ReusableKit (3.0.0):
     - ReusableKit/Core (= 3.0.0)
   - ReusableKit/Core (3.0.0)
@@ -25,6 +25,7 @@ PODS:
   - Then (3.0.0)
 
 DEPENDENCIES:
+  - Alamofire
   - Cosmos
   - DropDown
   - Kingfisher
@@ -58,9 +59,9 @@ SPEC CHECKSUMS:
   Alamofire: d368e1ff8a298e6dde360e35a3e68e6c610e7204
   Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
-  Kingfisher: cdb1189a9223b1bc028816bd47c8b8101a58831c
+  Kingfisher: cd762a593a61b2fbecf7645c00f9a801a3ebfc9c
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
-  NMapsMap: f151761c088d6516064c59da03ab6503769486e6
+  NMapsMap: a2593320fca2bb09e521c05b4dffee4da42e96ed
   ReusableKit: e5f853ad4652e411f96b6119b2488afa12929be6
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxGesture: f3efb47ed2d26a8082f7b660d4a59970e275a7f8
@@ -69,6 +70,6 @@ SPEC CHECKSUMS:
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
 
-PODFILE CHECKSUM: 853fb8a1ae4b0206bdb6f406bc83cb7ef88c12ed
+PODFILE CHECKSUM: 174fe8f62fb23df22810eda4cf23e8c7a5beff31
 
 COCOAPODS: 1.11.3
