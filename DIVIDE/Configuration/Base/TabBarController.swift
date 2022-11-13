@@ -25,7 +25,7 @@ class TabBarController: UITabBarController {
         let firstTab = HomeViewController()
         let secondTab = SNSViewController()
         let thirdTab = ChatListViewController()
-        let fourthTab = SNSViewController()
+        let fourthTab = ProfileViewController()
         
         firstTab.tabBarItem = UITabBarItem(title: "디바이드", image: self.HomeIconUnselected, tag: 0)
         firstTab.tabBarItem.selectedImage = HomeIcon

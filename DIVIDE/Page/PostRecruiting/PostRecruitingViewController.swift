@@ -281,21 +281,21 @@ class PostRecruitingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        view.backgroundColor = .viewBackgroundGray
-        navigationController?.view.backgroundColor = .white
-        navigationController?.navigationBar.isTransparent = false
-        navigationController?.navigationBar.backgroundColor = .white
-        navigationController?.navigationBar.titleTextAttributes = [
-            .foregroundColor: UIColor.mainOrange2,
-            .font: UIFont.SDSamliphopang(.basic, size: 25)
-        ]
+//        view.backgroundColor = .viewBackgroundGray
+//        navigationController?.view.backgroundColor = .white
+//        navigationController?.navigationBar.isTransparent = false
+//        navigationController?.navigationBar.backgroundColor = .white
+//        navigationController?.navigationBar.titleTextAttributes = [
+//            .foregroundColor: UIColor.mainOrange2,
+//            .font: UIFont.SDSamliphopang(.basic, size: 25)
+//        ]
+//
+//        navigationController?.navigationBar.layer.addBorder([.bottom, .left, .right], color: .borderGray, width: 0.1)
+//
+//        navigationController?.navigationBar.layer.cornerRadius = 18
+//        navigationController?.navigationBar.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMaxYCorner, .layerMinXMaxYCorner)
 
-        navigationController?.navigationBar.layer.addBorder([.bottom, .left, .right], color: .borderGray, width: 0.1)
-        navigationController?.navigationBar.topItem?.title = "D/VIDE 모집글 작성"
-        navigationController?.navigationBar.layer.cornerRadius = 18
-        navigationController?.navigationBar.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMaxYCorner, .layerMinXMaxYCorner)
-
-//        navigationController?.additionalSafeAreaInsets.top = 40
+//        navigationController?.additionalSafeAreaInsets.top = 40 
 
         self.view.addSubview(scrollView)
         scrollView.addSubview(scrollContentView)

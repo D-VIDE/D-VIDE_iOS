@@ -215,7 +215,6 @@ class HomeViewController: UIViewController {
     }
     @objc func tapDIVIDEBtn() {
         self.navigationController?.navigationBar.topItem?.title = ""
-
         let view = PostRecruitingViewController()
         self.navigationController?.pushViewController(view, animated: true)
     }
