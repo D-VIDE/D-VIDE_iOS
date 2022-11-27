@@ -20,6 +20,7 @@ extension UIViewController {
     
     @objc func dismissKeyboard() {
         self.view.endEditing(false)
+        self.view.frame.origin.y = 0
     }
     
     func presentAlert(title: String, message: String? = nil,
@@ -131,6 +132,7 @@ extension UIViewController {
 //        alertVC.addAction(no)
 //        self.present(alertVC, animated: true, completion: nil)
 //    }
+    
 }
 
 

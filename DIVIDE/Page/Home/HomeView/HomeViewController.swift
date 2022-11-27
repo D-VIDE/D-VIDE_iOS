@@ -243,7 +243,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         return CGSize(width: size.width+24, height: size.height+10)
     }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) { //diffable 컬렉션뷰 + modern collectionView 적용해보기?
         self.tableView.delegate = nil
         self.tableView.dataSource = nil
         allDataFromServer.removeAll()
