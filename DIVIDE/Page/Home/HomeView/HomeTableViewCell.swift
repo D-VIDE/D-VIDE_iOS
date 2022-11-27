@@ -38,8 +38,8 @@ class HomeTableViewCell: UITableViewCell {
     }
     lazy var timeBubble = UIImageView().then {
         $0.image = UIImage(named: "TimeBubble.png")
-        $0.contentMode = .scaleAspectFill
-        $0.clipsToBounds = true
+        $0.contentMode = .scaleToFill
+        
     }
     //남은 시간 60분 미만일때 말풍선 띄우기 위한 기준값 설정
     
@@ -157,13 +157,13 @@ class HomeTableViewCell: UITableViewCell {
         contentView.addSubview(timeBubble)
         timeBubble.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-12)
-            make.width.equalTo(110)
-            make.height.equalTo(30)
+            make.width.equalTo(120)
+            make.height.equalTo(25)
             make.top.equalTo(userLocation)
         }
         timeBubble.addSubview(remainTimeUnderOneHour)
         remainTimeUnderOneHour.snp.makeConstraints { make in
-            make.centerY.equalToSuperview().offset(-4)
+            make.centerY.equalToSuperview().offset(-3)
             make.centerX.equalToSuperview()
         }
     }

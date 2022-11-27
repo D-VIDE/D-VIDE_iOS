@@ -29,7 +29,7 @@ public let textfieldWidth = Device.width - 139
 
 class PostRecruitingViewController: UIViewController {
 
-    var tagList: [String] = ["한식", "중식", "양식", "태국식", "남원정", "정지윤", "정명진", "조병우", "홍유준", "패스파인더"]
+    var tagList: [String] = ["분식", "한식", "일식", "디저트", "양식"]
 
 
     let viewModel = PostRecruitingViewModel()
@@ -50,7 +50,9 @@ class PostRecruitingViewController: UIViewController {
 
     // 시간 milliseconds
     var milliseconds : Int?
-
+    private let topLabel = MainLabel(type: .hopang).then {
+        $0.text = "D/VIDE 모집글 작성"
+    }
     // UIScrollView 정의
     lazy var scrollView = UIScrollView().then {
         $0.backgroundColor = .viewBackgroundGray
@@ -277,26 +279,12 @@ class PostRecruitingViewController: UIViewController {
         $0.addTarget(self, action: #selector(handleDatePicker(_:)), for: .valueChanged)
     }
 
-
+    
+    var isContentTextViewTapped = PublishRelay<Bool>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        view.backgroundColor = .viewBackgroundGray
-        navigationController?.view.backgroundColor = .white
-        navigationController?.navigationBar.isTransparent = false
-        navigationController?.navigationBar.backgroundColor = .white
-        navigationController?.navigationBar.titleTextAttributes = [
-            .foregroundColor: UIColor.mainOrange2,
-            .font: UIFont.SDSamliphopang(.basic, size: 25)
-        ]
-
-        navigationController?.navigationBar.layer.addBorder([.bottom, .left, .right], color: .borderGray, width: 0.1)
-        navigationController?.navigationBar.topItem?.title = "D/VIDE 모집글 작성"
-        navigationController?.navigationBar.layer.cornerRadius = 18
-        navigationController?.navigationBar.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMaxYCorner, .layerMinXMaxYCorner)
-
-//        navigationController?.additionalSafeAreaInsets.top = 40
-
+        setBackground()
         self.view.addSubview(scrollView)
         scrollView.addSubview(scrollContentView)
 
@@ -325,7 +313,6 @@ class PostRecruitingViewController: UIViewController {
             imgStackView.addArrangedSubview(img)
         }
 
-
         mapView.addSubviews([mapPointer, mapMarker])
 
         dueTimeTextField.inputView = datePicker
@@ -337,16 +324,50 @@ class PostRecruitingViewController: UIViewController {
         initDropDown(dropDown: imgDropDown3, anchor: imgForUpload3)
 
 
-
+        
         setConstraints()
         //카메라 이동
         mapView.addCameraDelegate(delegate: self)
         mapView.moveCamera(NMFCameraUpdate(position: NMFCameraPosition(NMGLatLng(lat: coordinate.lat, lng: coordinate.lng), zoom: 16, tilt: 0, heading: 0)))
 
-
-
+        dismissKeyboardWhenTappedAround()
+        bind()
     }
-
+    
+    func setAttributes() {} // Then
+    func addView() {} // self.addSubview...
+    func setLayout() {} // SnapKit
+    
+    func bind() {
+        contentTextView.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { [unowned self] _ in
+                self.isContentTextViewTapped.accept(true)
+            }).disposed(by: disposeBag)
+        
+        isContentTextViewTapped
+            .subscribe(onNext: { [unowned self] isTapped in
+                if isTapped == true {
+                    // 화면 올리기
+                    print("self.view.frame.origin is : \(self.view.frame.origin)")
+                    self.view.frame.origin.y -= 150
+                } else {
+                    self.view.frame.origin.y += 150
+                }
+        }).disposed(by: disposeBag)
+    }
+    
+    
+   
+    func setBackground() {
+        view.backgroundColor = .viewBackgroundGray
+        view.addSubview(topLabel)
+        
+        topLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(55)
+        }
+    }
     func setConstraints() {
 
         // ScrollView
@@ -535,7 +556,7 @@ class PostRecruitingViewController: UIViewController {
             make.bottom.equalTo(mapPointer.snp.top).offset(7)
         }
     }
-
+    
 
     func inOutCategory() {
         if categoryCollectionView.isHidden {
@@ -658,6 +679,7 @@ class PostRecruitingViewController: UIViewController {
         }
 
     }
+    
 }
 extension PostRecruitingViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -701,7 +723,12 @@ extension PostRecruitingViewController: UITextFieldDelegate {
         //다른 textField일 때
         return true
     }
+    
+   
 }
+
+
+
 
 
 extension PostRecruitingViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

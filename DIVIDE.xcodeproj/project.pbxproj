@@ -79,6 +79,7 @@
 		FAAD4906289ABA1200508C12 /* TextFieldClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD4900289ABA1200508C12 /* TextFieldClass.swift */; };
 		FAAD4907289ABA1200508C12 /* LabelClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD4901289ABA1200508C12 /* LabelClass.swift */; };
 		FAAD4908289ABA1200508C12 /* NavBarClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD4902289ABA1200508C12 /* NavBarClass.swift */; };
+		FAC4BE7F2920C18500E7F788 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC4BE7E2920C18500E7F788 /* ProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -158,6 +159,7 @@
 		FAAD4900289ABA1200508C12 /* TextFieldClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldClass.swift; sourceTree = "<group>"; };
 		FAAD4901289ABA1200508C12 /* LabelClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelClass.swift; sourceTree = "<group>"; };
 		FAAD4902289ABA1200508C12 /* NavBarClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavBarClass.swift; sourceTree = "<group>"; };
+		FAC4BE7E2920C18500E7F788 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -408,6 +410,7 @@
 		FAAD48EE289AB82900508C12 /* Page */ = {
 			isa = PBXGroup;
 			children = (
+				FAC4BE7D2920C15F00E7F788 /* Profile */,
 				3294CDA8289D07CF00FF14AD /* Chat */,
 				FA4967BE288A9DD3000247E4 /* Home */,
 				FAAD48EF289AB84300508C12 /* PostRecruiting */,
@@ -492,6 +495,14 @@
 				FA8A71F3289ABA4700E26196 /* UIViewController.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		FAC4BE7D2920C15F00E7F788 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				FAC4BE7E2920C18500E7F788 /* ProfileViewController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -633,6 +644,7 @@
 				FA9DFB9128B375D10036B106 /* ShowAroundPostResponse.swift in Sources */,
 				FAAD4905289ABA1200508C12 /* LeftAlignedClass.swift in Sources */,
 				FA8A7200289ABA4700E26196 /* UIImageView.swift in Sources */,
+				FAC4BE7F2920C18500E7F788 /* ProfileViewController.swift in Sources */,
 				32B7B8A628A245350092CFD6 /* PostRecruitingResponse.swift in Sources */,
 				32AA8E4E28A760FC00BA68E3 /* SNSTableViewCell.swift in Sources */,
 				3294CDAA289D07E800FF14AD /* ChatListViewController.swift in Sources */,
