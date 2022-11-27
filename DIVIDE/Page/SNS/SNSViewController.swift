@@ -22,59 +22,59 @@ class SNSViewController: UIViewController {
     let viewModel = SNSViewModel()
 
     
-    lazy var navigationView = UIView().then {
-        $0.backgroundColor = .white
-        $0.layer.addBorder([.bottom], color: .borderGray, width: 1)
-        $0.layer.cornerRadius = 18
-        $0.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMaxYCorner, .layerMinXMaxYCorner)
-        $0.layer.addShadow(location: .bottom)
-    }
+    lazy var navigationView = UIView()
+    lazy var navigationLabel = MainLabel(type: .hopang)
+    lazy var tableView = UITableView()
     
-    lazy var navigationLabel = MainLabel(type: .hopang).then {
-        $0.text = "D/VIDE 맛집"
-    }
-    
-   
-    
-    lazy var tableView = UITableView().then {
-        $0.dataSource = self
-        $0.delegate = self
-        $0.backgroundColor = .viewBackgroundGray
-        $0.showsVerticalScrollIndicator = false
-        $0.separatorStyle = .none
-//        $0.refreshControl = UIRefreshControl()
-//        $0.refreshControl?.addTarget(self, action: #selector(refreshTable(_:)), for: .valueChanged)
-        $0.contentInset = UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0)
-        $0.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "customHeader")
-        $0.register(SNSReusable.snsUpperCell)
-        $0.register(SNSReusable.snsCell)
-    }
-    
-    
-    
-
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-        self.view.backgroundColor = .viewBackgroundGray
+        
+        setAttribute()
+        addView()
+        setLayout()
+        
         self.navigationController?.navigationBar.isHidden = true
         
-        self.view.addSubviews([navigationView, tableView])
-        navigationView.addSubview(navigationLabel)
-//        headerView.addSubviews([recommendLabel, collectionView])
-        
-        setConstraints()
     }
-    
-    func setConstraints(){
+    func setAttribute() {
+        // UIView
+        navigationView.do {
+            $0.backgroundColor = .white
+            $0.layer.addBorder([.bottom], color: .borderGray, width: 1)
+            $0.layer.cornerRadius = 18
+            $0.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMaxYCorner, .layerMinXMaxYCorner)
+            $0.layer.addShadow(location: .bottom)
+        }
+        tableView.do {
+            $0.dataSource = self
+            $0.delegate = self
+            $0.backgroundColor = .viewBackgroundGray
+            $0.showsVerticalScrollIndicator = false
+            $0.separatorStyle = .none
+            $0.contentInset = UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0)
+            $0.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "customHeader")
+            $0.register(SNSReusable.snsUpperCell)
+            $0.register(SNSReusable.snsCell)
+        }
+        // Label
+        navigationLabel.do {
+            $0.text = "D/VIDE 맛집"
+        }
+    }
+    func addView() {
+        view.addSubview(navigationView)
+        view.addSubview(tableView)
+        
+        navigationView.addSubview(navigationLabel)
+        
+    }
+    func setLayout() {
+        view.backgroundColor = .viewBackgroundGray
+        // UIView
         navigationView.snp.makeConstraints { make in
             make.height.equalTo(116)
             make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview()
-        }
-        navigationLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalTo(navigationView.snp.bottom).offset(-20)
         }
         tableView.snp.makeConstraints { make in
             make.top.equalTo(navigationView.snp.bottom)
@@ -82,13 +82,15 @@ class SNSViewController: UIViewController {
             make.bottom.equalTo(self.view)
         }
         
+        
+        // UILabel
+        navigationLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(navigationView.snp.bottom).offset(-20)
+        }
     }
     
-    func refreshTable() {
-        return
-    }
 }
-
 
 extension SNSViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -131,36 +133,7 @@ extension SNSViewController: UITableViewDelegate, UITableViewDataSource {
         
         
     }
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "customHeader")
-//
-//        lazy var headerView = UIView().then {
-//            $0.backgroundColor = .red
-//        }
-////        headerView.addSubviews([recommendLabel, collectionView])
-////
-//        headerView.snp.makeConstraints { make in
-//            make.height.equalTo(300)
-//        }
-//
-////        recommendLabel.snp.makeConstraints { make in
-////            make.top.equalToSuperview().offset(15)
-////            make.leading.equalToSuperview().offset(20)
-////        }
-////        collectionView.snp.makeConstraints { make in
-////            make.top.equalTo(recommendLabel.snp.bottom).offset(5)
-////            make.horizontalEdges.equalToSuperview()
-////            make.height.equalTo(137)
-////            make.bottom.equalToSuperview()
-////        }
-//
-//
-//        header?.backgroundView = headerView
-//
-//
-//        return header
-//    }
-//
+
 }
 
 

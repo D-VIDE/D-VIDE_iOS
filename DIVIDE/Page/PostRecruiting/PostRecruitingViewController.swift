@@ -28,7 +28,10 @@ public let imgWidth = (Device.width - 139 - 20) / 3
 public let textfieldWidth = Device.width - 139
 
 class PostRecruitingViewController: UIViewController {
-
+    
+    private let navigationView = UIView()
+    
+    private let navigationLabel = MainLabel(type: .hopang)
     var tagList: [String] = ["분식", "한식", "일식", "디저트", "양식"]
 
 
@@ -46,275 +49,81 @@ class PostRecruitingViewController: UIViewController {
     let imgDropDown2 = DropDown()
     let imgDropDown3 = DropDown()
 
-
-
     // 시간 milliseconds
     var milliseconds : Int?
-    private let topLabel = MainLabel(type: .hopang).then {
-        $0.text = "D/VIDE 모집글 작성"
-    }
+   
     // UIScrollView 정의
-    lazy var scrollView = UIScrollView().then {
-        $0.backgroundColor = .viewBackgroundGray
-        $0.showsVerticalScrollIndicator = false
-        $0.showsHorizontalScrollIndicator = false
-    }
+    lazy var scrollView = UIScrollView()
 
-    lazy var scrollContentView = UIView().then {
-        $0.backgroundColor = .viewBackgroundGray
-    }
+    lazy var scrollContentView = UIView()
 
     // 중복 선언
-    lazy var navBar = MainNavBar().then {
-        $0.backgroundColor = .white
-    }
+    lazy var navBar = MainNavBar()
 
 
     // UILabel 정의
-    lazy var titleLabel = MainLabel(type: .Basics5).then {
-        $0.text = "• 제목"
-    }
-    lazy var storeLabel = MainLabel(type: .Basics5).then {
-        $0.text = "• 가게 이름"
-    }
-    lazy var categoryLabel = MainLabel(type: .Basics5).then {
-        $0.text = "• 카테고리"
-    }
-    lazy var deliveryFeeLabel = MainLabel(type: .Basics5).then {
-        $0.text = "• 배달비"
-    }
-    lazy var deliveryFeeUnitLabel = MainLabel(type: .Point2).then {
-        $0.text = "원"
-        $0.textColor = .unitGray
-    }
-    lazy var aimUnitLabel = MainLabel(type: .Point2).then {
-        $0.text = "원"
-        $0.textColor = .unitGray
-    }
-    lazy var deliveryAimMoneyLabel = MainLabel(type: .Basics5).then {
-        $0.text = "• 목표 금액"
-    }
-    lazy var dueTimeLabel = MainLabel(type: .Basics5).then {
-        $0.text = "• 마감 시간"
-    }
-    lazy var photoLabel = MainLabel(type: .Basics5).then {
-        $0.text = "• 사진"
-    }
-    lazy var placeLabel = MainLabel(type: .Basics5).then {
-        $0.text = "• 장소"
-    }
-    lazy var contentLabel = MainLabel(type: .Basics5).then {
-        $0.text = "• 내용"
-    }
+    lazy var titleLabel = MainLabel(type: .Basics5)
+    lazy var storeLabel = MainLabel(type: .Basics5)
+    lazy var categoryLabel = MainLabel(type: .Basics5)
+    lazy var deliveryFeeLabel = MainLabel(type: .Basics5)
+    lazy var deliveryFeeUnitLabel = MainLabel(type: .Point2)
+    lazy var aimUnitLabel = MainLabel(type: .Point2)
+    lazy var deliveryAimMoneyLabel = MainLabel(type: .Basics5)
+    lazy var dueTimeLabel = MainLabel(type: .Basics5)
+    lazy var photoLabel = MainLabel(type: .Basics5)
+    lazy var placeLabel = MainLabel(type: .Basics5)
+    lazy var contentLabel = MainLabel(type: .Basics5)
 
     //UITextField 정의
-    lazy var titleTextField = MainTextField(type: .main).then {
-        $0.textFieldTextChanged($0)
-        $0.resignFirstResponder()
-    }
-    lazy var storeTextField = MainTextField(type: .main).then {
-        $0.textFieldTextChanged($0)
-        $0.resignFirstResponder()
-    }
-    lazy var categoryTextField = MainTextField(type: .main).then {
-        $0.isUserInteractionEnabled = false
-        $0.resignFirstResponder()
-    }
-    lazy var deliveryFeeTextField = MainTextField(type: .main).then {
-        $0.textFieldTextChanged($0)
-        $0.keyboardType = .numberPad
-        $0.delegate = self
-        $0.resignFirstResponder()
-
-    }
-    lazy var deliveryAimTextField = MainTextField(type: .main).then {
-        $0.textFieldTextChanged($0)
-        $0.keyboardType = .numberPad
-        $0.delegate = self
-        $0.resignFirstResponder()
-
-    }
-    lazy var dueTimeTextField = MainTextField(type: .main).then {
-        $0.textFieldTextChanged($0)
-        $0.resignFirstResponder()
-
-    }
+    lazy var titleTextField = MainTextField(type: .main)
+    lazy var storeTextField = MainTextField(type: .main)
+    lazy var categoryTextField = MainTextField(type: .main)
+    lazy var deliveryFeeTextField = MainTextField(type: .main)
+    lazy var deliveryAimTextField = MainTextField(type: .main)
+    lazy var dueTimeTextField = MainTextField(type: .main)
 
     // UICollectionView 정의
-    lazy var categoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then {
-        let layout = LeftAlignedCollectionViewFlowLayout()
-        layout.minimumLineSpacing = 7
-        layout.minimumInteritemSpacing = 7
-        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
-        $0.backgroundColor = .viewBackgroundGray
-        $0.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMaxYCorner, .layerMinXMaxYCorner)
-        $0.layer.cornerRadius = 20
-        $0.isScrollEnabled = false
-        $0.collectionViewLayout = layout
-        $0.register(PostReusable.tagCell)
-      }
+    lazy var categoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
 
     //UITextView 정의
-    lazy var contentTextView = UITextView().then {
-        $0.textContainerInset = UIEdgeInsets(top: 18.0, left: 18.0, bottom: 18.0, right: 18.0)
-        $0.backgroundColor = .white
-//        $0.layer.borderWidth = 0.2
-//        $0.layer.borderColor = UIColor.borderGray.cgColor
-        $0.layer.cornerRadius = 18
-        $0.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMinYCorner, .layerMaxXMaxYCorner)
-        $0.layer.addShadow(location: .all)
-        $0.font = UIFont.NotoSansKR(.medium, size: 15)
-//        $0.addTarget(self, action: #selector(textFieldTextChanged(_:)), for: .editingChanged)
-    }
+    lazy var contentTextView = UITextView()
 
-    lazy var mapView = NMFMapView().then {
-        $0.backgroundColor = .white
-//        $0.layer.borderWidth = 0.2
-//        $0.layer.borderColor = UIColor.borderGray.cgColor
-        $0.layer.cornerRadius = 18
-        $0.clipsToBounds = true
-        $0.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMinYCorner, .layerMaxXMaxYCorner)
-        $0.layer.addShadow(location: .all)
-    }
+    
 
     //UIButton 정의
-    lazy var uploadButton =  MainButton(type: .mainAction).then {
-        $0.setTitle("업로드 하기", for: .normal)
-        $0.addTarget(self, action: #selector(post), for: .touchUpInside)
-    }
+    lazy var uploadButton =  MainButton(type: .mainAction)
 
-    lazy var dropDownButton = UIButton().then {
-        $0.setImage(UIImage(named: "dropDownButton"), for: .normal)
-        $0.layer.cornerRadius = 18
-        $0.addTarget(self, action: #selector(showCategory), for: .touchUpInside)
-    }
+    lazy var dropDownButton = UIButton()
 
     //StackView 정의
-    lazy var imgStackView = UIStackView().then {
-        $0.axis = .horizontal
-//        $0.alignment = .fill
-        $0.distribution = .equalSpacing
-        $0.spacing = 10
-    }
+    lazy var imgStackView = UIStackView()
 
 
     // UIImageView 선언
-    lazy var imgForUpload1 = CustomImageView().then {
-        $0.image = UIImage(named: "defaultPhoto")
-        $0.clipsToBounds = true
-        $0.layer.cornerRadius = 13
+    lazy var imgForUpload1 = CustomImageView()
+    lazy var imgForUpload2 = CustomImageView()
+    lazy var imgForUpload3 = CustomImageView()
 
-        $0.setOnEventListener { gesture in
-            self.currentTag = 0
-            if type(of: gesture) == UITapGestureRecognizer.self {
-                print("photo selected")
-                let imagePicker = UIImagePickerController()
-                imagePicker.sourceType = .photoLibrary
-                imagePicker.delegate = self //3
-                // imagePicker.allowsEditing = true
-                self.present(imagePicker, animated: true)
-            } else {
-                print("LongPressed")
-                self.imgDropDown1.show()
-            }
-        }
-        $0.isUserInteractionEnabled = false
-    }
-    lazy var imgForUpload2 = CustomImageView().then {
-        $0.image = UIImage(named: "selectPhoto")
-        $0.clipsToBounds = true
-        $0.layer.cornerRadius = 13
-
-        $0.setOnEventListener { gesture in
-            self.currentTag = 1
-            if type(of: gesture) == UITapGestureRecognizer.self {
-                print("photo selected")
-                let imagePicker = UIImagePickerController()
-                imagePicker.sourceType = .photoLibrary
-                imagePicker.delegate = self //3
-                // imagePicker.allowsEditing = true
-                self.present(imagePicker, animated: true)
-            } else {
-                print("LongPressed")
-                self.imgDropDown2.show()
-            }
-        }
-    }
-    lazy var imgForUpload3 = CustomImageView().then {
-        $0.image = UIImage(named: "selectPhoto")
-        $0.clipsToBounds = true
-        $0.layer.cornerRadius = 13
-
-        $0.setOnEventListener { gesture in
-            self.currentTag = 2
-            if type(of: gesture) == UITapGestureRecognizer.self {
-                print("photo selected")
-                let imagePicker = UIImagePickerController()
-                imagePicker.sourceType = .photoLibrary
-                imagePicker.delegate = self //3
-                // imagePicker.allowsEditing = true
-                self.present(imagePicker, animated: true)
-            } else {
-                print("LongPressed")
-                self.imgDropDown3.show()
-            }
-        }
-    }
-
-    lazy var mapPointer = UIImageView().then {
-        $0.image = UIImage(named: "pointer")
-    }
-    lazy var mapMarker = UIImageView().then {
-        $0.image = UIImage(named: "mSNormalBlue")
-    }
+    lazy var mapView = NMFMapView()
+    lazy var mapPointer = UIImageView()
+    lazy var mapMarker = UIImageView()
 
     //DatePicker 정의
-    lazy var datePicker = UIDatePicker().then {
-        $0.preferredDatePickerStyle = .wheels
-        $0.minimumDate = .now
-        $0.minuteInterval = 5
-        $0.datePickerMode = .time
-        $0.locale = Locale(identifier: "ko-KR")
-        $0.timeZone = .autoupdatingCurrent
-        $0.addTarget(self, action: #selector(handleDatePicker(_:)), for: .valueChanged)
-    }
+    lazy var datePicker = UIDatePicker()
 
     
     var isContentTextViewTapped = PublishRelay<Bool>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setBackground()
-        self.view.addSubview(scrollView)
-        scrollView.addSubview(scrollContentView)
-
+        
+        setAttributes()
+        addView()
+        setLayout()
+        
         categoryCollectionView.delegate = self
         categoryCollectionView.dataSource = self
-
-        //UILabel add
-        scrollContentView.addSubviews([titleLabel, storeLabel, deliveryFeeLabel, deliveryAimMoneyLabel, dueTimeLabel, placeLabel, contentLabel, categoryLabel, photoLabel])
-
-        deliveryFeeTextField.addSubview(deliveryFeeUnitLabel)
-        deliveryAimTextField.addSubview(aimUnitLabel)
-
-        //UITextField add
-        scrollContentView.addSubviews([categoryCollectionView, titleTextField, storeTextField, categoryTextField, deliveryFeeTextField, deliveryAimTextField, dueTimeTextField])
-
-        // UIView add
-        scrollContentView.addSubviews([contentTextView, mapView])
-
-        //UIButton add
-        scrollContentView.addSubviews([uploadButton, dropDownButton])
-
-
-        //UIImageView add
-        scrollContentView.addSubview(imgStackView)
-        [imgForUpload1, imgForUpload2].forEach { img in
-            imgStackView.addArrangedSubview(img)
-        }
-
-        mapView.addSubviews([mapPointer, mapMarker])
-
+ 
         dueTimeTextField.inputView = datePicker
         categoryCollectionView.isHidden = true
 
@@ -322,10 +131,7 @@ class PostRecruitingViewController: UIViewController {
         initDropDown(dropDown: imgDropDown1, anchor: imgForUpload1)
         initDropDown(dropDown: imgDropDown2, anchor: imgForUpload2)
         initDropDown(dropDown: imgDropDown3, anchor: imgForUpload3)
-
-
         
-        setConstraints()
         //카메라 이동
         mapView.addCameraDelegate(delegate: self)
         mapView.moveCamera(NMFCameraUpdate(position: NMFCameraPosition(NMGLatLng(lat: coordinate.lat, lng: coordinate.lng), zoom: 16, tilt: 0, heading: 0)))
@@ -334,45 +140,278 @@ class PostRecruitingViewController: UIViewController {
         bind()
     }
     
-    func setAttributes() {} // Then
-    func addView() {} // self.addSubview...
-    func setLayout() {} // SnapKit
-    
-    func bind() {
-        contentTextView.rx.tapGesture()
-            .when(.recognized)
-            .subscribe(onNext: { [unowned self] _ in
-                self.isContentTextViewTapped.accept(true)
-            }).disposed(by: disposeBag)
-        
-        isContentTextViewTapped
-            .subscribe(onNext: { [unowned self] isTapped in
-                if isTapped == true {
-                    // 화면 올리기
-                    print("self.view.frame.origin is : \(self.view.frame.origin)")
-                    self.view.frame.origin.y -= 150
-                } else {
-                    self.view.frame.origin.y += 150
-                }
-        }).disposed(by: disposeBag)
-    }
-    
-    
-   
-    func setBackground() {
+    func setAttributes() {
         view.backgroundColor = .viewBackgroundGray
-        view.addSubview(topLabel)
-        
-        topLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(55)
+        // 상단 메뉴 바 설정
+        navigationView.do {
+            $0.backgroundColor = .white
+            $0.layer.addBorder([.bottom], color: .borderGray, width: 1)
+            $0.layer.cornerRadius = 18
+            $0.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMaxYCorner, .layerMinXMaxYCorner)
+            $0.layer.addShadow(location: .bottom)
         }
-    }
-    func setConstraints() {
+        navigationLabel.do {
+           $0.text = "D/VIDE 모집글 작성"
+        }
+        
+        scrollView.do {
+            $0.backgroundColor = .viewBackgroundGray
+            $0.showsVerticalScrollIndicator = false
+            $0.showsHorizontalScrollIndicator = false
+        }
+        scrollContentView.do {
+            $0.backgroundColor = .viewBackgroundGray
+        }
+        navBar.do {
+            $0.backgroundColor = .white
+        }
+        
+        // Label
+        titleLabel.do {
+            $0.text = "• 제목"
+        }
+        storeLabel.do {
+            $0.text = "• 가게 이름"
+        }
+        categoryLabel.do {
+            $0.text = "• 카테고리"
+        }
+        deliveryFeeLabel.do {
+            $0.text = "• 배달비"
+        }
+        deliveryFeeUnitLabel.do {
+            $0.text = "원"
+            $0.textColor = .unitGray
+        }
+        aimUnitLabel.do {
+            $0.text = "원"
+            $0.textColor = .unitGray
+        }
+        deliveryAimMoneyLabel.do {
+            $0.text = "• 목표 금액"
+        }
+        dueTimeLabel.do {
+            $0.text = "• 마감 시간"
+        }
+        photoLabel.do {
+            $0.text = "• 사진"
+        }
+        placeLabel.do {
+            $0.text = "• 장소"
+        }
+        contentLabel.do {
+            $0.text = "• 내용"
+        }
+        
+        // UITextField
+        
+        titleTextField.do {
+            $0.textFieldTextChanged($0)
+            $0.resignFirstResponder()
+        }
+        storeTextField.do {
+            $0.textFieldTextChanged($0)
+            $0.resignFirstResponder()
+        }
+        categoryTextField.do {
+            $0.isUserInteractionEnabled = false
+            $0.resignFirstResponder()
+        }
+        deliveryFeeTextField.do {
+            $0.textFieldTextChanged($0)
+            $0.keyboardType = .numberPad
+            $0.delegate = self
+            $0.resignFirstResponder()
+        }
+        deliveryAimTextField.do {
+            $0.textFieldTextChanged($0)
+            $0.keyboardType = .numberPad
+            $0.delegate = self
+            $0.resignFirstResponder()
+        }
+        dueTimeTextField.do {
+            $0.textFieldTextChanged($0)
+            $0.inputView = datePicker
+            $0.resignFirstResponder()
+        }
+        
+        // UICollectionView
+        categoryCollectionView.do {
+            let layout = LeftAlignedCollectionViewFlowLayout()
+            layout.minimumLineSpacing = 7
+            layout.minimumInteritemSpacing = 7
+            layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
+            $0.backgroundColor = .viewBackgroundGray
+            $0.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMaxYCorner, .layerMinXMaxYCorner)
+            $0.layer.cornerRadius = 20
+            $0.isScrollEnabled = false
+            $0.collectionViewLayout = layout
+            $0.register(PostReusable.tagCell)
+          }
+        
+        //UITextView
+        
+        contentTextView.do {
+            $0.textContainerInset = UIEdgeInsets(top: 18.0, left: 18.0, bottom: 18.0, right: 18.0)
+            $0.backgroundColor = .white
+            $0.layer.cornerRadius = 18
+            $0.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMinYCorner, .layerMaxXMaxYCorner)
+            $0.layer.addShadow(location: .all)
+            $0.font = UIFont.NotoSansKR(.medium, size: 15)
+        }
+        
+        
+        
+        // UIButton
+        
+        uploadButton.do {
+            $0.setTitle("업로드 하기", for: .normal)
+            $0.addTarget(self, action: #selector(post), for: .touchUpInside)
+        }
+        dropDownButton.do {
+            $0.setImage(UIImage(named: "dropDownButton"), for: .normal)
+            $0.layer.cornerRadius = 18
+            $0.addTarget(self, action: #selector(showCategory), for: .touchUpInside)
+        }
+        // StackView
+        imgStackView.do {
+            $0.axis = .horizontal
+    //        $0.alignment = .fill
+            $0.distribution = .equalSpacing
+            $0.spacing = 10
+        }
+        
+        // UIImageView
+        imgForUpload1.do {
+            $0.image = UIImage(named: "defaultPhoto")
+            $0.clipsToBounds = true
+            $0.layer.cornerRadius = 13
+            $0.setOnEventListener { gesture in
+                self.currentTag = 0
+                if type(of: gesture) == UITapGestureRecognizer.self {
+                    print("photo selected")
+                    let imagePicker = UIImagePickerController()
+                    imagePicker.sourceType = .photoLibrary
+                    imagePicker.delegate = self //3
+                    self.present(imagePicker, animated: true)
+                } else {
+                    print("LongPressed")
+                    self.imgDropDown1.show()
+                }
+            }
+            $0.isUserInteractionEnabled = false
+        }
+        imgForUpload2.do {
+            $0.image = UIImage(named: "selectPhoto")
+            $0.clipsToBounds = true
+            $0.layer.cornerRadius = 13
 
+            $0.setOnEventListener { gesture in
+                self.currentTag = 1
+                if type(of: gesture) == UITapGestureRecognizer.self {
+                    print("photo selected")
+                    let imagePicker = UIImagePickerController()
+                    imagePicker.sourceType = .photoLibrary
+                    imagePicker.delegate = self //3
+                    // imagePicker.allowsEditing = true
+                    self.present(imagePicker, animated: true)
+                } else {
+                    print("LongPressed")
+                    self.imgDropDown2.show()
+                }
+            }
+        }
+        imgForUpload3.do {
+            $0.image = UIImage(named: "selectPhoto")
+            $0.clipsToBounds = true
+            $0.layer.cornerRadius = 13
+
+            $0.setOnEventListener { gesture in
+                self.currentTag = 2
+                if type(of: gesture) == UITapGestureRecognizer.self {
+                    print("photo selected")
+                    let imagePicker = UIImagePickerController()
+                    imagePicker.sourceType = .photoLibrary
+                    imagePicker.delegate = self //3
+                    // imagePicker.allowsEditing = true
+                    self.present(imagePicker, animated: true)
+                } else {
+                    print("LongPressed")
+                    self.imgDropDown3.show()
+                }
+            }
+        }
+        
+        // Map 관련
+        mapView.do {
+            $0.backgroundColor = .white
+            $0.layer.cornerRadius = 18
+            $0.clipsToBounds = true
+            $0.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMinYCorner, .layerMaxXMaxYCorner)
+            $0.layer.addShadow(location: .all)
+        }
+        mapPointer.do {
+            $0.image = UIImage(named: "pointer")
+        }
+        mapMarker.do {
+            $0.image = UIImage(named: "mSNormalBlue")
+        }
+        
+        // DatePicker
+        datePicker.do {
+            $0.preferredDatePickerStyle = .wheels
+            $0.minimumDate = .now
+            $0.minuteInterval = 5
+            $0.datePickerMode = .time
+            $0.locale = Locale(identifier: "ko-KR")
+            $0.timeZone = .autoupdatingCurrent
+            $0.addTarget(self, action: #selector(handleDatePicker(_:)), for: .valueChanged)
+        }
+        
+    } // then
+    
+    func addView() {
+        view.addSubview(scrollView)
+        view.addSubview(navigationView)
+        
+        navigationView.addSubview(navigationLabel)
+        scrollView.addSubview(scrollContentView)
+        
+        //UILabel add
+        scrollContentView.addSubviews([titleLabel, storeLabel, deliveryFeeLabel, deliveryAimMoneyLabel, dueTimeLabel, placeLabel, contentLabel, categoryLabel, photoLabel])
+        deliveryFeeTextField.addSubview(deliveryFeeUnitLabel)
+        deliveryAimTextField.addSubview(aimUnitLabel)
+        
+        //UITextField add
+        scrollContentView.addSubviews([categoryCollectionView, titleTextField, storeTextField, categoryTextField, deliveryFeeTextField, deliveryAimTextField, dueTimeTextField])
+
+        // UIView add
+        scrollContentView.addSubviews([contentTextView, mapView])
+
+        //UIButton add
+        scrollContentView.addSubviews([uploadButton, dropDownButton])
+        
+        //UIImageView add
+        scrollContentView.addSubview(imgStackView)
+        [imgForUpload1, imgForUpload2].forEach { img in
+            imgStackView.addArrangedSubview(img)
+        }
+        mapView.addSubviews([mapPointer, mapMarker])
+
+    } // self.addSubview...
+    func setLayout() {
+        navigationView.snp.makeConstraints { make in
+            make.height.equalTo(100)
+            make.top.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+        }
+        navigationLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(navigationView.snp.bottom).offset(-20)
+        }
         // ScrollView
         scrollView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalToSuperview().offset(100)
             make.leading.equalTo(view.safeAreaLayoutGuide)
             make.trailing.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(view.snp.bottom)
@@ -555,8 +594,26 @@ class PostRecruitingViewController: UIViewController {
             make.centerX.equalTo(mapPointer)
             make.bottom.equalTo(mapPointer.snp.top).offset(7)
         }
-    }
+    } // SnapKit
     
+    func bind() {
+        contentTextView.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { [unowned self] _ in
+                self.isContentTextViewTapped.accept(true)
+            }).disposed(by: disposeBag)
+        
+        isContentTextViewTapped
+            .subscribe(onNext: { [unowned self] isTapped in
+                if isTapped == true {
+                    // 화면 올리기
+                    print("self.view.frame.origin is : \(self.view.frame.origin)")
+                    self.view.frame.origin.y -= 150
+                } else {
+                    self.view.frame.origin.y += 150
+                }
+        }).disposed(by: disposeBag)
+    }
 
     func inOutCategory() {
         if categoryCollectionView.isHidden {

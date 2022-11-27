@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  DIVIDE
 //
-//  Created by 정지윤 on 2022/06/28.
+//  Created by 임우섭 on 2022/06/28.
 //
 
 import UIKit
@@ -18,68 +18,126 @@ class HomeViewController: UIViewController {
         
     private var viewModel =  ShowAroundPosts()
     
-    let dateFormatter = DateFormatter().then{
-        $0.dateFormat = "H:mm"
-    }
+    private let dateFormatter = DateFormatter()
     
     var realTime = Int(Date().timeIntervalSince1970)
     private let userPosition = UserPositionModel(longitude: 127.030767490, latitude: 37.49015482509)
-    
-    private let searchBtn = UIButton().then{
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.setImage(#imageLiteral(resourceName: "Search.png"), for: .normal)// 이미지 넣기
-        $0.imageView?.contentMode = .scaleAspectFit
-        $0.contentHorizontalAlignment = .center
-        $0.semanticContentAttribute = .forceRightToLeft //<- 중요
-    }
-    private let topMenuBar = UIView().then{
-        $0.backgroundColor = .none
-    }
-    
-    private let backgroundImage = UIImageView().then{
-        $0.image = UIImage(named: "HomeBackgroundImage")
-        $0.backgroundColor = .orange
-    }
+   
+    private let topTitleView = UIView()
+    private let searchBtn = UIButton()
+    private let topMenuCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     private let menuList: [String] = ["분식", "한식", "일식", "중식", "디저트", "양식" ]
-    private let categoryName : [String] = ["STREET_FOOD", "KOREAN_FOOD", "JAPANESE_FOOD", "CHINESE_FOOD", "DESSERT", "WESTERN_FOOD"]
-    private let topMenuCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then{
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        $0.backgroundColor = .white
-        $0.contentInset = UIEdgeInsets.init(top: 0, left: 20, bottom: 0, right: 0)
-        $0.showsHorizontalScrollIndicator = false
-        $0.collectionViewLayout = layout
-    }
-    
-    lazy var tableView: UITableView = {
-        
-        let tableview = UITableView()
-        tableview.backgroundColor = .viewBackgroundGray
-        tableview.showsVerticalScrollIndicator = false
-        return tableview
 
-    }()
-    let DVIDEBtn = UIButton().then {
-        $0.setImage(UIImage(named: "WritePost.png"), for: .normal)
-    }
-    var allDataFromServer = [Datum]()
+    private let backgroundImage = UIImageView()
+    private let categoryName : [String] = ["STREET_FOOD", "KOREAN_FOOD", "JAPANESE_FOOD", "CHINESE_FOOD", "DESSERT", "WESTERN_FOOD"]
+    
+    private var tableView = UITableView()
+    private let DVIDEBtn = UIButton()
+    private var allDataFromServer = [Datum]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setAttribute()
+        addView()
+        setLayout()
+        
         topMenuCollectionView.delegate = self
         topMenuCollectionView.dataSource = self
         topMenuCollectionView.register(HomeTopMenuCell.self, forCellWithReuseIdentifier: HomeTopMenuCell.identifier)
         tableView.register(HomeTableViewCell.self, forCellReuseIdentifier: "HomeTableViewCell")
+        
         bindTableView()
-        
-        setHomeViewConstraint()
-        
-        setTopMenuBar()
-        setTopMenuCollection()
-        
-        setTableViewConstraint()
-        setDVIDEBtn()
         DVIDEBtn.addTarget(self, action: #selector(self.tapDIVIDEBtn), for: .touchUpInside)
+    }
+    func setAttribute() {
+        view.backgroundColor = .viewBackgroundGray
+        
+        topTitleView.do {
+            $0.backgroundColor = .white
+            $0.layer.addBorder([.bottom], color: .borderGray, width: 1)
+            $0.layer.cornerRadius = 18
+            $0.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMaxYCorner, .layerMinXMaxYCorner)
+            $0.layer.addShadow(location: .bottom)
+        }
+        searchBtn.do {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.setImage(#imageLiteral(resourceName: "Search.png"), for: .normal)// 이미지 넣기
+            $0.imageView?.contentMode = .scaleAspectFit
+            $0.contentHorizontalAlignment = .center
+            $0.semanticContentAttribute = .forceRightToLeft //<- 중요
+        }
+        backgroundImage.do {
+            $0.image = UIImage(named: "HomeBackgroundImage")
+            $0.backgroundColor = .orange
+        }
+        topMenuCollectionView.do {
+            let layout = UICollectionViewFlowLayout()
+            layout.scrollDirection = .horizontal
+            $0.backgroundColor = .white
+            $0.contentInset = UIEdgeInsets.init(top: 0, left: 20, bottom: 0, right: 0)
+            $0.showsHorizontalScrollIndicator = false
+            $0.collectionViewLayout = layout
+        }
+        tableView.do {
+            $0.backgroundColor = .viewBackgroundGray
+            $0.showsVerticalScrollIndicator = false
+        }
+        DVIDEBtn.do {
+            $0.setImage(UIImage(named: "WritePost.png"), for: .normal)
+        }
+        dateFormatter.do {
+            $0.dateFormat = "H:mm"
+        }
+    } // then
+    func addView() {
+        view.addSubview(topTitleView)
+        view.addSubview(tableView)
+        view.addSubview(DVIDEBtn)
+        
+        topTitleView.addSubview(searchBtn)
+        topTitleView.addSubview(topMenuCollectionView)
+        
+        tableView.addSubview(backgroundImage)
+        
+        
+    }
+    func setLayout() {
+        topTitleView.snp.makeConstraints { make in
+            make.height.equalTo(113)
+            make.leading.trailing.equalToSuperview()
+            make.top.equalToSuperview()
+        }
+        searchBtn.snp.makeConstraints { make in
+            make.width.equalTo(20)
+            make.height.equalTo(20)
+            make.top.equalToSuperview().offset(48)
+            make.trailing.equalToSuperview().offset(-40)
+        }
+        topMenuCollectionView.snp.makeConstraints { make in
+            make.height.equalTo(40)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
+            make.bottom.equalToSuperview()
+        }
+        tableView.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
+            make.top.equalToSuperview().offset(113)
+            make.bottom.equalToSuperview()
+        }
+        backgroundImage.snp.makeConstraints { make in
+            make.bottom.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.height.equalTo(300)
+        }
+        DVIDEBtn.snp.makeConstraints { make in
+            make.width.equalTo(115)
+            make.height.equalTo(50)
+            make.leading.equalToSuperview().offset(26)
+            make.bottom.equalToSuperview().offset(-90)
+        }
     }
     func changePositionToLocation(latitude: Double, longitude: Double) -> String {
         var result : String = ""
@@ -145,73 +203,6 @@ class HomeViewController: UIViewController {
         } else {
             return "AM"
         }
-    }
-    private func setHomeViewConstraint() {
-        self.view.backgroundColor = .viewBackgroundGray
-    }
-    
-    private func setTopMenuBar() {
-        self.view.addSubview(topMenuBar)
-        topMenuBar.backgroundColor = .white
-        topMenuBar.addSubview(searchBtn)
-        topMenuBar.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.top.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.height.equalTo(113)
-        }
-        
-        //그림자
-        topMenuBar.roundCorners(cornerRadius: 26, maskedCorners: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner])
-        topMenuBar.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 1, width: topMenuBar.intrinsicContentSize.width, height: topMenuBar.intrinsicContentSize.height)).cgPath
-        topMenuBar.layer.shadowOpacity = 0.15
-        
-        searchBtn.snp.makeConstraints { make in
-            make.width.equalTo(20)
-            make.height.equalTo(20)
-            make.top.equalToSuperview().offset(48)
-            make.trailing.equalToSuperview().offset(-40)
-        }
-    }
-    private func setTopMenuCollection() {
-        topMenuBar.addSubview(topMenuCollectionView)
-        topMenuCollectionView.snp.makeConstraints { make in
-            make.width.equalToSuperview()
-            make.height.equalTo(40)
-            make.leading.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
-    }
-    
-    private func setTableViewConstraint() {
-        self.view.addSubview(tableView)
-        tableView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().offset(-20)
-            make.top.equalToSuperview().offset(113)
-            make.bottom.equalToSuperview()
-        }
-        
-    }
-    private func setTableViewBackground() {
-        tableView.addSubview(backgroundImage)
-        backgroundImage.snp.makeConstraints { make in
-            make.bottom.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.height.equalTo(300)
-        }
-    }
-    
-    private func setDVIDEBtn() {
-        view.addSubview(DVIDEBtn)
-        DVIDEBtn.snp.makeConstraints { make in
-            make.width.equalTo(115)
-            make.height.equalTo(50)
-            make.leading.equalToSuperview().offset(26)
-            make.bottom.equalToSuperview().offset(-90)
-        }
-        
     }
     @objc func tapDIVIDEBtn() {
         self.navigationController?.navigationBar.topItem?.title = ""
