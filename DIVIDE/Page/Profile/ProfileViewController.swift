@@ -34,6 +34,11 @@ class ProfileViewController: UIViewController {
     private let retrenchDeliveryFeeValue = MainLabel(type: .Big1)
     private let retrenchDeliveryFeeWon = MainLabel(type: .Basics2)
     
+    private let seeMyOrderHistory = UIButton()
+    private let seeMyReviews = UIButton()
+    private let serviceCenter = UIButton()
+    private let changeDefaultAddress = UIButton()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setAttribute()
@@ -58,10 +63,13 @@ class ProfileViewController: UIViewController {
             $0.contentHorizontalAlignment = .leading
         }
         mainProfileImg.do {
-            $0.backgroundColor = .clear
             $0.image = UIImage(named: "logo.png")!
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.cornerRadius = 53.5
+            $0.layer.cornerRadius = $0.frame.height/2
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = UIColor.clear.cgColor
+            // 뷰의 경계에 맞춰준다
+            $0.clipsToBounds = true
+            $0.layer.masksToBounds = true
         }
         mainProfileTag.do {
             $0.text = "디바이드 공식 돼지"
@@ -93,8 +101,8 @@ class ProfileViewController: UIViewController {
         }
         retrenchView.do {
             $0.backgroundColor = .white
-            $0.cornerRadius = 26
-            $0.layer.addShadow(location: .all, color: .gray0, opacity: 0.85, radius: 26)
+            $0.layer.cornerRadius = 26
+            $0.layer.addShadow(location: .all, color: .gray, opacity: 0.1, radius: 26)
         }
         retrenchCO2Label.do {
             $0.text = "절약한 탄소배출"
@@ -128,12 +136,79 @@ class ProfileViewController: UIViewController {
             $0.text = "원"
             $0.textColor = .mainOrange2
         }
+        seeMyOrderHistory.do {
+            $0.setTitle("나의 주문내역 보기", for: .normal)
+            $0.setTitleColor(.mainOrange1, for: .normal)
+            $0.backgroundColor = .white
+            $0.titleLabel?.font = .NotoSansKR(.bold, size: 14)
+            
+            $0.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+            $0.tintColor = .mainOrange1
+            $0.semanticContentAttribute = .forceRightToLeft
+            $0.imageEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: -160)
+
+            $0.configuration?.titleAlignment = .center
+            $0.layer.cornerRadius = 23.5
+            $0.layer.addShadow(location: .all, color: .gray, opacity: 0.1, radius: 23.5)
+        }
+        seeMyReviews.do {
+            $0.setTitle("내가 쓴 리뷰 보기", for: .normal)
+            $0.setTitleColor(.mainOrange1, for: .normal)
+            $0.backgroundColor = .white
+            $0.titleLabel?.font = .NotoSansKR(.bold, size: 14)
+            
+            $0.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+            $0.tintColor = .mainOrange1
+            $0.semanticContentAttribute = .forceRightToLeft
+            $0.imageEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: -170)
+
+            
+            $0.configuration?.titleAlignment = .center
+            $0.layer.cornerRadius = 23.5
+            $0.layer.addShadow(location: .all, color: .gray, opacity: 0.1, radius: 23.5)
+        }
+        serviceCenter.do {
+            $0.setTitle("고객센터로 이동", for: .normal)
+            $0.setTitleColor(.mainOrange1, for: .normal)
+            $0.backgroundColor = .white
+            $0.titleLabel?.font = .NotoSansKR(.bold, size: 14)
+            
+            $0.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+            $0.tintColor = .mainOrange1
+            $0.semanticContentAttribute = .forceRightToLeft
+            $0.imageEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: -180)
+
+            
+            $0.configuration?.titleAlignment = .center
+            $0.layer.cornerRadius = 23.5
+            $0.layer.addShadow(location: .all, color: .gray, opacity: 0.1, radius: 23.5)
+        }
+        changeDefaultAddress.do {
+            $0.setTitle("기본 주소지 변경", for: .normal)
+            $0.setTitleColor(.mainOrange1, for: .normal)
+            $0.backgroundColor = .white
+            $0.titleLabel?.font = .NotoSansKR(.bold, size: 14)
+            
+            $0.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+            $0.tintColor = .mainOrange1
+            $0.semanticContentAttribute = .forceRightToLeft
+            $0.imageEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: -170)
+
+            
+            $0.configuration?.titleAlignment = .center
+            $0.layer.cornerRadius = 23.5
+            $0.layer.addShadow(location: .all, color: .gray, opacity: 0.1, radius: 23.5)
+        }
     }
     func addView() {
         view.addSubview(mainProfile)
         view.addSubview(settingBtn)
         view.addSubview(mainProfileImg)
         view.addSubview(retrenchView)
+        view.addSubview(seeMyOrderHistory)
+        view.addSubview(seeMyReviews)
+        view.addSubview(serviceCenter)
+        view.addSubview(changeDefaultAddress)
         
         mainProfile.addSubviews([mainProfileTag, userNickName, followingCount, followingLabel, mainProfileDivideBar, followerCount, followerLabel])
         
@@ -150,7 +225,7 @@ class ProfileViewController: UIViewController {
         settingBtn.snp.makeConstraints { make in
             make.width.height.equalTo(23)
             make.top.equalToSuperview().offset(71)
-            make.trailing.equalToSuperview().offset(-53)
+            make.trailing.equalToSuperview().offset(-43)
         }
         mainProfileImg.snp.makeConstraints { make in
             make.width.equalTo(107)
@@ -158,8 +233,6 @@ class ProfileViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.top.equalTo(mainProfile).offset(-53.5)
         }
-        mainProfileImg.image =  mainProfileImg.image?.resize(toTargetSize: CGSize(width: 88, height: 88))
-        mainProfileImg.layer.addShadow(location: .all, color: .gray0, opacity: 0.15, radius: 53.5)
 
         mainProfileTag.snp.makeConstraints { make in
             make.width.equalTo(84)
@@ -214,13 +287,13 @@ class ProfileViewController: UIViewController {
         retrenchCO2Label.snp.makeConstraints { make in
             make.width.equalTo(85)
             make.height.equalTo(17)
-            make.leading.equalToSuperview().offset(59)
+            make.leading.equalToSuperview().offset(55)
             make.top.equalToSuperview().offset(25)
         }
         retrenchDeliveryFeeLabel.snp.makeConstraints { make in
             make.width.equalTo(85)
             make.height.equalTo(17)
-            make.trailing.equalToSuperview().offset(-144)
+            make.trailing.equalToSuperview().offset(-55)
             make.top.equalToSuperview().offset(25)
         }
         retrenchViewDivideHorizontal.snp.makeConstraints { make in
@@ -258,6 +331,31 @@ class ProfileViewController: UIViewController {
             make.height.equalTo(16)
             make.bottom.equalTo(retrenchCO2Value)
             make.centerX.equalToSuperview().offset(129)
+        }
+        
+        seeMyOrderHistory.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.width.equalTo(retrenchView)
+            make.height.equalTo(47)
+            make.top.equalTo(retrenchView).offset(147)
+        }
+        seeMyReviews.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.width.equalTo(retrenchView)
+            make.height.equalTo(47)
+            make.top.equalTo(seeMyOrderHistory).offset(62)
+        }
+        serviceCenter.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.width.equalTo(retrenchView)
+            make.height.equalTo(47)
+            make.top.equalTo(seeMyReviews).offset(62)
+        }
+        changeDefaultAddress.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.width.equalTo(retrenchView)
+            make.height.equalTo(47)
+            make.top.equalTo(serviceCenter).offset(62)
         }
     }
    
