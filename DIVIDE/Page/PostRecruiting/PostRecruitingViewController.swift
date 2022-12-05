@@ -136,7 +136,6 @@ class PostRecruitingViewController: UIViewController {
         mapView.addCameraDelegate(delegate: self)
         mapView.moveCamera(NMFCameraUpdate(position: NMFCameraPosition(NMGLatLng(lat: coordinate.lat, lng: coordinate.lng), zoom: 16, tilt: 0, heading: 0)))
 
-        dismissKeyboardWhenTappedAround()
         bind()
     }
     
@@ -608,9 +607,11 @@ class PostRecruitingViewController: UIViewController {
                 if isTapped == true {
                     // 화면 올리기
                     print("self.view.frame.origin is : \(self.view.frame.origin)")
+                    dismissKeyboardWhenTappedAround()
                     self.view.frame.origin.y -= 150
                 } else {
                     self.view.frame.origin.y += 150
+                    deleteGeusture()
                 }
         }).disposed(by: disposeBag)
     }
@@ -812,9 +813,10 @@ extension PostRecruitingViewController: UICollectionViewDelegate, UICollectionVi
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.dequeue(PostReusable.tagCell, for: indexPath)
-        categoryTextField.text = tagList[indexPath.row]
+        
+        categoryTextField.text = cell.tagLabel.text
         inOutCategory()
-
+        print("\(tagList[indexPath.row]) is selected.")
 //        collectionView.reloadData()
     }
 }
