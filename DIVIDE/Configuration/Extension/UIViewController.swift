@@ -11,6 +11,9 @@ import SnapKit
 var lastBottomAlertView: UIView!
 
 extension UIViewController {
+//    func clearFuncDismissKeyboardWhenTappedAround() {
+//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector())
+//    }
     func dismissKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer =
             UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
@@ -22,7 +25,9 @@ extension UIViewController {
         self.view.endEditing(false)
         self.view.frame.origin.y = 0
     }
-    
+    func deleteGeusture() {
+        self.view.removeGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard)))
+    }
     func presentAlert(title: String, message: String? = nil,
                       isCancelActionIncluded: Bool = false,
                       preferredStyle style: UIAlertController.Style = .alert,
