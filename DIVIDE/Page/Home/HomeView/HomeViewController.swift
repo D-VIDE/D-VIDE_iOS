@@ -123,7 +123,7 @@ class HomeViewController: UIViewController {
         tableView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
-            make.top.equalToSuperview().offset(113)
+            make.top.equalToSuperview().offset(123)
             make.bottom.equalToSuperview()
         }
         backgroundImage.snp.makeConstraints { make in
