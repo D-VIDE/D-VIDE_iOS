@@ -63,13 +63,7 @@ class ProfileViewController: UIViewController {
             $0.contentHorizontalAlignment = .leading
         }
         mainProfileImg.do {
-            $0.image = UIImage(named: "logo.png")!
-            $0.layer.cornerRadius = $0.frame.height/2
-            $0.layer.borderWidth = 1
-            $0.layer.borderColor = UIColor.clear.cgColor
-            // 뷰의 경계에 맞춰준다
-            $0.clipsToBounds = true
-            $0.layer.masksToBounds = true
+            $0.image = UIImage(named: "profileImg.png")!
         }
         mainProfileTag.do {
             $0.text = "디바이드 공식 돼지"

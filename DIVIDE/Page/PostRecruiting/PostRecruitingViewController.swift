@@ -12,6 +12,7 @@ import SnapKit
 import DropDown
 import ReusableKit
 import NMapsMap
+import CoreLocation
 
 import RxSwift
 import RxCocoa
@@ -27,10 +28,10 @@ enum PostReusable {
 public let imgWidth = (Device.width - 139 - 20) / 3
 public let textfieldWidth = Device.width - 139
 
-class PostRecruitingViewController: UIViewController {
+class PostRecruitingViewController: UIViewController, CLLocationManagerDelegate {
     
     private let navigationView = UIView()
-    
+
     private let navigationLabel = MainLabel(type: .hopang)
     var tagList: [String] = ["분식", "한식", "일식", "디저트", "양식"]
 
@@ -38,9 +39,6 @@ class PostRecruitingViewController: UIViewController {
     let viewModel = PostRecruitingViewModel()
     let apiManager = PostRecruitingAPIManager()
     var disposeBag = DisposeBag()
-
-    // 위,경도
-    var coordinate = NMGLatLng(lat: 37, lng: 127)
 
     // 사진
     var currentTag : Int!
@@ -104,14 +102,18 @@ class PostRecruitingViewController: UIViewController {
     lazy var imgForUpload2 = CustomImageView()
     lazy var imgForUpload3 = CustomImageView()
 
-    lazy var mapView = NMFMapView()
-    lazy var mapPointer = UIImageView()
-    lazy var mapMarker = UIImageView()
-
+    // Location
+    
+    var locationManager = CLLocationManager()
+    
+    // Naver Maps
+    lazy var mapView = NMFMapView(frame: view.frame)
+    let cameraPos = NMFCameraPosition()
+    private let markerImg = UIImageView()
+    private let markerPointer = UIImageView()
     //DatePicker 정의
     lazy var datePicker = UIDatePicker()
 
-    
     var isContentTextViewTapped = PublishRelay<Bool>()
     
     override func viewDidLoad() {
@@ -132,12 +134,10 @@ class PostRecruitingViewController: UIViewController {
         initDropDown(dropDown: imgDropDown2, anchor: imgForUpload2)
         initDropDown(dropDown: imgDropDown3, anchor: imgForUpload3)
         
-        //카메라 이동
-        mapView.addCameraDelegate(delegate: self)
-        mapView.moveCamera(NMFCameraUpdate(position: NMFCameraPosition(NMGLatLng(lat: coordinate.lat, lng: coordinate.lng), zoom: 16, tilt: 0, heading: 0)))
-
+        setLocation()
         bind()
     }
+    
     
     func setAttributes() {
         view.backgroundColor = .viewBackgroundGray
@@ -349,11 +349,11 @@ class PostRecruitingViewController: UIViewController {
             $0.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMinYCorner, .layerMaxXMaxYCorner)
             $0.layer.addShadow(location: .all)
         }
-        mapPointer.do {
-            $0.image = UIImage(named: "pointer")
+        markerImg.do {
+            $0.image = UIImage(named: "mSNormalBlue.png")
         }
-        mapMarker.do {
-            $0.image = UIImage(named: "mSNormalBlue")
+        markerPointer.do {
+            $0.image = UIImage(named: "pointer.png")
         }
         
         // DatePicker
@@ -386,7 +386,10 @@ class PostRecruitingViewController: UIViewController {
 
         // UIView add
         scrollContentView.addSubviews([contentTextView, mapView])
-
+        
+        // MapView's subView
+        mapView.addSubviews([markerImg, markerPointer])
+        
         //UIButton add
         scrollContentView.addSubviews([uploadButton, dropDownButton])
         
@@ -395,7 +398,7 @@ class PostRecruitingViewController: UIViewController {
         [imgForUpload1, imgForUpload2].forEach { img in
             imgStackView.addArrangedSubview(img)
         }
-        mapView.addSubviews([mapPointer, mapMarker])
+        
 
     } // self.addSubview...
     func setLayout() {
@@ -519,6 +522,7 @@ class PostRecruitingViewController: UIViewController {
 //            make.width.equalTo(251)
         }
 
+        
         //UICollectionView
         categoryCollectionView.snp.makeConstraints { make in
             make.top.equalTo(categoryTextField.snp.bottom).offset(-10)
@@ -527,14 +531,26 @@ class PostRecruitingViewController: UIViewController {
         }
 
 
-        //UIView
+        //MapView
         mapView.snp.makeConstraints { make in
             make.top.equalTo(imgForUpload1.snp.bottom).offset(17)
             make.leading.equalTo(placeLabel.snp.trailing)
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(178)
         }
+        markerImg.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-25)
+            make.height.equalTo(50)
+            make.width.equalTo(35)
+        }
+        markerPointer.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.width.equalTo(20)
+            make.height.equalTo(20)
+        }
 
+        
         //UITextView
         contentTextView.snp.makeConstraints { make in
             make.top.equalTo(mapView.snp.bottom).offset(12)
@@ -583,16 +599,7 @@ class PostRecruitingViewController: UIViewController {
         }
 
 
-        mapPointer.snp.makeConstraints { make in
-            make.width.height.equalTo(14)
-            make.center.equalToSuperview()
-        }
-        mapMarker.snp.makeConstraints { make in
-            make.width.equalTo(40)
-            make.height.equalTo(53)
-            make.centerX.equalTo(mapPointer)
-            make.bottom.equalTo(mapPointer.snp.top).offset(7)
-        }
+        
     } // SnapKit
     
     func bind() {
@@ -615,7 +622,7 @@ class PostRecruitingViewController: UIViewController {
                 }
         }).disposed(by: disposeBag)
     }
-
+    
     func inOutCategory() {
         if categoryCollectionView.isHidden {
             dropDownButton.setImage(UIImage(named: "dropUpButton"), for: .normal)
@@ -668,7 +675,23 @@ class PostRecruitingViewController: UIViewController {
             dropDown.clearSelection()
         }
     }
-
+    func setLocation() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            print("위치 서비스 On 상태")
+            locationManager.startUpdatingLocation()
+            print(locationManager.location?.coordinate)
+            
+            let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: locationManager.location?.coordinate.latitude ?? 0, lng: locationManager.location?.coordinate.longitude ?? 0))
+            cameraUpdate.animation = .easeIn
+            mapView.moveCamera(cameraUpdate)
+            
+        } else {
+            print("위치 서비스 Off 상태")
+        }
+    }
 
     @objc func handleDatePicker(_ sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
@@ -684,25 +707,7 @@ class PostRecruitingViewController: UIViewController {
     @objc func showCategory() {
         inOutCategory()
     }
-
-//    @objc func setMarker(_ sender: UILongPressGestureRecognizer) {
-//        print("Long Pressed")
-//
-//        if sender.state == .began {
-//
-//            marker.mapView = nil
-//
-//            let coord = sender.location(in: mapView)
-//            let latlng = mapView.projection.latlng(from: coord)
-//            print(latlng)
-//
-//            marker.position.lat = latlng.lat
-//            marker.position.lng = latlng.lng
-//            marker.mapView = mapView
-//            print("위치 변경")
-//        }
-//    }
-//
+    
     @objc func post() {
 
         print("post")
@@ -714,6 +719,7 @@ class PostRecruitingViewController: UIViewController {
             imgArray?.forEach({ img in
                 if let jpegImg = img.jpegData(compressionQuality: 0.5) {
                     imgList.append(jpegImg)
+                    print("img List is : \(imgList)")
                 } else {
                     print("사진 변환 오류")
                     return
@@ -722,7 +728,15 @@ class PostRecruitingViewController: UIViewController {
 
             // Check 2: 타입에 맞게 변환
             // 일단은 KOREAN_FOOD만 넣어놓음
-            let inputData = PostRecruitingInput(title: title, storeName: store, content: content, targetPrice: Int(deliveryFee.split(separator: ",").joined())!, deliveryPrice: Int(targetPrice.split(separator: ",").joined())!, longitude: coordinate.lng, latitude: coordinate.lat, category: "KOREAN_FOOD", targetTime: targetTime)
+            let inputData = PostRecruitingInput(title: title,
+                                                storeName: store,
+                                                content: content,
+                                                targetPrice: Int(deliveryFee.split(separator: ",").joined())!,
+                                                deliveryPrice: Int(targetPrice.split(separator: ",").joined())!,
+                                                longitude: mapView.cameraPosition.target.lng,
+                                                latitude: mapView.cameraPosition.target.lat,
+                                                category: categoryTextField.text!,
+                                                targetTime: targetTime)
 
             apiManager.requestpostRecruiting(param: inputData, img: imgList) { [weak self] result in
                 switch result {
@@ -812,12 +826,9 @@ extension PostRecruitingViewController: UICollectionViewDelegate, UICollectionVi
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.dequeue(PostReusable.tagCell, for: indexPath)
         
-        categoryTextField.text = cell.tagLabel.text
+        categoryTextField.text = tagList[indexPath.row]
         inOutCategory()
-        print("\(tagList[indexPath.row]) is selected.")
-//        collectionView.reloadData()
     }
 }
 
@@ -865,20 +876,6 @@ extension PostRecruitingViewController: UIImagePickerControllerDelegate, UINavig
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
-    }
-}
-
-extension PostRecruitingViewController: NMFMapViewCameraDelegate {
-    func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int) {
-        let camPosition = mapView.cameraPosition
-        coordinate.lat = camPosition.target.lat
-        coordinate.lng = camPosition.target.lng
-    }
-
-    func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool) {
-        let camPosition = mapView.cameraPosition
-        coordinate.lat = camPosition.target.lat
-        coordinate.lng = camPosition.target.lng
     }
 }
 
