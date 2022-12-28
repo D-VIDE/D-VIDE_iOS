@@ -14,6 +14,7 @@ enum APIService {
     case postRecruiting(param: PostRecruitingInput, img: [Data])
     case showAroundPost(param: UserPositionModel)
     case showAroundPostWithCategory(param: UserPositionModel, category: String)
+    case showAroundReviews(param: UserPositionModel)
 }
 
 extension APIService: TargetType {
@@ -27,6 +28,8 @@ extension APIService: TargetType {
             return "/v2/post"
         case .showAroundPost, .showAroundPostWithCategory:
             return "/v2/posts"
+        case .showAroundReviews:
+            return "/v2/reviews"
         }
     }
     
@@ -34,7 +37,7 @@ extension APIService: TargetType {
         switch self {
         case .postRecruiting:
             return .post
-        case .showAroundPost, .showAroundPostWithCategory:
+        case .showAroundPost, .showAroundPostWithCategory, .showAroundReviews:
             return .get
         }
     }
@@ -42,7 +45,7 @@ extension APIService: TargetType {
     // 테스트 request - 있어도 되고 없어도 됨
     var sampleData: Data {
         switch self {
-        case .postRecruiting, .showAroundPost, .showAroundPostWithCategory:
+        case .postRecruiting, .showAroundPost, .showAroundPostWithCategory, .showAroundReviews:
             return Data()
         }
     }
@@ -74,16 +77,23 @@ extension APIService: TargetType {
             return .requestParameters(parameters: [
                 "longitude" : param.longitude,
                 "latitude" : param.latitude], encoding: URLEncoding.queryString)
+            
         case let .showAroundPostWithCategory(param, category):
             return .requestParameters(parameters: [
                 "longitude" : param.longitude,
                 "latitude" : param.latitude,
                 "category": category], encoding: URLEncoding.queryString)
+            
+        case let .showAroundReviews(param):
+            return .requestParameters(parameters: [
+                "longitude" : param.longitude,
+                "latitude" : param.latitude], encoding: URLEncoding.queryString)
+         
         }
     }
     var headers: [String : String]? {
         switch self{
-        case .postRecruiting, .showAroundPost, .showAroundPostWithCategory:
+        case .postRecruiting, .showAroundPost, .showAroundPostWithCategory, .showAroundReviews:
             return [
                 "Authorization" : "Bearer \(token)"
             ]

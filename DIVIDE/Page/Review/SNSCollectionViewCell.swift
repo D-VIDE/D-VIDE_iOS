@@ -2,7 +2,7 @@
 //  SNSCollectionViewCell.swift
 //  DIVIDE
 //
-//  Created by 정지윤 on 2022/08/13.
+//  Created by 임우섭 on 2022/12/17.
 //
 
 import UIKit
