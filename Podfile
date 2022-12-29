@@ -11,6 +11,7 @@ target 'DIVIDE' do
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'RxRelay'
+  pod 'RxDataSources'
   pod 'ReusableKit'
   pod 'DropDown'
   pod 'NMapsMap'
@@ -19,4 +20,5 @@ target 'DIVIDE' do
   pod 'Kingfisher'
   pod 'RxGesture'
   pod 'Cosmos'
+
 end

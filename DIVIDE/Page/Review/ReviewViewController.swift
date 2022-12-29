@@ -11,6 +11,7 @@ import SnapKit
 import Then
 import RxCocoa
 import RxSwift
+import RxDataSources
 
 class ReviewViewController: UIViewController {
     
@@ -23,9 +24,6 @@ class ReviewViewController: UIViewController {
     private let reviewTitleImg = UIImageView()
     private let reviewSearchBtn = UIButton()
     
-    // recommand Part
-    private let recommendLabel = MainLabel(type: .Point2)
-//    private let recommendCollectionView = UICollectionView()
     
     //tableView
     private let reviewTableView = UITableView()
@@ -37,13 +35,14 @@ class ReviewViewController: UIViewController {
         setAttribute()
         addView()
         setLayout()
-        
+        reviewTableView.register(ReviewRecommendTableViewCell.self, forCellReuseIdentifier: "ReviewRecommendTableViewCell")
         reviewTableView.register(ReviewTableViewCell.self, forCellReuseIdentifier: "ReviewTableViewCell")
         bindTableView()
+        
     }
     
     private func setAttribute() {
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .viewBackgroundGray
         topTitleView.do {
             $0.backgroundColor = .white
             $0.layer.addBorder([.bottom], color: .borderGray, width: 1)
@@ -58,15 +57,10 @@ class ReviewViewController: UIViewController {
             $0.setImage(UIImage(named: "Search.png"), for: .normal)
         }
         
-        recommendLabel.do {
-            $0.text = "• 디/바이더 추천 맛집!"
-        }
-//        recommendCollectionView.do {
-//            $0.showsHorizontalScrollIndicator = false
-//        }
         
         reviewTableView.do {
             $0.showsVerticalScrollIndicator = false
+            $0.backgroundColor = .viewBackgroundGray
         }
         
     }
@@ -74,7 +68,7 @@ class ReviewViewController: UIViewController {
         self.view.addSubview(topTitleView)
         topTitleView.addSubviews([reviewTitleImg, reviewSearchBtn])
         
-        self.view.addSubviews([recommendLabel, reviewTableView])
+        self.view.addSubview(reviewTableView)
     }
     private func setLayout() {
         topTitleView.snp.makeConstraints { make in
@@ -93,13 +87,6 @@ class ReviewViewController: UIViewController {
             make.height.equalTo(20)
             make.top.equalToSuperview().offset(65)
             make.trailing.equalToSuperview().offset(-30)
-        }
-        
-        recommendLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(topTitleView).offset(20)
-            make.leading.equalToSuperview().offset(20)
-            make.width.equalTo(122)
-            make.height.equalTo(15)
         }
         reviewTableView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
@@ -121,7 +108,7 @@ class ReviewViewController: UIViewController {
 //                cell.userLocation.text = changePositionToLocation(latitude: <#T##Double#>, longitude: <#T##Double#>)
                 cell.reviewLikeCount.text = String(Int(item.review.likeCount))
                 cell.foodImg.load(url: URL(string: item.review.reviewImgUrl)!)
-                cell.storeNameTag.text = item.review.storeName
+                cell.storeNameTag.text = "#" + item.review.storeName
                 cell.contentText.text = item.review.content
 //
             }.disposed(by: disposeBag)
@@ -130,10 +117,10 @@ class ReviewViewController: UIViewController {
 }
 
 extension ReviewViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
-    }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        1
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewTableViewCell", for: indexPath) as? ReviewTableViewCell else { return UITableViewCell() }
         return cell
@@ -141,5 +128,7 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 168
     }
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath)
+    }
 }

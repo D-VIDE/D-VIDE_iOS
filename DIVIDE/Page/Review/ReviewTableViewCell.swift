@@ -10,7 +10,8 @@ import SnapKit
 import Then
 
 class ReviewTableViewCell: UITableViewCell {
-
+    
+    lazy var detailContentsView = UIView()
     lazy var userImg = UIImageView()
     lazy var userID = MainLabel(type: .Basics1)
     lazy var userLocation = MainLabel(type: .small1)
@@ -35,7 +36,13 @@ class ReviewTableViewCell: UITableViewCell {
     }
     
     private func setAttribute() {
+        contentView.backgroundColor = .viewBackgroundGray
         
+        detailContentsView.do {
+            $0.roundCorners(cornerRadius: 26, maskedCorners: [.layerMaxXMinYCorner, .layerMaxXMaxYCorner])
+            $0.backgroundColor = .white
+            
+        }
         userImg.do {
             $0.image = UIImage(named: "logo.png")
         }
@@ -66,11 +73,18 @@ class ReviewTableViewCell: UITableViewCell {
     }
     
     private func addView() {
-        contentView.addSubviews([userImg, userID, userLocation, reviewLikeCount, likeBtn])
-        contentView.addSubviews([foodImg, storeNameTag, contentText])
+        contentView.addSubview(detailContentsView)
+        detailContentsView.addSubviews([userImg, userID, userLocation, reviewLikeCount, likeBtn])
+        detailContentsView.addSubviews([foodImg, storeNameTag, contentText])
     }
     
     private func setLayout() {
+        detailContentsView.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.height.equalTo(146)
+        }
         userImg.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(19)
             make.top.equalToSuperview().offset(9)
