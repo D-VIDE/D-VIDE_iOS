@@ -8,11 +8,14 @@
 import UIKit
 import SnapKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate {
     
     private let mainProfile = UIView()
     private let settingBtn = UIButton()
     private let mainProfileImg = UIImageView()
+    private let mainProfileImgCameraBtn = UIButton()
+    private let mainProfileImgGrayTint = UIImageView()
+    
     private let mainProfileTag = MainLabel(type: .small3)
     private let userNickName = MainLabel(type: .Point4)
     
@@ -44,9 +47,11 @@ class ProfileViewController: UIViewController {
         setAttribute()
         addView()
         setLayout()
+        addAction()
     }
     func setAttribute() {
         view.backgroundColor = .viewBackgroundGray
+        self.navigationController?.isNavigationBarHidden = true
         mainProfile.do {
             $0.borderColor = .mainYellow
             $0.borderWidth = 3
@@ -54,16 +59,22 @@ class ProfileViewController: UIViewController {
             $0.cornerRadius = 14
         }
         settingBtn.do {
-            $0.translatesAutoresizingMaskIntoConstraints = false
             $0.setImage(UIImage(named: "설정.png"), for: .normal)
-            $0.imageView?.contentMode = .scaleAspectFit
-            $0.contentHorizontalAlignment = .center
-            $0.semanticContentAttribute = .forceRightToLeft
-            $0.contentVerticalAlignment = .center
-            $0.contentHorizontalAlignment = .leading
+            $0.setImage(UIImage(named: "설정누름.png"), for: .selected)
+            $0.setImage(UIImage(named: "설정누름.png"), for: .highlighted)
         }
         mainProfileImg.do {
             $0.image = UIImage(named: "profileImg.png")!
+            $0.clipsToBounds = true
+            $0.roundCorners(cornerRadius: 55, maskedCorners: [.layerMaxXMaxYCorner,.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMinXMinYCorner])
+        }
+        mainProfileImgCameraBtn.do {
+            $0.setImage(UIImage(named: "카메라.png"), for: .normal)
+            $0.alpha = 0
+        }
+        mainProfileImgGrayTint.do {
+            $0.image = UIImage(named: "Ellipse 112.png")
+            $0.alpha = 0
         }
         mainProfileTag.do {
             $0.text = "디바이드 공식 돼지"
@@ -198,6 +209,8 @@ class ProfileViewController: UIViewController {
         view.addSubview(mainProfile)
         view.addSubview(settingBtn)
         view.addSubview(mainProfileImg)
+        view.addSubview(mainProfileImgCameraBtn)
+        view.addSubview(mainProfileImgGrayTint)
         view.addSubview(retrenchView)
         view.addSubview(seeMyOrderHistory)
         view.addSubview(seeMyReviews)
@@ -227,7 +240,15 @@ class ProfileViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.top.equalTo(mainProfile).offset(-53.5)
         }
-
+        mainProfileImgCameraBtn.snp.makeConstraints { make in
+            make.center.equalTo(mainProfileImg)
+            make.width.equalTo(33)
+            make.height.equalTo(27)
+        }
+        mainProfileImgGrayTint.snp.makeConstraints { make in
+            make.width.height.equalTo(mainProfileImg)
+            make.center.equalTo(mainProfileImg)
+        }
         mainProfileTag.snp.makeConstraints { make in
             make.width.equalTo(84)
             make.height.equalTo(14)
@@ -351,7 +372,49 @@ class ProfileViewController: UIViewController {
             make.height.equalTo(47)
             make.top.equalTo(serviceCenter).offset(62)
         }
+        
     }
-   
-
+    func addAction() {
+        settingBtn.addTarget(self, action: #selector(setProfile), for: .touchUpInside)
+        mainProfileImgCameraBtn.addTarget(self, action: #selector(setProfileImg), for: .touchUpInside)
+    }
+    
+    @objc func setProfile() {
+        if settingBtn.isSelected == true {
+            settingBtn.isSelected = false
+            self.mainProfileImgGrayTint.alpha = 0
+            self.mainProfileImgCameraBtn.alpha = 0
+        } else {
+            settingBtn.isSelected = true
+            
+            print("클릭 잘되넹")
+            self.mainProfileImgGrayTint.alpha = 1
+            self.mainProfileImgCameraBtn.alpha = 1
+        }
+        
+    }
+    @objc func setProfileImg() {
+        print("사진 바꿀 수 있음")
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        self.present(imagePicker, animated: true)
+    }
+}
+extension ProfileViewController: UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        var newImage: UIImage? = nil // update 할 이미지
+        
+        if let possibleImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            newImage = possibleImage // 수정된 이미지가 있을 경우
+        } else if let possibleImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            newImage = possibleImage // 원본 이미지가 있을 경우
+        }
+        
+        self.mainProfileImg.image = newImage // 받아온 이미지를 update
+        picker.dismiss(animated: true, completion: nil) // picker를 닫아줌
+        setProfile()
+    }
 }
