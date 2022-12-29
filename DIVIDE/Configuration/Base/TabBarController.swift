@@ -12,8 +12,8 @@ class TabBarController: UITabBarController {
     let HomeIcon: UIImage = UIImage(imageLiteralResourceName: "Divide.png").resize(toTargetSize: CGSize(width: 52.22*objectRatio, height: 56.78*objectRatio))!.withRenderingMode(.alwaysOriginal)
     let HomeIconUnselected: UIImage = UIImage(imageLiteralResourceName: "DivideUnselected.png").resize(toTargetSize: CGSize(width: 52.22*objectRatio, height: 56.78*objectRatio))!.withRenderingMode(.alwaysOriginal)
     
-    let SNSIcon: UIImage = UIImage(imageLiteralResourceName: "리뷰.png").resize(toTargetSize: CGSize(width: 60.17*objectRatio, height: 56.86*objectRatio))!.withRenderingMode(.alwaysOriginal)
-    let SNSIconUnselected: UIImage = UIImage(imageLiteralResourceName: "리뷰Unselected.png").resize(toTargetSize: CGSize(width: 60.17*objectRatio, height: 56.86*objectRatio))!.withRenderingMode(.alwaysOriginal)
+    let ReviewIcon: UIImage = UIImage(imageLiteralResourceName: "리뷰.png").resize(toTargetSize: CGSize(width: 60.17*objectRatio, height: 56.86*objectRatio))!.withRenderingMode(.alwaysOriginal)
+    let ReviewSelectedIcon: UIImage = UIImage(imageLiteralResourceName: "리뷰Unselected.png").resize(toTargetSize: CGSize(width: 60.17*objectRatio, height: 56.86*objectRatio))!.withRenderingMode(.alwaysOriginal)
     
     let ChatIcon: UIImage = UIImage(imageLiteralResourceName: "채팅.png").resize(toTargetSize: CGSize(width: 57.2*objectRatio, height: 52.22*objectRatio))!.withRenderingMode(.alwaysOriginal)
     let ChatIconUnselected: UIImage = UIImage(imageLiteralResourceName: "채팅Unselected.png").resize(toTargetSize: CGSize(width: 57.2*objectRatio, height: 52.22*objectRatio))!.withRenderingMode(.alwaysOriginal)
@@ -23,15 +23,15 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let firstTab = HomeViewController()
-        let secondTab = SNSViewController()
+        let secondTab = ReviewViewController()
         let thirdTab = ChatListViewController()
         let fourthTab = ProfileViewController()
         
         firstTab.tabBarItem = UITabBarItem(title: "디바이드", image: self.HomeIconUnselected, tag: 0)
         firstTab.tabBarItem.selectedImage = HomeIcon
         
-        secondTab.tabBarItem = UITabBarItem(title: "리뷰  ", image: self.SNSIconUnselected, tag: 1)
-        secondTab.tabBarItem.selectedImage = SNSIcon
+        secondTab.tabBarItem = UITabBarItem(title: "리뷰  ", image: self.ReviewSelectedIcon, tag: 1)
+        secondTab.tabBarItem.selectedImage = ReviewIcon
         
         thirdTab.tabBarItem = UITabBarItem(title: "채팅", image: self.ChatIconUnselected, tag: 2)
         thirdTab.tabBarItem.selectedImage = ChatIcon

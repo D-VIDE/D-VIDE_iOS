@@ -92,15 +92,12 @@ class HomeViewController: UIViewController {
     } // then
     func addView() {
         view.addSubview(topTitleView)
-        view.addSubview(tableView)
-        view.addSubview(DVIDEBtn)
-        
         topTitleView.addSubview(searchBtn)
         topTitleView.addSubview(topMenuCollectionView)
         
-        tableView.addSubview(backgroundImage)
-        
-        
+        view.addSubview(backgroundImage)
+        view.addSubview(tableView)
+        view.addSubview(DVIDEBtn)
     }
     func setLayout() {
         topTitleView.snp.makeConstraints { make in
@@ -127,10 +124,9 @@ class HomeViewController: UIViewController {
             make.bottom.equalToSuperview()
         }
         backgroundImage.snp.makeConstraints { make in
-            make.bottom.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.height.equalTo(300)
+            make.center.equalToSuperview()
+            make.height.equalTo(200)
+            make.width.equalTo(200)
         }
         DVIDEBtn.snp.makeConstraints { make in
             make.width.equalTo(115)

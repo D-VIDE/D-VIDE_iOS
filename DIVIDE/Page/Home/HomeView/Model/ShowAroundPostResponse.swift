@@ -39,7 +39,6 @@ struct UserInfo: Codable {
     let id: Int
     let nickname: String
     let profileImgUrl: String
-
 }
 
 

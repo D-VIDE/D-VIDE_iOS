@@ -46,8 +46,7 @@ class HomeTableViewCell: UITableViewCell {
     lazy var remainTimeUnderOneHour = MainLabel(type: .small3).then{
         $0.textColor = .white
     }
-    // 남은 시간 말풍선
-//    private let
+
     // Image 생성
     lazy var img = UIImageView().then{
         $0.image = UIImage(named: "pizzaImage.jpg")
@@ -270,15 +269,4 @@ class HomeTableViewCell: UITableViewCell {
     }
     
     
-//    private func setSpeechBubble() {
-//        if Int(self.closingTimeValue.text) > Date().timeIntervalSince1970 %
-//    }
-}
-
-extension UIView {
-    func roundCorners(cornerRadius: CGFloat, maskedCorners: CACornerMask) {
-        clipsToBounds = true
-        layer.cornerRadius = cornerRadius
-        layer.maskedCorners = CACornerMask(arrayLiteral: maskedCorners)
-    }
 }
