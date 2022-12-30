@@ -8,13 +8,18 @@
 import UIKit
 import SnapKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate {
+    private var allComponents = [UIView()]
     
     private let mainProfile = UIView()
     private let settingBtn = UIButton()
     private let mainProfileImg = UIImageView()
+    private let mainProfileImgCameraBtn = UIButton()
+    private let mainProfileImgGrayTint = UIImageView()
+    
     private let mainProfileTag = MainLabel(type: .small3)
-    private let userNickName = MainLabel(type: .Point4)
+    private let userNickName = UITextField()
+    private let userNickNameModifyBtn = UIButton()
     
     private let followingCount = MainLabel(type: .Big2)
     private let followingLabel = MainLabel(type: .Basics2)
@@ -41,12 +46,37 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        putAllComponents()
         setAttribute()
         addView()
         setLayout()
+        addAction()
+    }
+    func putAllComponents() {
+        allComponents.append(mainProfile)
+        allComponents.append(mainProfileImg)
+        allComponents.append(retrenchView)
+        allComponents.append(seeMyOrderHistory)
+        allComponents.append(seeMyReviews)
+        allComponents.append(serviceCenter)
+        allComponents.append(changeDefaultAddress)
+        allComponents.append(followingCount)
+        allComponents.append(followingLabel)
+        allComponents.append(mainProfileDivideBar)
+        allComponents.append(followerCount)
+        allComponents.append(followerLabel)
+        allComponents.append(retrenchCO2Label)
+        allComponents.append(retrenchDeliveryFeeLabel)
+        allComponents.append(retrenchViewDivideHorizontal)
+        allComponents.append(retrenchCO2Value)
+        allComponents.append(retrenchCO2Gram)
+        allComponents.append(retrenchViewDivideVertical)
+        allComponents.append(retrenchDeliveryFeeValue)
+        allComponents.append(retrenchDeliveryFeeWon)
     }
     func setAttribute() {
         view.backgroundColor = .viewBackgroundGray
+        self.navigationController?.isNavigationBarHidden = true
         mainProfile.do {
             $0.borderColor = .mainYellow
             $0.borderWidth = 3
@@ -54,16 +84,25 @@ class ProfileViewController: UIViewController {
             $0.cornerRadius = 14
         }
         settingBtn.do {
-            $0.translatesAutoresizingMaskIntoConstraints = false
             $0.setImage(UIImage(named: "설정.png"), for: .normal)
-            $0.imageView?.contentMode = .scaleAspectFit
-            $0.contentHorizontalAlignment = .center
-            $0.semanticContentAttribute = .forceRightToLeft
-            $0.contentVerticalAlignment = .center
-            $0.contentHorizontalAlignment = .leading
+            $0.setImage(UIImage(named: "설정누름.png"), for: .selected)
+            $0.setImage(UIImage(named: "설정누름.png"), for: .highlighted)
         }
         mainProfileImg.do {
             $0.image = UIImage(named: "profileImg.png")!
+            $0.clipsToBounds = true
+            $0.contentMode = .scaleAspectFill
+            $0.layer.cornerRadius = 53.5
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = UIColor.clear.cgColor
+        }
+        mainProfileImgCameraBtn.do {
+            $0.setImage(UIImage(named: "카메라.png"), for: .normal)
+            $0.alpha = 0
+        }
+        mainProfileImgGrayTint.do {
+            $0.image = UIImage(named: "Ellipse 112.png")
+            $0.alpha = 0
         }
         mainProfileTag.do {
             $0.text = "디바이드 공식 돼지"
@@ -73,6 +112,10 @@ class ProfileViewController: UIViewController {
         userNickName.do {
             $0.textAlignment = .center
             $0.text = "룡룡"
+        }
+        userNickNameModifyBtn.do {
+            $0.setImage(UIImage(named: "글쓰기.png"), for: .normal)
+            $0.alpha = 0
         }
         followingCount.do {
             $0.textAlignment = .center
@@ -198,13 +241,19 @@ class ProfileViewController: UIViewController {
         view.addSubview(mainProfile)
         view.addSubview(settingBtn)
         view.addSubview(mainProfileImg)
+        view.addSubview(mainProfileImgGrayTint)
+        view.addSubview(mainProfileImgCameraBtn)
+
+        view.addSubview(userNickName)
+        view.addSubview(userNickNameModifyBtn)
         view.addSubview(retrenchView)
         view.addSubview(seeMyOrderHistory)
         view.addSubview(seeMyReviews)
         view.addSubview(serviceCenter)
         view.addSubview(changeDefaultAddress)
         
-        mainProfile.addSubviews([mainProfileTag, userNickName, followingCount, followingLabel, mainProfileDivideBar, followerCount, followerLabel])
+        mainProfile.addSubviews([mainProfileTag,
+                                 followingCount, followingLabel, mainProfileDivideBar, followerCount, followerLabel])
         
         retrenchView.addSubviews([retrenchCO2Label, retrenchDeliveryFeeLabel, retrenchViewDivideHorizontal, retrenchCO2Value, retrenchCO2Gram, retrenchViewDivideVertical, retrenchDeliveryFeeValue, retrenchDeliveryFeeWon])
     }
@@ -227,7 +276,15 @@ class ProfileViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.top.equalTo(mainProfile).offset(-53.5)
         }
-
+        mainProfileImgCameraBtn.snp.makeConstraints { make in
+            make.center.equalTo(mainProfileImg)
+            make.width.equalTo(33)
+            make.height.equalTo(27)
+        }
+        mainProfileImgGrayTint.snp.makeConstraints { make in
+            make.width.height.equalTo(mainProfileImg)
+            make.center.equalTo(mainProfileImg)
+        }
         mainProfileTag.snp.makeConstraints { make in
             make.width.equalTo(84)
             make.height.equalTo(14)
@@ -237,9 +294,16 @@ class ProfileViewController: UIViewController {
         userNickName.snp.makeConstraints { make in
             make.width.equalTo(84)
             make.height.equalTo(23)
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview()
+            make.centerX.equalTo(mainProfile)
+            make.centerY.equalTo(mainProfile)
         }
+        userNickNameModifyBtn.snp.makeConstraints { make in
+            make.width.equalTo(23)
+            make.height.equalTo(26)
+            make.centerX.equalTo(userNickName).offset(45)
+            make.bottom.equalTo(mainProfile).offset(5)
+        }
+        
         followingCount.snp.makeConstraints { make in
             make.width.equalTo(12)
             make.height.equalTo(29)
@@ -351,7 +415,80 @@ class ProfileViewController: UIViewController {
             make.height.equalTo(47)
             make.top.equalTo(serviceCenter).offset(62)
         }
+        
     }
-   
-
+    func addAction() {
+        settingBtn.addTarget(self, action: #selector(setProfile), for: .touchUpInside)
+        mainProfileImgCameraBtn.addTarget(self, action: #selector(setProfileImg), for: .touchUpInside)
+        userNickNameModifyBtn.addTarget(self, action: #selector(modifyNickName), for: .touchUpInside)
+    }
+    
+    @objc func setProfile() {
+        if settingBtn.isSelected == true {
+            settingBtn.isSelected = false
+            
+            print("클릭 안되지렁")
+            
+            self.mainProfileImgGrayTint.alpha = 0
+            self.mainProfileImgCameraBtn.alpha = 0
+            self.userNickNameModifyBtn.alpha = 0
+            
+            allComponents.forEach {
+                $0.alpha = 1
+            }
+            
+            userNickName.borderWidth = 0
+            userNickName.backgroundColor = .clear
+            userNickName.snp.updateConstraints { make in
+                make.centerY.equalTo(mainProfile)
+            }
+            userNickName.resignFirstResponder()
+        } else {
+            settingBtn.isSelected = true
+            
+            print("클릭 잘되넹")
+           
+            self.mainProfileImgGrayTint.alpha = 1
+            self.mainProfileImgCameraBtn.alpha = 1
+            self.userNickNameModifyBtn.alpha = 1
+            
+            allComponents.forEach {
+                $0.alpha = 0.5
+            }
+            userNickName.borderWidth = 1
+            userNickName.borderColor = .gray0
+            self.userNickName.backgroundColor = .white
+            userNickName.snp.updateConstraints { make in
+                make.centerY.equalTo(mainProfile).offset(79.5)
+            }
+        }
+        
+    }
+    @objc func setProfileImg() {
+        print("사진 바꿀 수 있음")
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        self.present(imagePicker, animated: true)
+    }
+    @objc func modifyNickName() {
+        userNickName.becomeFirstResponder()
+    }
+}
+extension ProfileViewController: UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        var newImage: UIImage? = nil // update 할 이미지
+        
+        if let possibleImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            newImage = possibleImage // 수정된 이미지가 있을 경우
+        } else if let possibleImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            newImage = possibleImage // 원본 이미지가 있을 경우
+        }
+        
+        self.mainProfileImg.image = newImage // 받아온 이미지를 update
+        picker.dismiss(animated: true, completion: nil) // picker를 닫아줌
+        setProfile()
+    }
 }
