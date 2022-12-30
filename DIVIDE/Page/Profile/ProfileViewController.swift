@@ -46,13 +46,13 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        putAllComponents()
+        putAllComponentsToAlphaValue()
         setAttribute()
         addView()
         setLayout()
         addAction()
     }
-    func putAllComponents() {
+    func putAllComponentsToAlphaValue() {
         allComponents.append(mainProfile)
         allComponents.append(mainProfileImg)
         allComponents.append(retrenchView)

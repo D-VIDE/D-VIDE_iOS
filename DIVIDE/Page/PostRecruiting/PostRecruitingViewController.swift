@@ -735,7 +735,7 @@ class PostRecruitingViewController: UIViewController, CLLocationManagerDelegate 
                                                 deliveryPrice: Int(targetPrice.split(separator: ",").joined())!,
                                                 longitude: mapView.cameraPosition.target.lng,
                                                 latitude: mapView.cameraPosition.target.lat,
-                                                category: categoryTextField.text!,
+                                                category: "KOREAN_FOOD",
                                                 targetTime: targetTime)
 
             apiManager.requestpostRecruiting(param: inputData, img: imgList) { [weak self] result in
