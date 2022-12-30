@@ -241,8 +241,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate {
         view.addSubview(mainProfile)
         view.addSubview(settingBtn)
         view.addSubview(mainProfileImg)
-        view.addSubview(mainProfileImgCameraBtn)
         view.addSubview(mainProfileImgGrayTint)
+        view.addSubview(mainProfileImgCameraBtn)
+
         view.addSubview(userNickName)
         view.addSubview(userNickNameModifyBtn)
         view.addSubview(retrenchView)
@@ -441,10 +442,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate {
             userNickName.snp.updateConstraints { make in
                 make.centerY.equalTo(mainProfile)
             }
-            if userNickName.isFirstResponder == true {
-                userNickName.resignFirstResponder()
-            }
-            
+            userNickName.resignFirstResponder()
         } else {
             settingBtn.isSelected = true
             
@@ -457,7 +455,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate {
             allComponents.forEach {
                 $0.alpha = 0.5
             }
-            userNickName.borderWidth = 0.5
+            userNickName.borderWidth = 1
             userNickName.borderColor = .gray0
             self.userNickName.backgroundColor = .white
             userNickName.snp.updateConstraints { make in
