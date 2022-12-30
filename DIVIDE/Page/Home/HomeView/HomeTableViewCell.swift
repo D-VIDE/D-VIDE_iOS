@@ -166,26 +166,19 @@ class HomeTableViewCell: UITableViewCell {
             make.centerX.equalToSuperview()
         }
     }
-    var cellWidth = 0.0
-    var cellHeight = 0.0
     private func setContentsConstraint() {
         contentView.addSubview(contentsView)
         
         contentsView.snp.makeConstraints { make in
             make.width.equalToSuperview()
             make.height.equalTo(121)
-            make.bottom.equalTo(contentView)
+            make.bottom.equalToSuperview()
         }
         
-        cellWidth = contentsView.intrinsicContentSize.width
-        cellHeight = contentsView.intrinsicContentSize.height
         self.backgroundColor = .viewBackgroundGray
         //그림자
         contentsView.roundCorners(cornerRadius: 26, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
         contentsView.backgroundColor = .white
-        contentView.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 2, width: cellWidth, height: cellHeight)).cgPath
-        contentView.layer.shadowOpacity = 0.15
-        
         contentsView.layer.masksToBounds = false
         
         contentsView.addSubview(img)
@@ -261,10 +254,10 @@ class HomeTableViewCell: UITableViewCell {
             make.left.equalToSuperview()
         }
         progressBar.snp.makeConstraints { make in
-            make.width.equalTo(250)
+            make.width.equalTo(0)
             make.height.equalTo(7)
             make.bottom.equalToSuperview()
-            make.left.equalTo(progressBarBackground)
+            make.leading.equalToSuperview()
         }
     }
     

@@ -164,8 +164,8 @@ class HomeViewController: UIViewController {
                 cell.closingTimeValue.text = self.setAMPMTime(closingTime: item.post.targetTime)
                 cell.AMPMLabel.text = self.setAMPM(closingTime: item.post.targetTime)
                 cell.insufficientChargeValueLabel.text = String(item.post.targetPrice).insertComma
-                cell.progressBar.snp.makeConstraints { make in
-                    make.width.equalTo(250*(item.post.orderedPrice - item.post.targetPrice)/item.post.orderedPrice)
+                cell.progressBar.snp.updateConstraints { make in
+                    make.width.equalTo(Int(cell.frame.width)*(item.post.orderedPrice - item.post.targetPrice)/item.post.orderedPrice)
                 }
             }.disposed(by: disposeBag)
     }
@@ -251,7 +251,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 cell.AMPMLabel.text = self.setAMPM(closingTime: item.post.targetTime)
                 cell.insufficientChargeValueLabel.text = String(item.post.targetPrice).insertComma
                 cell.progressBar.snp.updateConstraints { make in
-                    make.width.equalTo(250*(item.post.orderedPrice - item.post.targetPrice)/item.post.orderedPrice)
+                    make.width.equalTo(Int(cell.frame.width)*(item.post.orderedPrice - item.post.targetPrice)/item.post.orderedPrice)
                 }
             }.disposed(by: disposeBag)
     }
@@ -274,15 +274,7 @@ extension HomeViewController:  UITableViewDelegate, UITableViewDataSource {
         self.navigationController?.navigationBar.topItem?.title = ""
 
         let cell = DetailViewController()
-        print("===============")
-        print("all Data From Server")
-        allDataFromServer.forEach { Datum in
-            print("--")
-            print(Datum)
-            print("--")
-        }
-        print("===============")
-//        cell.proposerImage =
+        
         cell.proposerNickName.text = allDataFromServer[indexPath[1]].user.nickname
         cell.titleLabel.text = allDataFromServer[indexPath[1]].post.title
         cell.dueTime.text = setAMPMTime(closingTime: allDataFromServer[indexPath[1]].post.targetTime)
