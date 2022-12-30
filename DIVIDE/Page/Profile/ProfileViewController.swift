@@ -66,7 +66,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate {
         mainProfileImg.do {
             $0.image = UIImage(named: "profileImg.png")!
             $0.clipsToBounds = true
-            $0.roundCorners(cornerRadius: 55, maskedCorners: [.layerMaxXMaxYCorner,.layerMaxXMinYCorner,.layerMinXMaxYCorner,.layerMinXMinYCorner])
+            $0.contentMode = .scaleAspectFill
+            $0.layer.cornerRadius = 53.5
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = UIColor.clear.cgColor
         }
         mainProfileImgCameraBtn.do {
             $0.setImage(UIImage(named: "카메라.png"), for: .normal)
